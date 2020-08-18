@@ -1,6 +1,6 @@
 class TopHero extends HTMLElement {
 
-	connectedCallBack(){
+	connectedCallback(){
 		this.render();
 	}
 	render(){
