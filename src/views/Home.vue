@@ -4,20 +4,27 @@
   	:background="'https://image.tmdb.org/t/p/w500'+hero.backdrop_path"
   	:title="hero.title"
   	:overview="hero.overview"
-  	:year="hero.release_date.substr(0,4)"
+  	:year="hero.release_date"
   	:rate="hero.vote_average" />
+    <TrendMvs />
+    <TrendTvs />
+    <Footer />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 	import Hero from "@/components/Hero.vue"
-
-
+  import TrendMvs from "../components/TrendMvs.vue"
+  import TrendTvs from "../components/TrendTvs.vue"
+  import Footer from "@/components/Footer.vue"
 export default {
   name: 'Home',
   components:{
-  	Hero
+  	Hero,
+    TrendMvs,
+    TrendTvs,
+    Footer
   },
   mounted(){
   	return this.$store.dispatch('loadHero')
@@ -26,9 +33,7 @@ export default {
   	hero(){
   		return this.$store.state.hero
   	},
-  	year(){
-  		this.hero.release_date.substr(0,4)
-  	}
+
   }
 
 }
