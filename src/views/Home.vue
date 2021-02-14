@@ -1,6 +1,7 @@
 <template>
   <div class="home">
   	<Hero 
+    :id="hero.id"
   	:background="'https://image.tmdb.org/t/p/w500'+hero.backdrop_path"
   	:title="hero.title"
   	:overview="hero.overview"

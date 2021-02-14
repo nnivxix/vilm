@@ -14,7 +14,7 @@
 				return new Date().getFullYear();
 			}
 		}
-	}
+	};
 </script>
 
 
