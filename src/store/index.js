@@ -31,7 +31,9 @@ export default new Vuex.Store({
   			let dataHero = resData.results;
   			let hero = dataHero[0];
   			commit('getHero', hero)
-  		})
+  		}).catch(er => {
+        console.error(er);
+      })
   	},
     loadTrendMv({commit}){
       fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=6d2a752d654f74f846c06dc403b1dee6')
@@ -42,6 +44,8 @@ export default new Vuex.Store({
         let trendMv = mv.results;
         console.log(trendMv)
         commit('getTrendMv', trendMv)
+      }).catch(er => {
+        console.error(er);
       })
     
   },
@@ -54,6 +58,8 @@ export default new Vuex.Store({
       let trendTv = tv.results;
       console.log(trendTv)
       commit('getTrendTv', trendTv)
+    }).catch(er => {
+      console.error(er);
     })
   }
 },

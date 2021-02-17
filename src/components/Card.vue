@@ -1,7 +1,9 @@
 <template>
 	<main class=" pb-2 bg-gray-900 m-1 p-2 ">
-		<router-link :to="'detail/'+ id"><img :src="img" alt=""></router-link>
-		<p class="text-xs md:text-md font-bold text-white">{{title}}</p>
+		<img :src="img" alt="">
+		<slot>
+			<router-link :to="'detail/'+ id"><p class="text-xs md:text-md font-bold text-white">{{title}}</p></router-link>
+		</slot>
 		<p class="text-xs md:2xl text-white">{{year}}</p>
 	</main>
 </template>

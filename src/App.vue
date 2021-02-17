@@ -21,6 +21,7 @@
 #app {
   font-family: 'Inter', sans-serif;
   background-color: #000000;
+  color: white;
 }
 
 </style>

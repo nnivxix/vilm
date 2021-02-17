@@ -1,5 +1,5 @@
 <template>
-	<router-link :to="'detail/mv'+ id"><main class="h-auto flex flex-col justify-center pl-5 text-white"
+	<router-link :to="'detail/mv/'+ id"><main class="h-auto flex flex-col justify-center pl-5 text-white"
 	:style="{ backgroundImage: 'linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,0.4)), url(' + background + ')' }">
 		<p class="text-5xl font-bold ">{{title}}</p>
 		<p class="hidden md:block text-3xl w-1/2 py-4 font-normal">{{overview}}</p>
