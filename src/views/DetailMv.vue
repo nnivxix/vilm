@@ -13,6 +13,16 @@
 				</div>
 			</div>
 		</div>
+		<div class="similar flex flex-col px-3 flex-wrap mt-6">
+			<h1 class="text-xl font-bold md:text-3xl ">Similar Movies</h1>
+			<div class="flex flex-wrap">
+			<Card v-for="mv in similar" :key="mv.id"
+			:img="'https://image.tmdb.org/t/p/w500/' + mv.poster_path"
+			:year="mv.release_date">
+			<router-link :to="`/detail/mv/${mv.id}`"><p class="text-xs md:text-md font-bold text-white">{{mv.title || mv.original_title}}</p></router-link>
+			</Card>
+			</div>
+		</div>
 		<Footer />
 	</div>
 </template>
@@ -20,21 +30,41 @@
 
 <script>
   import Footer from "@/components/Footer.vue"
+  import Card from "@/components/Card.vue"
 	export default{
 		name: 'DetailMv',
 		components:{
-			Footer
+			Footer,
+			Card
 		},
 		data(){
 			return{
 				id: this.$route.params.id,
 				detail:'',
 				video:'',
+				similar:''
+			}
+		},
+		watch:{
+			'$route'(to,from){
+			this.getDetail(to.params.id)
+			this.getSimilarMv(to.params.id)
 			}
 		},
 		methods:{
-			getDetail(){
-				fetch(`https://api.themoviedb.org/3/movie/${this.id}?api_key=6d2a752d654f74f846c06dc403b1dee6&language=en-US&append_to_response=videos,credits`)
+			getSimilarMv(id){
+				fetch(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=6d2a752d654f74f846c06dc403b1dee6&language=en-US&page=1`)
+				.then(res => {
+					return res.json()
+				})
+				.then(same => {
+					this.similar = same.results
+					console.log(this.similar)
+				}).
+				catch( er => console.error(er))
+			},
+			getDetail(id){
+				fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=6d2a752d654f74f846c06dc403b1dee6&language=en-US&append_to_response=videos,credits`)
 				.then(res => res.json())
 				.then(mv => {
 					this.detail = mv
@@ -43,8 +73,9 @@
 				})
 			}
 	},
-	mounted(){
-		this.getDetail()
+	async created(){
+		await this.getDetail(this.id)
+		await this.getSimilarMv(this.id)
 	}
 	};
 

@@ -5,7 +5,7 @@
 		</div>
 		<div class="nav flex">
 			<router-link :to=" { name: 'Search', params: { query: query } }" >
-				<input type="text" class="rounded-md p-2  ml-8 md:ml-0  focus:outline-none focus:ring-2  focus:ring-gray-700 focus:border-transparent" v-model="query"  placeholder="search movies and tv shows" style="background:#c4c4c430;">
+				<input  type="search" class="rounded-md p-2  ml-8 md:ml-0  focus:outline-none focus:ring-2  focus:ring-gray-700 focus:border-transparent" v-model="query" aria-label="Search" placeholder="search movies and tv shows" style="background:#c4c4c430;">
 			</router-link>
 		</div>
 	</nav>
@@ -18,7 +18,6 @@
 		data(){
 			return{
 				query:'',
-				results:''
 			}
 		},
 	};

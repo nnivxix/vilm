@@ -13,6 +13,17 @@
 				</div>
 			</div>
 		</div>
+		<div class="similar px-3 flex flex-col flex-wrap mt-6">
+			<h1 class="text-xl font-bold md:text-3xl ">Similar Tv Show</h1>
+			<div class="flex flex-wrap">
+			<Card v-for="tv in similar" :key="tv.id"
+			:img="'https://image.tmdb.org/t/p/w500/' + tv.poster_path"
+			:year="tv.first_air_date">
+			<router-link :to="`/detail/tv/${tv.id}`"><p class="text-xs md:text-md font-bold text-white">{{tv.name || tv.original_name}}</p></router-link>
+			</Card>
+			</div>
+
+		</div>
 		<Footer />
 	</div>
 </template>
@@ -20,24 +31,43 @@
 
 <script>
 import Footer from '@/components/Footer.vue';
+import Card from '@/components/Card.vue';
 	export default{
 		name: 'DetailTv',
 		components:{
-			Footer
+			Footer,
+			Card
 		},
 		data(){
 			return{
 				id: this.$route.params.id,
 				detail:'',
-				video:''
+				video:'',
+				similar:''
+			}
+		},
+		watch:{
+			'$route'(to,from) {
+				this.getDetail(to.params.id)
+				this.getSimilarTv(to.params.id)
+				// big thank for this video https://youtu.be/ZYzAwFi5Xzo
+				
 			}
 		},
 		methods:{
-			getVideo(){
-				fetch('')
+			getSimilarTv(id){
+				fetch(`https://api.themoviedb.org/3/tv/${id}/similar?api_key=6d2a752d654f74f846c06dc403b1dee6&language=en-US&page=1`)
+				.then(res => {
+					return res.json()
+				})
+				.then(same => {
+					this.similar = same.results
+					console.log(this.similar)
+				}).
+				catch( er => console.error(er))
 			},
-			getDetail(){
-				fetch(`https://api.themoviedb.org/3/tv/${this.id}?api_key=6d2a752d654f74f846c06dc403b1dee6&language=en-US&append_to_response=videos`)
+			getDetail(id){
+				fetch(`https://api.themoviedb.org/3/tv/${id}?api_key=6d2a752d654f74f846c06dc403b1dee6&language=en-US&append_to_response=videos`)
 				.then(res => res.json())
 				.then(tv => {
 					this.detail = tv
@@ -47,8 +77,9 @@ import Footer from '@/components/Footer.vue';
 				})
 			}
 	},
-	mounted(){
-		this.getDetail()
+	async created(){
+		await this.getDetail(this.id)
+		await this.getSimilarTv(this.id)
 	}
 	};
 

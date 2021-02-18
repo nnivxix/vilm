@@ -4,7 +4,7 @@
 		<div class="flex flex-row flex-wrap"  >
 			<Card v-for="  tv in trendTv" :key="tv.id"
 			:id="'tv/'+ tv.id"
-			:img="'https://image.tmdb.org/t/p/w500/' + tv.poster_path"
+			:img="'https://image.tmdb.org/t/p/w500/' + tv.poster_path "
 			:title="tv.original_name"
 			:year="tv.first_air_date"
 			></Card>

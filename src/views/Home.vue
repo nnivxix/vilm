@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home overflow-hidden">
   	<Hero 
     :id="hero.id"
   	:background="'https://image.tmdb.org/t/p/w500'+hero.backdrop_path"

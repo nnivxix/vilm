@@ -12,7 +12,7 @@
 			:img="'https://image.tmdb.org/t/p/w500/' + tv.poster_path"
 			:year="tv.first_air_date "
 			>	
-			<router-link :to="{ name: 'Tv Detail', params: { id: tv.id } }"><p class="text-xs md:text-md font-bold text-white">{{tv.name || mv.original_name}}</p></router-link>
+			<router-link :to="{ name: 'Tv Detail', params: { id: tv.id } }"><p class="text-xs md:text-md font-bold text-white">{{tv.name || tv.original_name}}</p></router-link>
 		</Card>
   	</div>
   		  	
@@ -43,7 +43,6 @@
 				.then( res => res.json())
 				.then( data => {
 					this.Mvresults = data.results
-					//bus.$emit('GET_RESULTS', data.results)
 					console.log(this.results)
 				}).catch(er => {
 				console.error(er)
@@ -54,7 +53,6 @@
 				.then( res => res.json())
 				.then( data => {
 					this.Tvresults = data.results
-					//bus.$emit('GET_RESULTS', data.results)
 					console.log(this.results)
 				}).catch(er => {
 				console.error(er)
@@ -71,10 +69,5 @@
 				this.getTv(newQuery)
 			}
 		}
-		/*created(){
-			bus.$on('GET_RESULTS', data => {
-				this.results = data;
-			})
-		}*/
 	};
 </script>
