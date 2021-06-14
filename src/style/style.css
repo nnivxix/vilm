@@ -3,4 +3,94 @@
 	margin: 0;
 	box-sizing: border-box;
 	font-family: 'Heebo', sans-serif;
+	background-color: #050505;
+	color:#222831;
+	scroll-behavior: smooth;
 }
+
+
+
+/*cards trending */
+
+header{
+	width: 100%;
+	min-height: 100vh;
+	background-color: #050505;
+}
+
+header h1, .fa-fire {
+	color: #eee;
+}
+
+.cards{
+	width: 90%;
+	margin: 0 auto;
+	min-height: 100vh;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.cardList{
+	width: 150px;
+  display: flex;
+  padding: 15px;
+  margin: 7px;
+  max-height: 700px;
+  flex-direction: column;
+  box-shadow: 6px 6px 6px #34343454;
+  background-color: #050505;
+  color: #eee;
+  transition: all .2s ease-in;
+}
+.cardList:hover{
+	transform: scale(1.1);
+	}
+.cardList section img{
+	max-width: 130px;
+}
+
+.cardList section.ditel{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.cardList section.ditel .judul{
+	font-size: 12px;
+	font-weight: 600;
+	color:#f6f5f5;
+}
+.cardList section.ditel .rate {
+	font-size: 12px;
+	color:#f6f5f5;
+}
+.cardList section.ditel .fa-star{
+	color:#fddb3a;
+	font-size: 12px;
+}
+
+@media screen and (max-width: 360px){
+	header h1#trend{
+	 font-size: 24px;
+   margin-left: 50px;
+ }
+
+	.cardList{
+	width: 90px;
+	padding: 10px;
+	}
+	.cardList section img{
+		width: 80px;
+	}
+	.cardList section.ditel .judul{
+	font-size: 8px;
+}
+	.cardList section.ditel .rate {
+	font-size: 8px;
+}
+	.cardList section.ditel .fa-star{
+	font-size: 8px;
+}
+}
+
+
+
