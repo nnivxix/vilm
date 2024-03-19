@@ -1,4 +1,5 @@
 import { Movie } from "@/types/response";
+import { Button } from "./ui/button";
 
 interface CardItemProps {
 	movie: Movie;
@@ -13,11 +14,16 @@ export default function CardItem({ movie }: CardItemProps) {
 	return (
 		<div
 			title={movieTitle}
-			className="hover:scale-105 transition-transform rounded-lg pb-2  bg-gray-900 w-auto overflow-hidden"
+			className="hover:scale-105 group transition-transform rounded-lg pb-2 relative bg-gray-900 w-auto overflow-hidden"
 		>
+			<div className="z-30 p-2 text-white absolute hidden group-hover:block bg-black/50 backdrop-blur-sm w-full h-full">
+				<h1 className="pb-2 text-xl font-bold">{movieTitle}</h1>
+				<p className="line-clamp-4">{movie.overview}</p>
+				<Button className="mt-3 w-full">View</Button>
+			</div>
 			<div className="relative">
 				<img
-					src={"https://image.tmdb.org/t/p/w300/" + movie.backdrop_path}
+					src={"https://image.tmdb.org/t/p/w300/" + movie.poster_path}
 					alt={movieTitle}
 				/>
 				<div className="absolute bottom-1 left-1 flex gap-2">
