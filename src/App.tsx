@@ -29,7 +29,7 @@ function App() {
 	return (
 		<>
 			<Navbar />
-			<div className="grid grid-cols-4 gap-5 max-w-6xl mx-auto mt-5">
+			<div className="grid lg:grid-cols-4 grid-cols-2 gap-5 max-w-6xl mx-auto px-3 mt-5">
 				{movies?.map((movie: Movie) => (
 					<CardItem movie={movie} key={movie.id} />
 				))}
