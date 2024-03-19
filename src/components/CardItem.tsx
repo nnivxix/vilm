@@ -5,8 +5,15 @@ interface CardItemProps {
 }
 export default function CardItem({ movie }: CardItemProps) {
 	const movieTitle = movie.title ?? movie.name;
+	const getYear = () => {
+		const date = movie.release_date ?? movie.first_air_date;
+		return date?.split("-")[0];
+	};
 	return (
-		<div className="rounded-lg pb-2 bg-gray-900 w-auto overflow-hidden">
+		<div
+			title={movieTitle}
+			className="hover:scale-105 transition-transform rounded-lg pb-2 bg-gray-900 w-auto overflow-hidden"
+		>
 			<img
 				src={"https://image.tmdb.org/t/p/w300/" + movie.backdrop_path}
 				alt={movieTitle}
@@ -16,9 +23,7 @@ export default function CardItem({ movie }: CardItemProps) {
 				{movieTitle}
 			</p>
 
-			<p className="text-xs px-3 md:2xl text-white">
-				{movie.release_date ?? movie.first_air_date}
-			</p>
+			<p className="px-3 md:2xl text-white">{getYear()}</p>
 		</div>
 	);
 }
