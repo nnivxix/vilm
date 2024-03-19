@@ -5,13 +5,13 @@ export default function Navbar() {
 				<div className="logo">
 					<h1 className="text-2xl md:text-4xl font-bold">Vilm</h1>
 				</div>
-				<div className="nav flex">
+				<div className="flex">
 					<input
 						type="search"
-						className="rounded-md p-2 md:w-96   focus:outline-none focus:ring-2  focus:ring-gray-700 focus:border-transparent"
+						className="rounded-md p-2 md:w-96 focus:outline-none focus:ring-2  focus:ring-gray-700 focus:border-transparent"
 						v-model="query"
 						aria-label="Search"
-						placeholder="search movies and tv shows"
+						placeholder="Search movies and tv shows"
 						style={{ backgroundColor: "#c4c4c430" }}
 					/>
 				</div>
