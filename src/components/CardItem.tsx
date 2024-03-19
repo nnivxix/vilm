@@ -1,6 +1,7 @@
+import { Star } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Movie } from "@/types/response";
 import { Button } from "./ui/button";
-import { Star } from "lucide-react";
 
 interface CardItemProps {
 	movie: Movie;
@@ -13,14 +14,17 @@ export default function CardItem({ movie }: CardItemProps) {
 	};
 
 	return (
-		<article
+		<Link
+			to={`/show/${movie.id}`}
 			title={movieTitle}
 			className="hover:scale-105 group transition-transform rounded-lg pb-2 relative bg-gray-900 w-auto overflow-hidden"
 		>
 			<div className="z-30 p-2 text-white absolute hidden group-hover:grid grid-cols-1 bg-black/50 backdrop-blur-sm w-full h-full">
 				<h1 className="pb-2 text-xl font-bold">{movieTitle}</h1>
 				<p className="line-clamp-6">{movie.overview}</p>
-				<Button className="mt-3 w-full self-end mb-4">View</Button>
+				<Link to={`/show/${movie.id}`} className="mt-3 w-full self-end mb-4">
+					View
+				</Link>
 			</div>
 			<div className="relative">
 				<img
@@ -51,6 +55,6 @@ export default function CardItem({ movie }: CardItemProps) {
 					{Math.floor(movie.vote_average)}
 				</p>
 			</div>
-		</article>
+		</Link>
 	);
 }
