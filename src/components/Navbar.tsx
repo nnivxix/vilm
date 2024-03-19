@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom";
 export default function Navbar() {
 	return (
 		<div className="bg-gray-900">
 			<nav className="flex max-w-6xl mx-auto h-16 items-center  justify-between px-3  bg-gray-900 text-white">
-				<div className="logo">
+				<Link to="/" className="logo">
 					<h1 className="text-2xl md:text-4xl font-bold">Vilm</h1>
-				</div>
+				</Link>
 				<div className="flex">
 					<input
 						type="search"
