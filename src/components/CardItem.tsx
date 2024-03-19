@@ -1,5 +1,6 @@
 import { Movie } from "@/types/response";
 import { Button } from "./ui/button";
+import { Star } from "lucide-react";
 
 interface CardItemProps {
 	movie: Movie;
@@ -27,22 +28,29 @@ export default function CardItem({ movie }: CardItemProps) {
 					alt={movieTitle}
 				/>
 				<div className="absolute bottom-1 left-1 flex gap-2">
-					<span className="rounded-md  py-1 px-2 text-sm  bg-gray-500 capitalize text-white ">
-						{movie.media_type}
-					</span>
-					{movie.adult && (
-						<span className="rounded-md  py-1 px-2 text-sm  bg-red-500 capitalize text-white ">
-							Mature
+					<div>
+						<span className="rounded-md  py-1 px-2 text-sm  bg-gray-500 capitalize text-white ">
+							{movie.media_type}
 						</span>
-					)}
+						{movie.adult && (
+							<span className="rounded-md  py-1 px-2 text-sm  bg-red-500 capitalize text-white ">
+								Mature
+							</span>
+						)}
+					</div>
 				</div>
 			</div>
 
 			<p className="text-lg md:text-xl font-bold text-white px-3 py-2">
 				{movieTitle}
 			</p>
-
-			<p className="px-3 md:2xl text-white place-self-end">{getYear()}</p>
+			<div className="flex justify-between">
+				<p className="px-3 md:2xl text-white place-self-end">{getYear()}</p>
+				<p className="flex px-3 gap-2 text-white">
+					<Star />
+					{Math.floor(movie.vote_average)}
+				</p>
+			</div>
 		</article>
 	);
 }
