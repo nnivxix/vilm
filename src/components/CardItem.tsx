@@ -12,14 +12,14 @@ export default function CardItem({ movie }: CardItemProps) {
 	};
 
 	return (
-		<div
+		<article
 			title={movieTitle}
 			className="hover:scale-105 group transition-transform rounded-lg pb-2 relative bg-gray-900 w-auto overflow-hidden"
 		>
-			<div className="z-30 p-2 text-white absolute hidden group-hover:block bg-black/50 backdrop-blur-sm w-full h-full">
+			<div className="z-30 p-2 text-white absolute hidden group-hover:grid grid-cols-1 bg-black/50 backdrop-blur-sm w-full h-full">
 				<h1 className="pb-2 text-xl font-bold">{movieTitle}</h1>
-				<p className="line-clamp-4">{movie.overview}</p>
-				<Button className="mt-3 w-full">View</Button>
+				<p className="line-clamp-6">{movie.overview}</p>
+				<Button className="mt-3 w-full self-end mb-4">View</Button>
 			</div>
 			<div className="relative">
 				<img
@@ -43,6 +43,6 @@ export default function CardItem({ movie }: CardItemProps) {
 			</p>
 
 			<p className="px-3 md:2xl text-white place-self-end">{getYear()}</p>
-		</div>
+		</article>
 	);
 }
