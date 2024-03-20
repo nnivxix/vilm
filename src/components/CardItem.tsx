@@ -43,9 +43,11 @@ export default function CardItem({ movie, media }: CardItemProps) {
 				</Link>
 				<div className="absolute bottom-1 left-3 ">
 					<div className="flex gap-2 flex-wrap">
-						<span className="rounded-md  py-1 px-2 text-sm  bg-gray-500 capitalize text-white ">
-							{mediaType}
-						</span>
+						{mediaType && (
+							<span className="rounded-md  py-1 px-2 text-sm  bg-gray-500 capitalize text-white ">
+								{mediaType}
+							</span>
+						)}
 						{movie.adult && (
 							<span className="rounded-md  py-1 px-2 text-sm  bg-red-500 capitalize text-white ">
 								Mature
