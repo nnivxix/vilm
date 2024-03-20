@@ -1,11 +1,11 @@
-export interface Response {
+export interface Response<T> {
 	page: number;
-	results: Movie[];
+	results: T;
 	total_pages: number;
 	total_results: number;
 }
 
-export interface Movie {
+export interface MovieTv {
 	adult: boolean;
 	backdrop_path: string;
 	id: number;
