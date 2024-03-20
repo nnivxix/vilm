@@ -27,13 +27,15 @@ export default function CardItem({ movie }: CardItemProps) {
 					</Link>
 				</Button>
 			</div>
-			<Link to={`/show/${movie.media_type}/${movie.id}`} className="relative">
-				<img
-					src={"https://image.tmdb.org/t/p/w300/" + movie.poster_path}
-					alt={movieTitle}
-				/>
-				<div className="absolute bottom-1 left-1 flex gap-2">
-					<div>
+			<div className="relative">
+				<Link to={`/show/${movie.media_type}/${movie.id}`}>
+					<img
+						src={"https://image.tmdb.org/t/p/w300/" + movie.poster_path}
+						alt={movieTitle}
+					/>
+				</Link>
+				<div className="absolute bottom-1 left-3 ">
+					<div className="flex gap-2 flex-wrap">
 						<span className="rounded-md  py-1 px-2 text-sm  bg-gray-500 capitalize text-white ">
 							{movie.media_type}
 						</span>
@@ -44,7 +46,7 @@ export default function CardItem({ movie }: CardItemProps) {
 						)}
 					</div>
 				</div>
-			</Link>
+			</div>
 
 			<p className="text-lg md:text-xl font-bold text-white px-3 py-2">
 				{movieTitle}

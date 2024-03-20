@@ -7,7 +7,7 @@ export default function Home() {
 
 	return (
 		<div>
-			<div className="grid lg:grid-cols-8 grid-cols-2 gap-5  mx-auto px-5 mt-5">
+			<div className="grid lg:grid-cols-8 md:grid-cols-4 grid-cols-2 gap-5  mx-auto px-5 mt-5">
 				{movies?.results.map((movie: MovieTv) => (
 					<CardItem movie={movie} key={movie.id} />
 				))}
