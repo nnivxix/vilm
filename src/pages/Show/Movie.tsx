@@ -6,16 +6,16 @@ import useFetch from "@/hooks/useFetch";
 export default function Movie() {
 	const params = useParams();
 	const [movie, setMovie] = useState<MovieType>();
-	const { data, isPending, error } = useFetch(`/movie/${params.id}`);
+	const { data, isLoading, error } = useFetch<MovieType>(`/movie/${params.id}`);
 
 	useEffect(() => {
 		setMovie(data!);
-	}, [movie, data, isPending, error]);
+	}, [movie, data, isLoading, error]);
 
 	if (error) {
 		return <pre className="text-white">{error}</pre>;
 	}
-	if (isPending) {
+	if (isLoading) {
 		return <pre className="text-white">loading...</pre>;
 	}
 

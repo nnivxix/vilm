@@ -3,33 +3,36 @@ import config from "@/config";
 
 const API_TOKEN = import.meta.env.VITE_TMDB_API_TOKEN;
 
-const useFetch = (path: string) => {
-	const [data, setData] = useState(null);
-	const [isPending, setIsPending] = useState(false);
+function useFetch<DataT>(path: string) {
+	const [data, setData] = useState<DataT>();
+	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
 		const fetchData = async () => {
-			setIsPending(true);
+			setIsLoading(true);
 			try {
 				const response = await fetch(`${config.apiUrl}${path}`, {
 					headers: {
+						Accept: "application/json",
 						Authorization: "Bearer " + API_TOKEN,
 					},
 				});
+
 				if (!response.ok) throw new Error(response.statusText);
 				const json = await response.json();
-				setIsPending(false);
+
+				setIsLoading(false);
 				setData(json);
 				setError(null);
 			} catch (error) {
 				setError(`${error} Could not Fetch Data `);
-				setIsPending(false);
+				setIsLoading(false);
 			}
 		};
 		fetchData();
 	}, [path]);
-	return { data, isPending, error };
-};
+	return { data, isLoading, error };
+}
 
 export default useFetch;

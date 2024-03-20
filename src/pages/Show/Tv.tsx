@@ -8,16 +8,16 @@ export default function Tv() {
 
 	const [tv, setTv] = useState<TvType | null>(null);
 
-	const { data, isPending, error } = useFetch(`/tv/${params.id}`);
+	const { data, isLoading, error } = useFetch<TvType>(`/tv/${params.id}`);
 
 	useEffect(() => {
 		setTv(data!);
-	}, [data, tv, error, isPending]);
+	}, [data, tv, error, isLoading]);
 
 	if (error) {
 		return <pre className="text-white">{error}</pre>;
 	}
-	if (isPending) {
+	if (isLoading) {
 		return <pre className="text-white">loading...</pre>;
 	}
 
