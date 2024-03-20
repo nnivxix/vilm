@@ -1,10 +1,10 @@
 import { Star } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Movie } from "@/types/response";
+import { MovieTv } from "@/types/response";
 import { Button } from "./ui/button";
 
 interface CardItemProps {
-	movie: Movie;
+	movie: MovieTv;
 }
 export default function CardItem({ movie }: CardItemProps) {
 	const movieTitle = movie.title ?? movie.name;
@@ -14,17 +14,20 @@ export default function CardItem({ movie }: CardItemProps) {
 	};
 
 	return (
-		<Link
-			to={`/show/${movie.media_type}/${movie.id}`}
+		<article
 			title={movieTitle}
 			className="hover:scale-105 group transition-transform rounded-lg pb-2 relative bg-gray-900 w-auto overflow-hidden"
 		>
 			<div className="z-30 p-2 text-white absolute hidden group-hover:grid grid-cols-1 bg-black/50 backdrop-blur-sm w-full h-full">
 				<h1 className="pb-2 text-xl font-bold">{movieTitle}</h1>
 				<p className="line-clamp-6">{movie.overview}</p>
-				<Button className="mt-3 w-full self-end mb-4 font-bold">View</Button>
+				<Button className="mt-3 w-full self-end mb-4 font-bold">
+					<Link className="w-full" to={`/show/${movie.media_type}/${movie.id}`}>
+						View
+					</Link>
+				</Button>
 			</div>
-			<div className="relative">
+			<Link to={`/show/${movie.media_type}/${movie.id}`} className="relative">
 				<img
 					src={"https://image.tmdb.org/t/p/w300/" + movie.poster_path}
 					alt={movieTitle}
@@ -41,7 +44,7 @@ export default function CardItem({ movie }: CardItemProps) {
 						)}
 					</div>
 				</div>
-			</div>
+			</Link>
 
 			<p className="text-lg md:text-xl font-bold text-white px-3 py-2">
 				{movieTitle}
@@ -53,6 +56,6 @@ export default function CardItem({ movie }: CardItemProps) {
 					{Math.floor(movie.vote_average)}
 				</p>
 			</div>
-		</Link>
+		</article>
 	);
 }

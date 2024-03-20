@@ -1,23 +1,15 @@
-import useFetch from "@/hooks/useFetch";
-import type { Tv as TvType } from "@/types/tv";
-import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import useFetch from "@/hooks/useFetch";
 import type { Response } from "@/types/response";
+import type { Tv as TvType } from "@/types/tv";
 
 export default function Tv() {
 	const params = useParams();
-	const [tv, setTv] = useState<TvType | null>(null);
-	const [similar, setSimilar] = useState<TvType[]>([]);
 
-	const { data: similarData } = useFetch<Response<TvType[]>>(
+	const { data: similarTvs } = useFetch<Response<TvType[]>>(
 		`/tv/${params.id}/similar`
 	);
-	const { data, isLoading, error } = useFetch<TvType>(`/tv/${params.id}`);
-
-	useEffect(() => {
-		setTv(data!);
-		setSimilar(similarData?.results as TvType[]);
-	}, [data, similar, similarData, tv, error, isLoading]);
+	const { data: tv, isLoading, error } = useFetch<TvType>(`/tv/${params.id}`);
 
 	if (error) {
 		return <pre className="text-white">{error}</pre>;
@@ -30,7 +22,7 @@ export default function Tv() {
 		<div className="text-white">
 			<pre>{params.id}</pre>
 			<h1>{tv?.name}</h1>
-			<h1>Similar Tvs: {similar.length}</h1>
+			<h1>Similar Tvs: {similarTvs?.results.length}</h1>
 		</div>
 	);
 }
