@@ -32,9 +32,12 @@ export default function CardItem({ movie, media }: CardItemProps) {
 			</div>
 			<div className="relative">
 				<Link to={`/show/${mediaType}/${movie.id}`}>
-					{/* TODO: Fallback image */}
 					<img
-						src={"https://image.tmdb.org/t/p/w300/" + movie.poster_path}
+						src={
+							movie.poster_path
+								? "https://image.tmdb.org/t/p/w300/" + movie.poster_path
+								: "/poster-fallback.png"
+						}
 						alt={movieTitle}
 					/>
 				</Link>
