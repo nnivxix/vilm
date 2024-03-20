@@ -5,13 +5,16 @@ import { Button } from "./ui/button";
 
 interface CardItemProps {
 	movie: MovieTv;
+	media?: string;
 }
-export default function CardItem({ movie }: CardItemProps) {
+export default function CardItem({ movie, media }: CardItemProps) {
 	const movieTitle = movie.title ?? movie.name;
 	const getYear = () => {
 		const date = movie.release_date ?? movie.first_air_date;
 		return date?.split("-")[0] ?? "";
 	};
+
+	const mediaType = media ?? movie.media_type;
 
 	return (
 		<article
@@ -22,13 +25,13 @@ export default function CardItem({ movie }: CardItemProps) {
 				<h1 className="pb-2 text-xl font-bold">{movieTitle}</h1>
 				<p className="line-clamp-6">{movie.overview}</p>
 				<Button className="mt-3 w-full self-end mb-4 font-bold">
-					<Link className="w-full" to={`/show/${movie.media_type}/${movie.id}`}>
+					<Link className="w-full" to={`/show/${mediaType}/${movie.id}`}>
 						View
 					</Link>
 				</Button>
 			</div>
 			<div className="relative">
-				<Link to={`/show/${movie.media_type}/${movie.id}`}>
+				<Link to={`/show/${mediaType}/${movie.id}`}>
 					<img
 						src={"https://image.tmdb.org/t/p/w300/" + movie.poster_path}
 						alt={movieTitle}
@@ -37,7 +40,7 @@ export default function CardItem({ movie }: CardItemProps) {
 				<div className="absolute bottom-1 left-3 ">
 					<div className="flex gap-2 flex-wrap">
 						<span className="rounded-md  py-1 px-2 text-sm  bg-gray-500 capitalize text-white ">
-							{movie.media_type}
+							{mediaType}
 						</span>
 						{movie.adult && (
 							<span className="rounded-md  py-1 px-2 text-sm  bg-red-500 capitalize text-white ">
