@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import useFetch from "@/hooks/useFetch";
 import type { MovieTv, Response } from "@/types/response";
 
@@ -17,6 +17,7 @@ import CardItem from "@/components/CardItem";
 
 export default function Search() {
 	const [searchParams] = useSearchParams();
+	const navigate = useNavigate();
 
 	const queryTitle = searchParams.get("title");
 	const queryType = searchParams.get("type");
@@ -28,11 +29,13 @@ export default function Search() {
 		`/search/${queryType}?query=${queryTitle}`
 	);
 
-	const handleSearch = (e: FormEvent) => {
+	const handleSearch = async (e: FormEvent) => {
 		e.preventDefault();
 
-		// TODO: Handle search
-		console.log({ type, title });
+		navigate({
+			pathname: "/search",
+			search: `?title=${title}&type=${type}`,
+		});
 	};
 
 	useEffect(() => {
@@ -42,7 +45,7 @@ export default function Search() {
 		<div>
 			<form
 				onSubmit={handleSearch}
-				className="grid md:grid-cols-4 grid-cols-1 px-4 max-w-4xl mx-auto gap-2 text-white"
+				className="grid md:grid-cols-4 grid-cols-1 px-4 max-w-4xl mx-auto gap-2 mt-5 text-white"
 			>
 				<Input
 					type="text"
@@ -51,13 +54,17 @@ export default function Search() {
 					onChange={(e) => setTitle(e.target.value)}
 				/>
 				<Select value={type} onValueChange={(value) => setType(value)}>
-					<SelectTrigger className="w-[180px] bg-dark col-span-1">
+					<SelectTrigger className="w-[180px] col-span-1 bg-slate-800">
 						<SelectValue placeholder="Select Media Type " />
 					</SelectTrigger>
-					<SelectContent className="bg-dark text-white">
+					<SelectContent className="bg-slate-800 text-white">
 						<SelectGroup>
-							<SelectItem value="movie">Movie</SelectItem>
-							<SelectItem value="tv">Tv</SelectItem>
+							<SelectItem className=" hover:bg-slate-600" value="movie">
+								Movie
+							</SelectItem>
+							<SelectItem className=" hover:bg-slate-600" value="tv">
+								Tv
+							</SelectItem>
 						</SelectGroup>
 					</SelectContent>
 				</Select>

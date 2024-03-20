@@ -6,6 +6,9 @@ export default function Navbar() {
 	const navigate = useNavigate();
 	const handleSearch = (e: FormEvent) => {
 		e.preventDefault();
+		if (!search.length) {
+			return;
+		}
 		navigate({
 			pathname: "/search",
 			search: `?title=${search}&type=movie`,
