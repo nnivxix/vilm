@@ -1,8 +1,10 @@
 import type { FormEvent } from "react";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 export default function Navbar() {
-	const [search, setSearch] = useState<string>("");
+	const [searchParams] = useSearchParams();
+	const querySearch = searchParams.get("title");
+	const [search, setSearch] = useState<string>(querySearch ?? "");
 	const navigate = useNavigate();
 	const handleSearch = (e: FormEvent) => {
 		e.preventDefault();
@@ -20,14 +22,14 @@ export default function Navbar() {
 				<Link to="/" className="logo">
 					<h1 className="text-2xl md:text-4xl font-bold">Vilm</h1>
 				</Link>
-				<form className="flex" onSubmit={handleSearch}>
+				<form onSubmit={handleSearch}>
 					<input
 						type="search"
 						value={search}
 						onChange={(e) => setSearch(e.target.value)}
 						className="rounded-md p-2 md:w-96 focus:outline-none focus:ring-2  focus:ring-gray-700 focus:border-transparent"
 						aria-label="Search"
-						placeholder="Search movies and tv shows"
+						placeholder="Search movies and tvs"
 						style={{ backgroundColor: "#c4c4c430" }}
 					/>
 				</form>

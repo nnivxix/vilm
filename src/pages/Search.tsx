@@ -23,7 +23,7 @@ export default function Search() {
 
 	const [results, setResults] = useState<MovieTv[]>([]);
 	const [title, setTitle] = useState<string>(queryTitle ?? "");
-	const [type, setType] = useState<string>("movie");
+	const [type, setType] = useState<string>(queryType ?? "movie");
 
 	const { data } = useFetch<Response<MovieTv[]>>(
 		`/search/${queryType}?query=${queryTitle}`
@@ -42,6 +42,9 @@ export default function Search() {
 		if (!queryTitle && !queryType) {
 			navigate("/");
 		}
+
+		setType(queryType!);
+		setTitle(queryTitle!);
 		setResults(data?.results as MovieTv[]);
 	}, [data, navigate, queryTitle, queryType, results]);
 	return (
@@ -77,6 +80,7 @@ export default function Search() {
 					results?.map((movie: MovieTv) => (
 						<CardItem media={queryType!} movie={movie} key={movie.id} />
 					))}
+				{/* Fallback if results is null */}
 			</div>
 		</div>
 	);
