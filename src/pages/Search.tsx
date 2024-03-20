@@ -8,7 +8,6 @@ import {
 	SelectContent,
 	SelectGroup,
 	SelectItem,
-	SelectLabel,
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
@@ -25,6 +24,7 @@ export default function Search() {
 	const [results, setResults] = useState<MovieTv[]>([]);
 	const [title, setTitle] = useState<string>(queryTitle ?? "");
 	const [type, setType] = useState<string>("movie");
+
 	const { data } = useFetch<Response<MovieTv[]>>(
 		`/search/${queryType}?query=${queryTitle}`
 	);
@@ -39,8 +39,11 @@ export default function Search() {
 	};
 
 	useEffect(() => {
+		if (!queryTitle && !queryType) {
+			navigate("/");
+		}
 		setResults(data?.results as MovieTv[]);
-	}, [data, results]);
+	}, [data, navigate, queryTitle, queryType, results]);
 	return (
 		<div>
 			<form

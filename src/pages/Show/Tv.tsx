@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import useFetch from "@/hooks/useFetch";
-import type { Response, SimilarTv } from "@/types/response";
+import type { Response, SimilarMixed, SimilarTv } from "@/types/response";
 import type { Tv as TvType } from "@/types/tv";
-import CardItem from "@/components/CardItem";
+import SimilarCardItem from "@/components/SimilarCardItem";
 
 export default function Tv() {
 	const params = useParams();
@@ -27,7 +27,11 @@ export default function Tv() {
 			<div className="grid lg:grid-cols-8 md:grid-cols-4 grid-cols-2 gap-5  mx-auto px-5 mt-5">
 				{!!similarTvs?.results?.length &&
 					similarTvs?.results?.map((movie) => (
-						<CardItem media="tv" movie={movie} key={movie.id} />
+						<SimilarCardItem
+							media="movie"
+							card={movie as SimilarMixed}
+							key={movie.id}
+						/>
 					))}
 			</div>
 		</div>

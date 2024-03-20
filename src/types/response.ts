@@ -46,7 +46,7 @@ export interface SimilarTv {
 
 export interface SimilarMovie {
 	adult: boolean;
-	backdrop_path?: string;
+	backdrop_path: string;
 	genre_ids: number[];
 	id: number;
 	original_language: string;
@@ -60,3 +60,5 @@ export interface SimilarMovie {
 	vote_average: number;
 	vote_count: number;
 }
+
+export interface SimilarMixed extends SimilarMovie, SimilarTv {}

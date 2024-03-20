@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import useFetch from "@/hooks/useFetch";
 import type { Movie as MovieType } from "@/types/movie";
-import type { Response, SimilarMovie } from "@/types/response";
-import CardItem from "@/components/CardItem";
+import type { Response, SimilarMixed, SimilarMovie } from "@/types/response";
+import SimilarCardItem from "@/components/SimilarCardItem";
 
 export default function Movie() {
 	const params = useParams();
@@ -32,7 +32,11 @@ export default function Movie() {
 			<div className="grid lg:grid-cols-8 md:grid-cols-4 grid-cols-2 gap-5  mx-auto px-5 mt-5">
 				{!!similarMovies?.results?.length &&
 					similarMovies?.results?.map((movie) => (
-						<CardItem media="movie" movie={movie} key={movie.id} />
+						<SimilarCardItem
+							media="movie"
+							card={movie as SimilarMixed}
+							key={movie.id}
+						/>
 					))}
 			</div>
 		</div>
