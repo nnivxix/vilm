@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import useFetch from "@/hooks/useFetch";
 import type { Response, SimilarMixed, SimilarTv } from "@/types/response";
-import type { Tv as TvType } from "@/types/tv";
+import type { Season, Tv as TvType } from "@/types/tv";
 import type { Images, Media, Video } from "@/types/media";
 import SimilarCardItem from "@/components/SimilarCardItem";
 import {
@@ -14,6 +14,7 @@ import {
 import getVideo from "@/utils/get-video";
 import imageUrl from "@/utils/image-url";
 import pickRandomImages from "@/utils/pick-random-images";
+import SeasonCardItem from "@/components/SeasonCardItem";
 
 export default function Tv() {
 	const params = useParams();
@@ -111,9 +112,29 @@ export default function Tv() {
 						className="-z-20 w-full h-full overflow-clip absolute inset-0 bg-fixed bg-left lg:bg-center object-cover object-left lg:object-center"
 					/>
 				</div>
-
-				// TODO: Show Seasons
 			)}
+
+			{!!tv?.seasons.length && (
+				<Carousel className=" max-w-6xl grid-cols-5  gap-5  mx-auto px-5 mt-5">
+					<h1 className="py-2 text-4xl font-semibold ">Seasons: </h1>
+					<CarouselContent className="grid-cols-5">
+						{tv.seasons.map((season: Season) => (
+							<CarouselItem
+								key={season.poster_path}
+								className="basis-1/2 lg:basis-1/5"
+							>
+								<SeasonCardItem season={season} key={season.id} />
+							</CarouselItem>
+						))}
+					</CarouselContent>
+					<CarouselPrevious
+						variant={"ghost"}
+						className="hidden lg:inline-flex "
+					/>
+					<CarouselNext variant={"ghost"} className="hidden lg:inline-flex " />
+				</Carousel>
+			)}
+
 			<div className="grid lg:grid-cols-5 max-w-6xl md:grid-cols-4 grid-cols-2 gap-5  mx-auto px-5 mt-5">
 				<h1 className="text-4xl font-semibold col-span-full">Similar Tvs: </h1>
 				{!!similarTvs?.results?.length &&
