@@ -1,6 +1,6 @@
-import { Backdrop } from "@/types/movie";
+import { Images } from "@/types/media";
 
-function pickRandomImages(images: Backdrop[]) {
+function pickRandomImages(images: Images[]) {
 	if (!Array.isArray(images)) {
 		throw new Error("Not Array array!");
 	}
