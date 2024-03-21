@@ -25,23 +25,15 @@ export type GroupedMedia = {
 function getVideo(videos: Video[]): Video | null {
 	const filteredByGroup = groupBy<Video>(videos, "type");
 
-	const clips = filteredByGroup["Clip"] ?? [];
-	const featurettes = filteredByGroup["Featurette"] ?? [];
-	const trailers = filteredByGroup["Trailer"] ?? [];
-	const teasers = filteredByGroup["Teaser"] ?? [];
+	const mediaTypes: MediaType[] = ["Trailer", "Teaser", "Clip", "Featurette"];
 
-	if (trailers.length) {
-		return pickOneVideo(trailers);
+	for (const mediaType of mediaTypes) {
+		const media = filteredByGroup[mediaType];
+		if (media && media.length) {
+			return pickOneVideo(media);
+		}
 	}
-	if (teasers.length) {
-		return pickOneVideo(teasers);
-	}
-	if (clips.length) {
-		return pickOneVideo(clips);
-	}
-	if (featurettes.length) {
-		return pickOneVideo(featurettes);
-	}
+
 	return null;
 }
 
@@ -53,6 +45,7 @@ function groupBy<T>(collection: T[], key: keyof T): GroupedMedia {
 
 		previous[current[key]].push(current);
 		return previous;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	}, {} as any); // tried to figure this out, help!!!!!
 
 	return groupedResult;

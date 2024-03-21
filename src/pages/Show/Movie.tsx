@@ -8,10 +8,6 @@ import type {
 } from "@/types/movie";
 import type { Response, SimilarMixed, SimilarMovie } from "@/types/response";
 import SimilarCardItem from "@/components/SimilarCardItem";
-import { useState } from "react";
-import { default as dataMovie } from "@/data/movie";
-import movieImages from "@/data/movie-images";
-import { default as similarMoviesData } from "@/data/similar-movies";
 import runtimeDuration from "@/utils/runtime-duration";
 import imageUrl from "@/utils/image-url";
 import pickRandomImages from "@/utils/pick-random-images";
@@ -23,7 +19,6 @@ import {
 	CarouselPrevious,
 } from "@/components/ui/carousel";
 import getYear from "@/utils/get-year";
-import { Button } from "@/components/ui/button";
 import getVideo from "@/utils/get-video";
 
 export default function Movie() {
@@ -43,15 +38,6 @@ export default function Movie() {
 	const { data: videos } = useFetch<Response<Video[]>>(
 		`/movie/${params.id}/videos`
 	);
-	// const [images] = useState<Images>(movieImages);
-
-	// const [movie, setMovie] = useState<MovieType>(dataMovie);
-	// const [similarMovies] = useState(similarMoviesData);
-
-	let video: Video | null = null;
-	if (videos?.results.length) {
-		video = getVideo(videos?.results);
-	}
 
 	if (error) {
 		return <pre className="text-white">{error}</pre>;
@@ -116,22 +102,24 @@ export default function Movie() {
 								className="hidden lg:inline-flex "
 							/>
 						</Carousel>
-						<Button variant={"destructive"}>
+						{videos?.results.length && (
 							<Link
-								className="w-full"
-								to={`https://www.youtube.com/watch?v=${video?.key}`}
+								className="px-2 py-2 w-auto col-span-2 lg:col-span-1 text-center rounded-md bg-red-700"
+								to={`https://www.youtube.com/watch?v=${
+									getVideo(videos?.results)?.key
+								}`}
 								target="_blank"
 							>
 								Watch Trailer
 							</Link>
-						</Button>
+						)}
 					</div>
 
 					<div className="bg-black/50 w-full -z-10 h-full absolute"></div>
 					<img
 						src={imageUrl({ path: movie.backdrop_path, size: "w500" })}
 						alt=""
-						className="-z-20 w-full h-full overflow-clip absolute inset-0 bg-fixed bg-center object-cover object-center"
+						className="-z-20 w-full h-full overflow-clip absolute inset-0 bg-fixed bg-left lg:bg-center object-cover object-left lg:object-center"
 					/>
 				</div>
 			)}
