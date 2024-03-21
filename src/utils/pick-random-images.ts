@@ -1,6 +1,6 @@
-import { Images } from "@/types/media";
+import { Media } from "@/types/media";
 
-function pickRandomImages(images: Images[]) {
+function pickRandomImages(images: Media[]) {
 	if (!Array.isArray(images)) {
 		throw new Error("Not Array array!");
 	}
