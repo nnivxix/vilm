@@ -1,11 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import useFetch from "@/hooks/useFetch";
-import type {
-	Backdrop,
-	Images,
-	Movie as MovieType,
-	Video,
-} from "@/types/movie";
+import type { Movie as MovieType } from "@/types/movie";
+import type { Images, Media, Video } from "@/types/media";
 import type { Response, SimilarMixed, SimilarMovie } from "@/types/response";
 import SimilarCardItem from "@/components/SimilarCardItem";
 import runtimeDuration from "@/utils/runtime-duration";
@@ -75,8 +71,8 @@ export default function Movie() {
 						{!!images?.backdrops.length && (
 							<Carousel className="lg:col-span-full col-span-full ">
 								<CarouselContent>
-									{pickRandomImages(images.backdrops as Backdrop[]).map(
-										(image: Backdrop) => (
+									{pickRandomImages(images.backdrops as Media[]).map(
+										(image: Media) => (
 											<CarouselItem
 												key={image.file_path}
 												className="basis-1/2 lg:basis-1/3"
@@ -125,7 +121,9 @@ export default function Movie() {
 				</div>
 			)}
 
-			<div className="grid lg:grid-cols-8 md:grid-cols-4 grid-cols-2 gap-5  mx-auto px-5 mt-5">
+			{/* Similar Movies */}
+
+			<div className="grid lg:grid-cols-5 md:grid-cols-4 grid-cols-2 max-w-6xl gap-5  mx-auto px-5 mt-5">
 				<h1 className="text-4xl font-semibold col-span-full">
 					Similar Movies:{" "}
 				</h1>
