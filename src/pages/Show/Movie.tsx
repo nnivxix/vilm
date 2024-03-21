@@ -72,10 +72,10 @@ export default function Movie() {
 									</span>
 								))}
 						</div>
-						<Carousel className="lg:col-span-full col-span-full ">
-							<CarouselContent>
-								{!!images?.backdrops.length &&
-									pickRandomImages(images.backdrops as Backdrop[]).map(
+						{!!images?.backdrops.length && (
+							<Carousel className="lg:col-span-full col-span-full ">
+								<CarouselContent>
+									{pickRandomImages(images.backdrops as Backdrop[]).map(
 										(image: Backdrop) => (
 											<CarouselItem
 												key={image.file_path}
@@ -92,17 +92,18 @@ export default function Movie() {
 											</CarouselItem>
 										)
 									)}
-							</CarouselContent>
-							<CarouselPrevious
-								variant={"ghost"}
-								className="hidden lg:inline-flex "
-							/>
-							<CarouselNext
-								variant={"ghost"}
-								className="hidden lg:inline-flex "
-							/>
-						</Carousel>
-						{videos?.results.length && (
+								</CarouselContent>
+								<CarouselPrevious
+									variant={"ghost"}
+									className="hidden lg:inline-flex "
+								/>
+								<CarouselNext
+									variant={"ghost"}
+									className="hidden lg:inline-flex "
+								/>
+							</Carousel>
+						)}
+						{!!videos?.results.length && (
 							<Link
 								className="px-2 py-2 w-auto col-span-2 lg:col-span-1 text-center rounded-md bg-red-700"
 								to={`https://www.youtube.com/watch?v=${
@@ -136,6 +137,7 @@ export default function Movie() {
 							key={movie.id}
 						/>
 					))}
+				{/* TODO: Fallback if similar videos not found */}
 			</div>
 		</div>
 	);
