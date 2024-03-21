@@ -1,6 +1,11 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useFetch from "@/hooks/useFetch";
-import type { Backdrop, Images, Movie as MovieType } from "@/types/movie";
+import type {
+	Backdrop,
+	Images,
+	Movie as MovieType,
+	Video,
+} from "@/types/movie";
 import type { Response, SimilarMixed, SimilarMovie } from "@/types/response";
 import SimilarCardItem from "@/components/SimilarCardItem";
 import { useState } from "react";
@@ -18,6 +23,8 @@ import {
 	CarouselPrevious,
 } from "@/components/ui/carousel";
 import getYear from "@/utils/get-year";
+import { Button } from "@/components/ui/button";
+import getVideo from "@/utils/get-video";
 
 export default function Movie() {
 	const params = useParams();
@@ -33,11 +40,18 @@ export default function Movie() {
 	const { data: images } = useFetch<Images>(
 		`/movie/${params.id}/images?include_image_language=null`
 	);
-
+	const { data: videos } = useFetch<Response<Video[]>>(
+		`/movie/${params.id}/videos`
+	);
 	// const [images] = useState<Images>(movieImages);
 
 	// const [movie, setMovie] = useState<MovieType>(dataMovie);
 	// const [similarMovies] = useState(similarMoviesData);
+
+	let video: Video | null = null;
+	if (videos?.results.length) {
+		video = getVideo(videos?.results);
+	}
 
 	if (error) {
 		return <pre className="text-white">{error}</pre>;
@@ -72,7 +86,6 @@ export default function Movie() {
 									</span>
 								))}
 						</div>
-
 						<Carousel className="lg:col-span-full col-span-full ">
 							<CarouselContent>
 								{!!images?.backdrops.length &&
@@ -103,6 +116,15 @@ export default function Movie() {
 								className="hidden lg:inline-flex "
 							/>
 						</Carousel>
+						<Button variant={"destructive"}>
+							<Link
+								className="w-full"
+								to={`https://www.youtube.com/watch?v=${video?.key}`}
+								target="_blank"
+							>
+								Watch Trailer
+							</Link>
+						</Button>
 					</div>
 
 					<div className="bg-black/50 w-full -z-10 h-full absolute"></div>
