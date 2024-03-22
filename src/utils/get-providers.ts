@@ -1,18 +1,18 @@
-interface Provider {
+export interface Provider {
 	logo_path: string;
 	provider_id: number;
 	provider_name: string;
 	display_priority: number;
 }
 
-interface Providers {
+export interface Providers {
 	buy?: Provider[];
 	rent?: Provider[];
 	ads?: Provider[];
 	flatrate?: Provider[];
 }
 
-interface CountryData {
+export interface CountryData {
 	link: string;
 	rent?: Provider[];
 	buy?: Provider[];
@@ -20,7 +20,7 @@ interface CountryData {
 	flatrate?: Provider[];
 }
 
-interface Data {
+export interface Data {
 	id: number;
 	results: Record<string, CountryData>;
 }
