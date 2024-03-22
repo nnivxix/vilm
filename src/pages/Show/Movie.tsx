@@ -71,7 +71,7 @@ export default function Movie() {
 						{!!images?.backdrops.length && (
 							<Carousel className="lg:col-span-full col-span-full ">
 								<CarouselContent>
-									{pickRandomImages(images.backdrops as Media[]).map(
+									{pickRandomImages(images.backdrops as Media[], 7).map(
 										(image: Media) => (
 											<CarouselItem
 												key={image.file_path}
