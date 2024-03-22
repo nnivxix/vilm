@@ -1,5 +1,6 @@
 import { Season } from "@/types/tv";
 import getYear from "@/utils/get-year";
+import imageUrl from "@/utils/image-url";
 import { Star } from "lucide-react";
 
 interface SeasonCardItemProps {
@@ -12,11 +13,7 @@ export default function SeasonCardItem({ season }: SeasonCardItemProps) {
 				<p>{season.overview ?? ""}</p>
 			</div>
 			<img
-				src={
-					season.poster_path
-						? "https://image.tmdb.org/t/p/w300/" + season.poster_path
-						: "/poster-fallback.png"
-				}
+				src={imageUrl({ path: season.poster_path })}
 				alt={season.overview ?? ""}
 			/>
 			<h1 className="text-lg mt-2  font-bold text-white px-3 lg:py-2">

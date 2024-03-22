@@ -2,6 +2,7 @@ import { Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import { MovieTv } from "@/types/response";
 import { Button } from "./ui/button";
+import imageUrl from "@/utils/image-url";
 
 interface CardItemProps {
 	movie: MovieTv;
@@ -33,11 +34,7 @@ export default function CardItem({ movie, media }: CardItemProps) {
 			<div className="relative">
 				<Link to={`/show/${mediaType}/${movie.id}`}>
 					<img
-						src={
-							movie.poster_path
-								? "https://image.tmdb.org/t/p/w300/" + movie.poster_path
-								: "/poster-fallback.png"
-						}
+						src={imageUrl({ path: movie.poster_path, type: "poster" })}
 						alt={movieTitle}
 					/>
 				</Link>

@@ -82,6 +82,7 @@ export default function Movie() {
 													src={imageUrl({
 														path: image.file_path,
 														size: "w500",
+														type: "backdrop",
 													})}
 													alt={image.file_path}
 												/>
@@ -114,7 +115,11 @@ export default function Movie() {
 
 					<div className="bg-black/50 w-full -z-10 h-full absolute"></div>
 					<img
-						src={imageUrl({ path: movie.backdrop_path, size: "w500" })}
+						src={imageUrl({
+							path: movie.backdrop_path,
+							size: "w500",
+							type: "backdrop",
+						})}
 						alt=""
 						className="-z-20 w-full h-full overflow-clip absolute inset-0 bg-fixed bg-left lg:bg-center object-cover object-left lg:object-center"
 					/>

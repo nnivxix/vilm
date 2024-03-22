@@ -105,15 +105,21 @@ export default function Tv() {
 						)}
 					</div>
 
+					{/* Backgroud */}
 					<div className="bg-black/50 w-full -z-10 h-full absolute"></div>
 					<img
-						src={imageUrl({ path: tv.backdrop_path, size: "w500" })}
+						src={imageUrl({
+							path: tv.backdrop_path,
+							size: "w500",
+							type: "backdrop",
+						})}
 						alt=""
 						className="-z-20 w-full h-full overflow-clip absolute inset-0 bg-fixed bg-left lg:bg-center object-cover object-left lg:object-center"
 					/>
 				</div>
 			)}
 
+			{/* Show seasons */}
 			{!!tv?.seasons.length && (
 				<Carousel className=" max-w-6xl grid-cols-5  gap-5  mx-auto px-5 mt-5">
 					<h1 className="py-2 text-4xl font-semibold ">Seasons: </h1>

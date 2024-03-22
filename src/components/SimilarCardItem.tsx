@@ -2,6 +2,7 @@ import { SimilarMovie, SimilarTv } from "@/types/response";
 import { Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
+import imageUrl from "@/utils/image-url";
 
 interface SimilarCardItemProps<SimilarType> {
 	card: SimilarType;
@@ -36,11 +37,9 @@ export default function SimilarCardItem<
 			<div className="relative">
 				<Link to={`/show/${mediaType}/${card.id}`}>
 					<img
-						src={
-							card.poster_path
-								? "https://image.tmdb.org/t/p/w300/" + card.poster_path
-								: "/poster-fallback.png"
-						}
+						src={imageUrl({
+							path: card.poster_path,
+						})}
 						alt={movieTitle}
 					/>
 				</Link>
