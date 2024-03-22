@@ -138,6 +138,27 @@ export default function Movie() {
 					type="Buy"
 				/>
 			)}
+			{!!getProviders(providers?.results as Data["results"]).rent?.length && (
+				<WatchProvider
+					providers={getProviders(providers?.results as Data["results"]).rent!}
+					type="Rent"
+				/>
+			)}
+			{!!getProviders(providers?.results as Data["results"]).ads?.length && (
+				<WatchProvider
+					providers={getProviders(providers?.results as Data["results"]).ads!}
+					type=""
+				/>
+			)}
+			{!!getProviders(providers?.results as Data["results"]).flatrate
+				?.length && (
+				<WatchProvider
+					providers={
+						getProviders(providers?.results as Data["results"]).flatrate!
+					}
+					type="Stream"
+				/>
+			)}
 
 			{/* Similar Movies */}
 
