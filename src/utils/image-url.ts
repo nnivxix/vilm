@@ -1,7 +1,7 @@
 interface ImageUrl {
 	path: string;
 	size?: "original" | "w500" | "w300";
-	type?: "backdrop" | "poster";
+	type?: "backdrop" | "poster" | "logo";
 }
 
 function imageUrl({ path, size = "w300", type = "poster" }: ImageUrl): string {

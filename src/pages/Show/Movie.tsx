@@ -16,6 +16,9 @@ import {
 } from "@/components/ui/carousel";
 import getYear from "@/utils/get-year";
 import getVideo from "@/utils/get-video";
+import { default as DataProviders } from "@/data/movie-providers";
+import { useState } from "react";
+import getProviders from "@/utils/get-providers";
 
 export default function Movie() {
 	const params = useParams();
@@ -34,6 +37,9 @@ export default function Movie() {
 	const { data: videos } = useFetch<Response<Video[]>>(
 		`/movie/${params.id}/videos`
 	);
+	const [providers, setProviders] = useState(DataProviders);
+
+	console.log(getProviders(providers.results));
 
 	if (error) {
 		return <pre className="text-white">{error}</pre>;
@@ -126,9 +132,26 @@ export default function Movie() {
 				</div>
 			)}
 
+			<div className="grid lg:grid-cols-5 col-span-1 md:grid-cols-4 grid-cols-2 max-w-6xl gap-5  mx-auto px-5 mt-5">
+				<h1 className="col-span-full">Buy on:</h1>
+				{getProviders(providers.results).buy?.map((b) => (
+					<div>
+						<h1 key={b.provider_id}>{b.provider_name}</h1>
+						<img
+							src={imageUrl({
+								path: b.logo_path,
+								type: "logo",
+								size: "w500",
+							})}
+							alt={b.provider_name}
+							className="rounded-3xl"
+						/>
+					</div>
+				))}
+			</div>
 			{/* Similar Movies */}
 
-			<div className="grid lg:grid-cols-5 md:grid-cols-4 grid-cols-2 max-w-6xl gap-5  mx-auto px-5 mt-5">
+			<div className="grid col-span-4 lg:grid-cols-5 md:grid-cols-4 max-w-6xl grid-cols-2 gap-5  mx-auto px-5 mt-5">
 				<h1 className="text-4xl font-semibold col-span-full">
 					Similar Movies:{" "}
 				</h1>
@@ -142,6 +165,7 @@ export default function Movie() {
 					))}
 				{/* TODO: Fallback if similar videos not found */}
 			</div>
+			<div className="grid-cols-5 gap-2 max-w-7xl mx-auto grid"></div>
 		</div>
 	);
 }
