@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import CardItem from "@/components/CardItem";
-
 export default function Search() {
 	const [searchParams] = useSearchParams();
 	const navigate = useNavigate();
@@ -29,9 +28,20 @@ export default function Search() {
 		`/search/${queryType}?query=${queryTitle}`
 	);
 
+	const changeType = (value: string) => {
+		setType(value);
+		navigate({
+			pathname: "/search",
+			search: `?title=${title}&type=${value}`,
+		});
+		window.scrollTo({
+			top: 0,
+			left: 0,
+			behavior: "smooth",
+		});
+	};
 	const handleSearch = async (e: FormEvent) => {
 		e.preventDefault();
-
 		navigate({
 			pathname: "/search",
 			search: `?title=${title}&type=${type}`,
@@ -59,7 +69,7 @@ export default function Search() {
 					className="bg-slate-800 text-white md:col-span-3 col-span-1"
 					onChange={(e) => setTitle(e.target.value)}
 				/>
-				<Select value={type} onValueChange={(value) => setType(value)}>
+				<Select value={type} onValueChange={(value) => changeType(value)}>
 					<SelectTrigger className="w-[180px] col-span-1 bg-slate-800">
 						<SelectValue placeholder="Select Media Type " />
 					</SelectTrigger>
@@ -80,6 +90,17 @@ export default function Search() {
 					results?.map((movie: MovieTv) => (
 						<CardItem media={queryType!} movie={movie} key={movie.id} />
 					))}
+				<div className="col-span-full py-3 mx-auto">
+					<p>
+						didn't found what you search?{" "}
+						<button
+							className="underline"
+							onClick={() => changeType(type === "movie" ? "tv" : "movie")}
+						>
+							please change type
+						</button>
+					</p>
+				</div>
 				{/* Fallback if results is null */}
 			</div>
 		</div>
