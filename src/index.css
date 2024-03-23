@@ -74,6 +74,6 @@
     @apply bg-background text-foreground;
   }
 }
-body {
+/* body {
   @apply  bg-gray-800;
-}
+} */

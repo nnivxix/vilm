@@ -62,7 +62,7 @@ export default function Movie() {
 								movie.genres.map((genre) => (
 									<span
 										key={genre.id}
-										className="p-3 border-2 rounded-md hover:bg-white/20 cursor-pointer"
+										className="p-3 border-2 border-primary rounded-md hover:bg-white/20 cursor-pointer"
 									>
 										{genre.name}
 									</span>
