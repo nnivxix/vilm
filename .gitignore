@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 .env
+
+auto-imoprts.d.ts
+.eslintrc-auto-import.json
