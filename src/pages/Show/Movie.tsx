@@ -36,7 +36,6 @@ export default function Movie() {
 	const { data: videos } = useFetch<Response<Video[]>>(
 		`/movie/${params.id}/videos`
 	);
-	// const [providers, setProviders] = useState(DataProviders);
 	const { data: providers } = useFetch<Data>(
 		`/movie/${params.id}/watch/providers`
 	);

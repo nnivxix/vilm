@@ -73,8 +73,8 @@ function filterUniqueProviders(data: Providers): Providers {
 	const filteredProviders: {
 		buy?: Provider[];
 		rent?: Provider[];
-		ads: Provider[];
-		flatrate: Provider[];
+		ads?: Provider[];
+		flatrate?: Provider[];
 	} = {};
 
 	if (data.buy) {
