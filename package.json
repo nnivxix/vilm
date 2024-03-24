@@ -39,6 +39,7 @@
     "postcss": "^8.4.36",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.2.2",
+    "unplugin-auto-import": "^0.17.5",
     "vite": "^5.1.6"
   }
 }
