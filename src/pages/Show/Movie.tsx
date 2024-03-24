@@ -132,6 +132,7 @@ export default function Movie() {
 					/>
 				</div>
 			)}
+
 			{!!getProviders(providers?.results as Data["results"]).buy?.length && (
 				<WatchProvider
 					providers={getProviders(providers?.results as Data["results"]).buy!}
