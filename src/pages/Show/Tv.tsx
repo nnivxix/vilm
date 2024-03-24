@@ -1,22 +1,7 @@
-import { Link, useParams } from "react-router-dom";
-import useFetch from "@/hooks/useFetch";
 import type { Response, SimilarMixed, SimilarTv } from "@/types/response";
 import type { Season, Tv as TvType } from "@/types/tv";
 import type { Images, Media, Video } from "@/types/media";
 import type { Provider, ProvidersResponse } from "@/types/providers";
-import SimilarCardItem from "@/components/SimilarCardItem";
-import {
-	Carousel,
-	CarouselContent,
-	CarouselItem,
-	CarouselPrevious,
-	CarouselNext,
-} from "@/components/ui/carousel";
-import getVideo from "@/utils/get-video";
-import imageUrl from "@/utils/image-url";
-import pickRandomImages from "@/utils/pick-random-images";
-import SeasonCardItem from "@/components/SeasonCardItem";
-import WatchProviderContainer from "@/components/WatchProviderContainer";
 
 export default function Tv() {
 	const params = useParams();

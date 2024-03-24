@@ -1,6 +1,4 @@
 import type { Response, MovieTv } from "../types/response";
-import CardItem from "../components/CardItem";
-import useFetch from "@/hooks/useFetch";
 
 export default function Home() {
 	const { data: movies } = useFetch<Response<MovieTv[]>>("/trending/all/day");
