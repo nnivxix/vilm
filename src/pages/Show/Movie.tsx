@@ -1,4 +1,7 @@
-import { Link, useParams } from "react-router-dom";
+import type { Movie as MovieType } from "@/types/movie";
+import type { Images, Media, Video } from "@/types/media";
+import type { Response, SimilarMixed, SimilarMovie } from "@/types/response";
+import type { Provider, ProvidersResponse } from "@/types/providers";
 
 export default function Movie() {
 	const params = useParams();
