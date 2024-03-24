@@ -1,9 +1,9 @@
-import type { Data } from "@/utils/get-providers";
+import type { ProvidersResponse } from "@/types/providers";
 import getProviders from "@/utils/get-providers";
 import WatchProvider from "./WatchProvider";
 
 interface WatchProviderContainerProps {
-	providers: Data["results"];
+	providers: ProvidersResponse["results"];
 }
 
 export default function WatchProviderContainer({

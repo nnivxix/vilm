@@ -3,6 +3,7 @@ import useFetch from "@/hooks/useFetch";
 import type { Response, SimilarMixed, SimilarTv } from "@/types/response";
 import type { Season, Tv as TvType } from "@/types/tv";
 import type { Images, Media, Video } from "@/types/media";
+import type { Provider, ProvidersResponse } from "@/types/providers";
 import SimilarCardItem from "@/components/SimilarCardItem";
 import {
 	Carousel,
@@ -16,7 +17,6 @@ import imageUrl from "@/utils/image-url";
 import pickRandomImages from "@/utils/pick-random-images";
 import SeasonCardItem from "@/components/SeasonCardItem";
 import WatchProviderContainer from "@/components/WatchProviderContainer";
-import { Data } from "@/utils/get-providers";
 
 export default function Tv() {
 	const params = useParams();
@@ -31,7 +31,7 @@ export default function Tv() {
 	const { data: videos } = useFetch<Response<Video[]>>(
 		`/tv/${params.id}/videos`
 	);
-	const { data: providers } = useFetch<Data>(
+	const { data: providers } = useFetch<ProvidersResponse>(
 		`/tv/${params.id}/watch/providers`
 	);
 
@@ -146,9 +146,7 @@ export default function Tv() {
 				</Carousel>
 			)}
 
-			<WatchProviderContainer
-				providers={providers?.results as Data["results"]}
-			/>
+			<WatchProviderContainer providers={providers?.results as Provider} />
 
 			<div className="grid lg:grid-cols-5 max-w-6xl md:grid-cols-4 grid-cols-2 gap-5  mx-auto px-5 mt-5">
 				<h1 className="text-4xl font-semibold col-span-full">Similar Tvs: </h1>

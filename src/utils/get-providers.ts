@@ -1,29 +1,9 @@
-export interface Provider {
-	logo_path: string;
-	provider_id: number;
-	provider_name: string;
-	display_priority: number;
-}
-
-export interface Providers {
-	buy?: Provider[];
-	rent?: Provider[];
-	ads?: Provider[];
-	flatrate?: Provider[];
-}
-
-export interface CountryData {
-	link: string;
-	rent?: Provider[];
-	buy?: Provider[];
-	ads?: Provider[];
-	flatrate?: Provider[];
-}
-
-export interface Data {
-	id: number;
-	results: Record<string, CountryData>;
-}
+import type {
+	CountryData,
+	Provider,
+	ProviderInfo,
+	WatchType,
+} from "@/types/providers";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function uniqBy<T>(arr: T[], key: (item: T) => any): T[] {
@@ -34,8 +14,8 @@ function uniqBy<T>(arr: T[], key: (item: T) => any): T[] {
 	});
 }
 
-function getProviders(results: Data["results"]) {
-	const providers: Providers = {
+function getProviders(results: Provider) {
+	const providers: WatchType = {
 		buy: [],
 		rent: [],
 		ads: [],
@@ -69,58 +49,59 @@ function getProviders(results: Data["results"]) {
 	return filterUniqueProviders(providers);
 }
 
-function filterUniqueProviders(data: Providers): Providers {
-	const filteredProviders: {
-		buy?: Provider[];
-		rent?: Provider[];
-		ads?: Provider[];
-		flatrate?: Provider[];
-	} = {};
+function filterUniqueProviders(data: CountryData): WatchType {
+	const filteredProviders: WatchType = {};
 
 	if (data.buy) {
-		filteredProviders.buy = data.buy.reduce((acc, current) => {
+		filteredProviders.buy = data.buy.reduce((acc: ProviderInfo[], current) => {
 			const existingIndex = acc.findIndex(
-				(item) => item.provider_id === current.provider_id
+				(item: ProviderInfo) => item.provider_id === current.provider_id
 			);
 			if (existingIndex === -1) {
 				acc.push(current);
 			}
 			return acc;
-		}, [] as Provider[]);
+		}, []);
 	}
 
 	if (data.rent) {
-		filteredProviders.rent = data.rent.reduce((acc, current) => {
-			const existingIndex = acc.findIndex(
-				(item) => item.provider_id === current.provider_id
-			);
-			if (existingIndex === -1) {
-				acc.push(current);
-			}
-			return acc;
-		}, [] as Provider[]);
+		filteredProviders.rent = data.rent.reduce(
+			(acc: ProviderInfo[], current) => {
+				const existingIndex = acc.findIndex(
+					(item: ProviderInfo) => item.provider_id === current.provider_id
+				);
+				if (existingIndex === -1) {
+					acc.push(current);
+				}
+				return acc;
+			},
+			[]
+		);
 	}
 	if (data.ads) {
-		filteredProviders.ads = data.ads.reduce((acc, current) => {
+		filteredProviders.ads = data.ads.reduce((acc: ProviderInfo[], current) => {
 			const existingIndex = acc.findIndex(
-				(item) => item.provider_id === current.provider_id
+				(item: ProviderInfo) => item.provider_id === current.provider_id
 			);
 			if (existingIndex === -1) {
 				acc.push(current);
 			}
 			return acc;
-		}, [] as Provider[]);
+		}, []);
 	}
 	if (data.flatrate) {
-		filteredProviders.flatrate = data.flatrate.reduce((acc, current) => {
-			const existingIndex = acc.findIndex(
-				(item) => item.provider_id === current.provider_id
-			);
-			if (existingIndex === -1) {
-				acc.push(current);
-			}
-			return acc;
-		}, [] as Provider[]);
+		filteredProviders.flatrate = data.flatrate.reduce(
+			(acc: ProviderInfo[], current) => {
+				const existingIndex = acc.findIndex(
+					(item) => item.provider_id === current.provider_id
+				);
+				if (existingIndex === -1) {
+					acc.push(current);
+				}
+				return acc;
+			},
+			[]
+		);
 	}
 
 	return filteredProviders;

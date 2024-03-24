@@ -3,7 +3,7 @@ import useFetch from "@/hooks/useFetch";
 import type { Movie as MovieType } from "@/types/movie";
 import type { Images, Media, Video } from "@/types/media";
 import type { Response, SimilarMixed, SimilarMovie } from "@/types/response";
-import type { Data } from "@/utils/get-providers";
+import type { Provider, ProvidersResponse } from "@/types/providers";
 import runtimeDuration from "@/utils/runtime-duration";
 import imageUrl from "@/utils/image-url";
 import pickRandomImages from "@/utils/pick-random-images";
@@ -36,7 +36,7 @@ export default function Movie() {
 	const { data: videos } = useFetch<Response<Video[]>>(
 		`/movie/${params.id}/videos`
 	);
-	const { data: providers } = useFetch<Data>(
+	const { data: providers } = useFetch<ProvidersResponse>(
 		`/movie/${params.id}/watch/providers`
 	);
 
@@ -131,9 +131,7 @@ export default function Movie() {
 				</div>
 			)}
 
-			<WatchProviderContainer
-				providers={providers?.results as Data["results"]}
-			/>
+			<WatchProviderContainer providers={providers?.results as Provider} />
 
 			{/* Similar Movies */}
 

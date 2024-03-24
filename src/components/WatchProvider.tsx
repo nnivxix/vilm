@@ -1,8 +1,8 @@
-import type { Provider } from "@/utils/get-providers";
+import type { ProviderInfo } from "@/types/providers";
 import { Badge } from "./ui/badge";
 
 interface WatchProviderProps {
-	providers: Provider[];
+	providers: ProviderInfo[];
 	type: string;
 }
 export default function WatchProvider({ providers, type }: WatchProviderProps) {
@@ -11,7 +11,7 @@ export default function WatchProvider({ providers, type }: WatchProviderProps) {
 			<h1 className="col-span-full text-3xl py-4 font-semibold">{type} on:</h1>
 
 			<div className="flex flex-wrap gap-2">
-				{providers?.map((provider: Provider) => (
+				{providers?.map((provider: ProviderInfo) => (
 					<Badge key={provider.provider_id} className="cursor-pointer text-lg">
 						{provider.provider_name}
 					</Badge>
