@@ -3,10 +3,12 @@ import useFetch from "@/hooks/useFetch";
 import type { Movie as MovieType } from "@/types/movie";
 import type { Images, Media, Video } from "@/types/media";
 import type { Response, SimilarMixed, SimilarMovie } from "@/types/response";
-import SimilarCardItem from "@/components/SimilarCardItem";
+import type { Provider, ProvidersResponse } from "@/types/providers";
 import runtimeDuration from "@/utils/runtime-duration";
 import imageUrl from "@/utils/image-url";
 import pickRandomImages from "@/utils/pick-random-images";
+import getYear from "@/utils/get-year";
+import getVideo from "@/utils/get-video";
 import {
 	Carousel,
 	CarouselContent,
@@ -14,8 +16,8 @@ import {
 	CarouselNext,
 	CarouselPrevious,
 } from "@/components/ui/carousel";
-import getYear from "@/utils/get-year";
-import getVideo from "@/utils/get-video";
+import SimilarCardItem from "@/components/SimilarCardItem";
+import WatchProviderContainer from "@/components/WatchProviderContainer";
 
 export default function Movie() {
 	const params = useParams();
@@ -33,6 +35,9 @@ export default function Movie() {
 	);
 	const { data: videos } = useFetch<Response<Video[]>>(
 		`/movie/${params.id}/videos`
+	);
+	const { data: providers } = useFetch<ProvidersResponse>(
+		`/movie/${params.id}/watch/providers`
 	);
 
 	if (error) {
@@ -126,9 +131,11 @@ export default function Movie() {
 				</div>
 			)}
 
+			<WatchProviderContainer providers={providers?.results as Provider} />
+
 			{/* Similar Movies */}
 
-			<div className="grid lg:grid-cols-5 md:grid-cols-4 grid-cols-2 max-w-6xl gap-5  mx-auto px-5 mt-5">
+			<div className="grid col-span-4 lg:grid-cols-5 md:grid-cols-4 max-w-6xl grid-cols-2 gap-5  mx-auto px-5 mt-5">
 				<h1 className="text-4xl font-semibold col-span-full">
 					Similar Movies:{" "}
 				</h1>
@@ -142,6 +149,7 @@ export default function Movie() {
 					))}
 				{/* TODO: Fallback if similar videos not found */}
 			</div>
+			<div className="grid-cols-5 gap-2 max-w-7xl mx-auto grid"></div>
 		</div>
 	);
 }
