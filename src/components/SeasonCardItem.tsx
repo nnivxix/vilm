@@ -1,6 +1,4 @@
-import { Season } from "@/types/tv";
-import getYear from "@/utils/get-year";
-import imageUrl from "@/utils/image-url";
+import type { Season } from "@/types/tv";
 import { Star } from "lucide-react";
 
 interface SeasonCardItemProps {

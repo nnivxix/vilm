@@ -1,6 +1,5 @@
 import type { FormEvent } from "react";
-import { useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+
 export default function Navbar() {
 	const [searchParams] = useSearchParams();
 	const querySearch = searchParams.get("title");

@@ -1,8 +1,5 @@
+import type { MovieTv } from "@/types/response";
 import { Star } from "lucide-react";
-import { Link } from "react-router-dom";
-import { MovieTv } from "@/types/response";
-import { Button } from "./ui/button";
-import imageUrl from "@/utils/image-url";
 
 interface CardItemProps {
 	movie: MovieTv;

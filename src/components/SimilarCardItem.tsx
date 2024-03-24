@@ -1,8 +1,5 @@
-import { SimilarMovie, SimilarTv } from "@/types/response";
+import type { SimilarMovie, SimilarTv } from "@/types/response";
 import { Star } from "lucide-react";
-import { Link } from "react-router-dom";
-import { Button } from "./ui/button";
-import imageUrl from "@/utils/image-url";
 
 interface SimilarCardItemProps<SimilarType> {
 	card: SimilarType;
