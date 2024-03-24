@@ -4,10 +4,11 @@ import type { Movie as MovieType } from "@/types/movie";
 import type { Images, Media, Video } from "@/types/media";
 import type { Response, SimilarMixed, SimilarMovie } from "@/types/response";
 import type { Data } from "@/utils/get-providers";
-import SimilarCardItem from "@/components/SimilarCardItem";
 import runtimeDuration from "@/utils/runtime-duration";
 import imageUrl from "@/utils/image-url";
 import pickRandomImages from "@/utils/pick-random-images";
+import getYear from "@/utils/get-year";
+import getVideo from "@/utils/get-video";
 import {
 	Carousel,
 	CarouselContent,
@@ -15,10 +16,8 @@ import {
 	CarouselNext,
 	CarouselPrevious,
 } from "@/components/ui/carousel";
-import getYear from "@/utils/get-year";
-import getVideo from "@/utils/get-video";
-import getProviders from "@/utils/get-providers";
-import WatchProvider from "@/components/WatchProvider";
+import SimilarCardItem from "@/components/SimilarCardItem";
+import WatchProviderContainer from "@/components/WatchProviderContainer";
 
 export default function Movie() {
 	const params = useParams();
@@ -133,33 +132,9 @@ export default function Movie() {
 				</div>
 			)}
 
-			{!!getProviders(providers?.results as Data["results"]).buy?.length && (
-				<WatchProvider
-					providers={getProviders(providers?.results as Data["results"]).buy!}
-					type="Buy"
-				/>
-			)}
-			{!!getProviders(providers?.results as Data["results"]).rent?.length && (
-				<WatchProvider
-					providers={getProviders(providers?.results as Data["results"]).rent!}
-					type="Rent"
-				/>
-			)}
-			{!!getProviders(providers?.results as Data["results"]).ads?.length && (
-				<WatchProvider
-					providers={getProviders(providers?.results as Data["results"]).ads!}
-					type=""
-				/>
-			)}
-			{!!getProviders(providers?.results as Data["results"]).flatrate
-				?.length && (
-				<WatchProvider
-					providers={
-						getProviders(providers?.results as Data["results"]).flatrate!
-					}
-					type="Stream"
-				/>
-			)}
+			<WatchProviderContainer
+				providers={providers?.results as Data["results"]}
+			/>
 
 			{/* Similar Movies */}
 

@@ -12,7 +12,7 @@ export default function WatchProvider({ providers, type }: WatchProviderProps) {
 
 			<div className="flex flex-wrap gap-2">
 				{providers?.map((provider: Provider) => (
-					<Badge key={provider.provider_id} className="cursor-pointer">
+					<Badge key={provider.provider_id} className="cursor-pointer text-lg">
 						{provider.provider_name}
 					</Badge>
 				))}

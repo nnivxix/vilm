@@ -70,7 +70,12 @@ function getProviders(results: Data["results"]) {
 }
 
 function filterUniqueProviders(data: Providers): Providers {
-	const filteredProviders: { buy?: Provider[]; rent?: Provider[] } = {};
+	const filteredProviders: {
+		buy?: Provider[];
+		rent?: Provider[];
+		ads: Provider[];
+		flatrate: Provider[];
+	} = {};
 
 	if (data.buy) {
 		filteredProviders.buy = data.buy.reduce((acc, current) => {
@@ -86,6 +91,28 @@ function filterUniqueProviders(data: Providers): Providers {
 
 	if (data.rent) {
 		filteredProviders.rent = data.rent.reduce((acc, current) => {
+			const existingIndex = acc.findIndex(
+				(item) => item.provider_id === current.provider_id
+			);
+			if (existingIndex === -1) {
+				acc.push(current);
+			}
+			return acc;
+		}, [] as Provider[]);
+	}
+	if (data.ads) {
+		filteredProviders.ads = data.ads.reduce((acc, current) => {
+			const existingIndex = acc.findIndex(
+				(item) => item.provider_id === current.provider_id
+			);
+			if (existingIndex === -1) {
+				acc.push(current);
+			}
+			return acc;
+		}, [] as Provider[]);
+	}
+	if (data.flatrate) {
+		filteredProviders.flatrate = data.flatrate.reduce((acc, current) => {
 			const existingIndex = acc.findIndex(
 				(item) => item.provider_id === current.provider_id
 			);

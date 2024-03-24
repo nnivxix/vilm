@@ -15,6 +15,8 @@ import getVideo from "@/utils/get-video";
 import imageUrl from "@/utils/image-url";
 import pickRandomImages from "@/utils/pick-random-images";
 import SeasonCardItem from "@/components/SeasonCardItem";
+import WatchProviderContainer from "@/components/WatchProviderContainer";
+import { Data } from "@/utils/get-providers";
 
 export default function Tv() {
 	const params = useParams();
@@ -28,6 +30,9 @@ export default function Tv() {
 	);
 	const { data: videos } = useFetch<Response<Video[]>>(
 		`/tv/${params.id}/videos`
+	);
+	const { data: providers } = useFetch<Data>(
+		`/tv/${params.id}/watch/providers`
 	);
 
 	if (error) {
@@ -127,7 +132,7 @@ export default function Tv() {
 						{tv.seasons.map((season: Season) => (
 							<CarouselItem
 								key={season.poster_path}
-								className="basis-1/2 lg:basis-1/5"
+								className="basis-1/2 lg:basis-1/4"
 							>
 								<SeasonCardItem season={season} key={season.id} />
 							</CarouselItem>
@@ -140,6 +145,10 @@ export default function Tv() {
 					<CarouselNext variant={"ghost"} className="hidden lg:inline-flex " />
 				</Carousel>
 			)}
+
+			<WatchProviderContainer
+				providers={providers?.results as Data["results"]}
+			/>
 
 			<div className="grid lg:grid-cols-5 max-w-6xl md:grid-cols-4 grid-cols-2 gap-5  mx-auto px-5 mt-5">
 				<h1 className="text-4xl font-semibold col-span-full">Similar Tvs: </h1>
