@@ -1,11 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import Tv from "./pages/Show/Tv";
-import Movie from "./pages/Show/Movie";
-import Search from "./pages/Search";
-import NotFound from "./pages/NotFound";
 import { ThemeProvider } from "./providers/theme";
 
 function App() {
