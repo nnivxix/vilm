@@ -1,6 +1,5 @@
 import type { Season } from "@/types/tv";
 import { Star } from "lucide-react";
-import Image from "./Image";
 
 interface SeasonCardItemProps {
 	season: Season;
@@ -11,7 +10,7 @@ export default function SeasonCardItem({ season }: SeasonCardItemProps) {
 			<div className="z-30 p-2 text-white absolute hidden group-hover:grid grid-cols-1 bg-black/50 backdrop-blur-sm w-full h-full">
 				<p className="overflow-y-auto">{season.overview ?? ""}</p>
 			</div>
-			<Image
+			<RImage
 				src={imageUrl({ path: season.poster_path, type: "poster" })}
 				alt={season.overview ?? ""}
 				type="poster"

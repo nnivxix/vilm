@@ -7,7 +7,7 @@ interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
 	alt: string;
 	type: TypeImage;
 }
-export default function Image({ src, alt, type, ...props }: ImageProps) {
+export default function RImage({ src, alt, type, ...props }: ImageProps) {
 	const { fallback } = useImageFallback(type);
 	const imageFallback = (event: SyntheticEvent<HTMLImageElement, Event>) => {
 		event.currentTarget.src = fallback;

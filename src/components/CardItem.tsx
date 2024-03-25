@@ -30,7 +30,7 @@ export default function CardItem({ movie, media }: CardItemProps) {
 			</div>
 			<div className="relative">
 				<Link to={`/show/${mediaType}/${movie.id}`}>
-					<Image
+					<RImage
 						src={imageUrl({ path: movie.poster_path, type: "poster" })}
 						alt={movieTitle!}
 						type="poster"

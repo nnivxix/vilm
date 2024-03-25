@@ -92,6 +92,7 @@
     "DialogTrigger": true,
     "PopupYoutubeTrailer": true,
     "Image": true,
-    "useImageFallback": true
+    "useImageFallback": true,
+    "RImage": true
   }
 }

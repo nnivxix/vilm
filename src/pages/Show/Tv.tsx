@@ -60,7 +60,7 @@ export default function Tv() {
 												key={image.file_path}
 												className="basis-1/2 lg:basis-1/3"
 											>
-												<Image
+												<RImage
 													height={200}
 													src={imageUrl({
 														path: image.file_path,
@@ -93,7 +93,7 @@ export default function Tv() {
 
 					{/* Backgroud */}
 					<div className="bg-black/50 w-full -z-10 h-full absolute"></div>
-					<Image
+					<RImage
 						src={imageUrl({
 							path: tv.backdrop_path,
 							size: "w500",
