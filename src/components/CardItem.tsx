@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { MovieTv } from "@/types/response";
 import { Button } from "./ui/button";
 import imageUrl from "@/utils/image-url";
+import Image from "./Image";
 
 interface CardItemProps {
 	movie: MovieTv;
@@ -33,9 +34,10 @@ export default function CardItem({ movie, media }: CardItemProps) {
 			</div>
 			<div className="relative">
 				<Link to={`/show/${mediaType}/${movie.id}`}>
-					<img
+					<Image
 						src={imageUrl({ path: movie.poster_path, type: "poster" })}
-						alt={movieTitle}
+						alt={movieTitle!}
+						type="poster"
 					/>
 				</Link>
 				<div className="absolute bottom-1 left-3 ">
