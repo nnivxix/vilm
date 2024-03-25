@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useFetch from "@/hooks/useFetch";
 import type { Response, SimilarMixed, SimilarTv } from "@/types/response";
 import type { Season, Tv as TvType } from "@/types/tv";
@@ -17,6 +17,7 @@ import imageUrl from "@/utils/image-url";
 import pickRandomImages from "@/utils/pick-random-images";
 import SeasonCardItem from "@/components/SeasonCardItem";
 import WatchProviderContainer from "@/components/WatchProviderContainer";
+import PopupYoutubeTrailer from "@/components/PopupYoutubeTrailer";
 
 export default function Tv() {
 	const params = useParams();
@@ -98,15 +99,9 @@ export default function Tv() {
 							</Carousel>
 						)}
 						{!!videos?.results.length && (
-							<Link
-								className="px-2 py-2 w-auto col-span-2 lg:col-span-1 text-center rounded-md bg-red-700"
-								to={`https://www.youtube.com/watch?v=${
-									getVideo(videos?.results)?.key
-								}`}
-								target="_blank"
-							>
-								Watch Trailer
-							</Link>
+							<PopupYoutubeTrailer
+								video={getVideo(videos.results)?.key as string}
+							/>
 						)}
 					</div>
 
