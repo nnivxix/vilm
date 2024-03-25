@@ -82,6 +82,7 @@ export default function Tv() {
 													src={imageUrl({
 														path: image.file_path,
 														size: "w500",
+														type: "backdrop",
 													})}
 													type="backdrop"
 													alt={image.file_path}
