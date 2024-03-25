@@ -1,17 +1,14 @@
-import type { SyntheticEvent } from "react";
+import type { ImgHTMLAttributes, SyntheticEvent } from "react";
 import type { TypeImage } from "@/hooks/useImageFallback";
 import useImageFallback from "@/hooks/useImageFallback";
-import React from "react";
 
-type ImageProps = React.HTMLAttributes<HTMLImageElement> & {
+interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
 	src: string;
 	alt: string;
 	type: TypeImage;
-};
-export default function Image(props: ImageProps) {
-	const { src, alt, type, ...restProps } = props;
+}
+export default function Image({ src, alt, type, ...props }: ImageProps) {
 	const { fallback } = useImageFallback(type);
-
 	const imageFallback = (event: SyntheticEvent<HTMLImageElement, Event>) => {
 		event.currentTarget.src = fallback;
 	};
@@ -21,7 +18,7 @@ export default function Image(props: ImageProps) {
 
 	return (
 		<img
-			{...restProps}
+			{...props}
 			src={fallback}
 			alt={alt}
 			onError={imageFallback}

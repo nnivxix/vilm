@@ -84,14 +84,14 @@ export default function Movie() {
 												key={image.file_path}
 												className="basis-1/2 lg:basis-1/3"
 											>
-												{/* TODO: tag custom image component */}
-												<img
+												<Image
 													height={200}
 													src={imageUrl({
 														path: image.file_path,
 														size: "w500",
 														type: "backdrop",
 													})}
+													type="backdrop"
 													alt={image.file_path}
 												/>
 											</CarouselItem>
