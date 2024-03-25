@@ -83,6 +83,7 @@ export default function Movie() {
 												key={image.file_path}
 												className="basis-1/2 lg:basis-1/3"
 											>
+												{/* TODO: tag custom image component */}
 												<img
 													height={200}
 													src={imageUrl({

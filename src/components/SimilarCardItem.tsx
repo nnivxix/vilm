@@ -3,6 +3,7 @@ import { Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import imageUrl from "@/utils/image-url";
+import Image from "./Image";
 
 interface SimilarCardItemProps<SimilarType> {
 	card: SimilarType;
@@ -36,11 +37,10 @@ export default function SimilarCardItem<
 			</div>
 			<div className="relative">
 				<Link to={`/show/${mediaType}/${card.id}`}>
-					<img
-						src={imageUrl({
-							path: card.poster_path,
-						})}
-						alt={movieTitle}
+					<Image
+						src={imageUrl({ path: card.poster_path, type: "poster" })}
+						alt={movieTitle!}
+						type="poster"
 					/>
 				</Link>
 				<div className="absolute bottom-1 left-3 ">

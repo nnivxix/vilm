@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { MovieTv } from "@/types/response";
 import { Button } from "./ui/button";
 import imageUrl from "@/utils/image-url";
-import type { SyntheticEvent } from "react";
+import Image from "./Image";
 
 interface CardItemProps {
 	movie: MovieTv;
@@ -17,16 +17,6 @@ export default function CardItem({ movie, media }: CardItemProps) {
 	};
 
 	const mediaType = media ?? movie.media_type;
-
-	const imageFallback = (event: SyntheticEvent<HTMLImageElement, Event>) => {
-		event.currentTarget.src = "/poster-fallback.png";
-	};
-	const imageLoaded = (event: SyntheticEvent<HTMLImageElement, Event>) => {
-		event.currentTarget.src = imageUrl({
-			path: movie.poster_path,
-			type: "poster",
-		});
-	};
 
 	return (
 		<article
@@ -44,11 +34,10 @@ export default function CardItem({ movie, media }: CardItemProps) {
 			</div>
 			<div className="relative">
 				<Link to={`/show/${mediaType}/${movie.id}`}>
-					<img
-						src="/poster-fallback.png"
-						alt={movieTitle}
-						onError={imageFallback}
-						onLoad={imageLoaded}
+					<Image
+						src={imageUrl({ path: movie.poster_path, type: "poster" })}
+						alt={movieTitle!}
+						type="poster"
 					/>
 				</Link>
 				<div className="absolute bottom-1 left-3 ">
