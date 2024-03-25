@@ -93,6 +93,14 @@
     "PopupYoutubeTrailer": true,
     "Image": true,
     "useImageFallback": true,
-    "RImage": true
+    "RImage": true,
+    "Star": true,
+    "LucideIcon": true,
+    "lucide-react": true,
+    "default": true,
+    "lucideReact": true,
+    "axios": true,
+    "createContext": true,
+    "Router": true
   }
 }

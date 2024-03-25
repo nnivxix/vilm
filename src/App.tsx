@@ -1,6 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
-import { ThemeProvider } from "./providers/theme";
 
 function App() {
 	return (

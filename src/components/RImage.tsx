@@ -1,6 +1,5 @@
 import type { ImgHTMLAttributes, SyntheticEvent } from "react";
 import type { TypeImage } from "@/hooks/useImageFallback";
-import useImageFallback from "@/hooks/useImageFallback";
 
 interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
 	src: string;

@@ -2,12 +2,21 @@ import path from "path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import AutoImport from "unplugin-auto-import/vite";
-
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [
 		AutoImport({
-			imports: ["react", "react-router-dom"],
+			imports: [
+				"react",
+				"react-router-dom",
+				{
+					from: "react",
+					imports: ["createContext"],
+				},
+				{
+					"react-router-dom": [["BrowserRouter", "Router"]],
+				},
+			],
 			include: [
 				/\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
 				/\.md$/, // .md
