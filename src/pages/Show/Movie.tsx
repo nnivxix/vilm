@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/carousel";
 import SimilarCardItem from "@/components/SimilarCardItem";
 import WatchProviderContainer from "@/components/WatchProviderContainer";
-import { Dialog, DialogContent, DialogTrigger, } from "@/components/Dailog";
+import PopupYoutubeTrailer from "@/components/PopupYoutubeTrailer";
 
 export default function Movie() {
 	const params = useParams();
@@ -107,22 +107,9 @@ export default function Movie() {
 							</Carousel>
 						)}
 						{!!videos?.results.length && (
-						<Dialog>
-							<DialogTrigger asChild>
-								<div className="px-2 py-2 w-auto col-span-2 lg:col-span-1 text-center rounded-md bg-red-700 cursor-pointer">Watch Trailer</div>
-							</DialogTrigger>
-							<DialogContent className="bg-transparent p-0 border-none">
-								<iframe width={610}
-								height={365}
-								src={`https://www.youtube.com/embed/${getVideo(videos?.results)?.key}`} 
-								title="YouTube video player"
-								frameBorder={0}
-								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-								referrerPolicy="strict-origin-when-cross-origin"
-								allowFullScreen={true}
-								/>
-							</DialogContent>
-						</Dialog>
+							<PopupYoutubeTrailer
+								video={getVideo(videos.results)?.key as string}
+							/>
 						)}
 					</div>
 
