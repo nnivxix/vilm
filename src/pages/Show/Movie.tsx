@@ -66,13 +66,14 @@ export default function Movie() {
 												key={image.file_path}
 												className="basis-1/2 lg:basis-1/3"
 											>
-												<img
+												<Image
 													height={200}
 													src={imageUrl({
 														path: image.file_path,
 														size: "w500",
 														type: "backdrop",
 													})}
+													type="backdrop"
 													alt={image.file_path}
 												/>
 											</CarouselItem>
@@ -97,13 +98,14 @@ export default function Movie() {
 					</div>
 
 					<div className="bg-black/50 w-full -z-10 h-full absolute"></div>
-					<img
+					<Image
 						src={imageUrl({
 							path: movie.backdrop_path,
 							size: "w500",
 							type: "backdrop",
 						})}
-						alt=""
+						type="backdrop"
+						alt={movie.title}
 						className="-z-20 w-full h-full overflow-clip absolute inset-0 bg-fixed bg-left lg:bg-center object-cover object-left lg:object-center"
 					/>
 				</div>
