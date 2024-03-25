@@ -1,14 +1,15 @@
 import type { SyntheticEvent } from "react";
 import type { TypeImage } from "@/hooks/useImageFallback";
 import useImageFallback from "@/hooks/useImageFallback";
+import React from "react";
 
-// forward props like shadcn
-interface ImageProps {
+type ImageProps = React.HTMLAttributes<HTMLImageElement> & {
 	src: string;
 	alt: string;
 	type: TypeImage;
-}
-export default function Image({ src, alt, type }: ImageProps) {
+};
+export default function Image(props: ImageProps) {
+	const { src, alt, type, ...restProps } = props;
 	const { fallback } = useImageFallback(type);
 
 	const imageFallback = (event: SyntheticEvent<HTMLImageElement, Event>) => {
@@ -20,6 +21,7 @@ export default function Image({ src, alt, type }: ImageProps) {
 
 	return (
 		<img
+			{...restProps}
 			src={fallback}
 			alt={alt}
 			onError={imageFallback}

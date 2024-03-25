@@ -18,6 +18,7 @@ import pickRandomImages from "@/utils/pick-random-images";
 import SeasonCardItem from "@/components/SeasonCardItem";
 import WatchProviderContainer from "@/components/WatchProviderContainer";
 import PopupYoutubeTrailer from "@/components/PopupYoutubeTrailer";
+import Image from "@/components/Image";
 
 export default function Tv() {
 	const params = useParams();
@@ -107,13 +108,14 @@ export default function Tv() {
 
 					{/* Backgroud */}
 					<div className="bg-black/50 w-full -z-10 h-full absolute"></div>
-					<img
+					<Image
 						src={imageUrl({
 							path: tv.backdrop_path,
 							size: "w500",
 							type: "backdrop",
 						})}
 						alt=""
+						type="backdrop"
 						className="-z-20 w-full h-full overflow-clip absolute inset-0 bg-fixed bg-left lg:bg-center object-cover object-left lg:object-center"
 					/>
 				</div>
