@@ -8,7 +8,7 @@ export default function SeasonCardItem({ season }: SeasonCardItemProps) {
 	return (
 		<article className="w-full lg:w-3/4 hover:scale-105 group transition-transform rounded-lg pb-2 relative bg-gray-900  overflow-hidden">
 			<div className="z-30 p-2 text-white absolute hidden group-hover:grid grid-cols-1 bg-black/50 backdrop-blur-sm w-full h-full">
-				<p>{season.overview ?? ""}</p>
+				<p className="overflow-y-auto">{season.overview ?? ""}</p>
 			</div>
 			<img
 				src={imageUrl({ path: season.poster_path })}
