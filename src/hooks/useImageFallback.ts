@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 export type TypeImage = "poster" | "backdrop";
 
 const useImageFallback = (type: TypeImage) => {
-	const [fallback, setFallback] = useState<string>("/poster-fallback.png");
+	const [fallback, setFallback] = useState<string>("");
 
 	useEffect(() => {
 		switch (type) {
