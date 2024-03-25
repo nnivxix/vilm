@@ -90,6 +90,8 @@
     "DialogPortal": true,
     "DialogTitle": true,
     "DialogTrigger": true,
-    "PopupYoutubeTrailer": true
+    "PopupYoutubeTrailer": true,
+    "Image": true,
+    "useImageFallback": true
   }
 }
