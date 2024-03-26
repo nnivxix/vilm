@@ -45,9 +45,3 @@ Happy Coding
 ## Contributions 🎉👋
 
 All contributions and suggestions are welcome.
-
-<!--
-examples/vite-react/vite.config.ts
-https://github.com/unplugin/unplugin-auto-import/blob/main/examples/vite-react/vite.config.ts
-
- -->
