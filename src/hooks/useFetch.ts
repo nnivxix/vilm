@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import config from "@/config";
 
 const API_TOKEN = import.meta.env.VITE_TMDB_API_TOKEN;

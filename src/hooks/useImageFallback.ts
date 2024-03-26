@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 export type TypeImage = "poster" | "backdrop";
 
 const useImageFallback = (type: TypeImage) => {

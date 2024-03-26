@@ -1,25 +1,7 @@
-import { useParams } from "react-router-dom";
-import useFetch from "@/hooks/useFetch";
 import type { Movie as MovieType } from "@/types/movie";
 import type { Images, Media, Video } from "@/types/media";
 import type { Response, SimilarMixed, SimilarMovie } from "@/types/response";
 import type { Provider, ProvidersResponse } from "@/types/providers";
-import runtimeDuration from "@/utils/runtime-duration";
-import imageUrl from "@/utils/image-url";
-import pickRandomImages from "@/utils/pick-random-images";
-import getYear from "@/utils/get-year";
-import getVideo from "@/utils/get-video";
-import {
-	Carousel,
-	CarouselContent,
-	CarouselItem,
-	CarouselNext,
-	CarouselPrevious,
-} from "@/components/ui/carousel";
-import SimilarCardItem from "@/components/SimilarCardItem";
-import WatchProviderContainer from "@/components/WatchProviderContainer";
-import PopupYoutubeTrailer from "@/components/PopupYoutubeTrailer";
-import Image from "@/components/Image";
 
 export default function Movie() {
 	const params = useParams();
@@ -84,7 +66,7 @@ export default function Movie() {
 												key={image.file_path}
 												className="basis-1/2 lg:basis-1/3"
 											>
-												<Image
+												<RImage
 													height={200}
 													src={imageUrl({
 														path: image.file_path,
@@ -116,7 +98,7 @@ export default function Movie() {
 					</div>
 
 					<div className="bg-black/50 w-full -z-10 h-full absolute"></div>
-					<Image
+					<RImage
 						src={imageUrl({
 							path: movie.backdrop_path,
 							size: "w500",

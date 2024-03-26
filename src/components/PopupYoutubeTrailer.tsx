@@ -1,5 +1,3 @@
-import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
-
 export default function PopupYoutubeTrailer({ video }: { video: string }) {
 	return (
 		<Dialog>

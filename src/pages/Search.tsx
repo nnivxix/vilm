@@ -1,18 +1,6 @@
-import { FormEvent, useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import useFetch from "@/hooks/useFetch";
 import type { MovieTv, Response } from "@/types/response";
+import type { FormEvent } from "react";
 
-import {
-	Select,
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import CardItem from "@/components/CardItem";
 export default function Search() {
 	const [searchParams] = useSearchParams();
 	const navigate = useNavigate();

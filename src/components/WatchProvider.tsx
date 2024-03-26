@@ -1,5 +1,4 @@
 import type { ProviderInfo } from "@/types/providers";
-import { Badge } from "./ui/badge";
 
 interface WatchProviderProps {
 	providers: ProviderInfo[];

@@ -1,24 +1,7 @@
-import { useParams } from "react-router-dom";
-import useFetch from "@/hooks/useFetch";
 import type { Response, SimilarMixed, SimilarTv } from "@/types/response";
 import type { Season, Tv as TvType } from "@/types/tv";
 import type { Images, Media, Video } from "@/types/media";
 import type { Provider, ProvidersResponse } from "@/types/providers";
-import SimilarCardItem from "@/components/SimilarCardItem";
-import {
-	Carousel,
-	CarouselContent,
-	CarouselItem,
-	CarouselPrevious,
-	CarouselNext,
-} from "@/components/ui/carousel";
-import getVideo from "@/utils/get-video";
-import imageUrl from "@/utils/image-url";
-import pickRandomImages from "@/utils/pick-random-images";
-import SeasonCardItem from "@/components/SeasonCardItem";
-import WatchProviderContainer from "@/components/WatchProviderContainer";
-import PopupYoutubeTrailer from "@/components/PopupYoutubeTrailer";
-import Image from "@/components/Image";
 
 export default function Tv() {
 	const params = useParams();
@@ -77,7 +60,7 @@ export default function Tv() {
 												key={image.file_path}
 												className="basis-1/2 lg:basis-1/3"
 											>
-												<Image
+												<RImage
 													height={200}
 													src={imageUrl({
 														path: image.file_path,
@@ -110,7 +93,7 @@ export default function Tv() {
 
 					{/* Backgroud */}
 					<div className="bg-black/50 w-full -z-10 h-full absolute"></div>
-					<Image
+					<RImage
 						src={imageUrl({
 							path: tv.backdrop_path,
 							size: "w500",

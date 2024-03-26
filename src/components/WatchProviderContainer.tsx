@@ -1,6 +1,4 @@
 import type { ProvidersResponse } from "@/types/providers";
-import getProviders from "@/utils/get-providers";
-import WatchProvider from "./WatchProvider";
 
 interface WatchProviderContainerProps {
 	providers: ProvidersResponse["results"];

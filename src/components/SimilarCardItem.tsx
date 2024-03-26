@@ -1,9 +1,5 @@
-import { SimilarMovie, SimilarTv } from "@/types/response";
+import type { SimilarMovie, SimilarTv } from "@/types/response";
 import { Star } from "lucide-react";
-import { Link } from "react-router-dom";
-import { Button } from "./ui/button";
-import imageUrl from "@/utils/image-url";
-import Image from "./Image";
 
 interface SimilarCardItemProps<SimilarType> {
 	card: SimilarType;
@@ -37,7 +33,7 @@ export default function SimilarCardItem<
 			</div>
 			<div className="relative">
 				<Link to={`/show/${mediaType}/${card.id}`}>
-					<Image
+					<RImage
 						src={imageUrl({ path: card.poster_path, type: "poster" })}
 						alt={movieTitle!}
 						type="poster"
