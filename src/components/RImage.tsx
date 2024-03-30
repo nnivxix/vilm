@@ -18,8 +18,10 @@ export default function RImage({ src, alt, type, ...props }: ImageProps) {
 	return (
 		<img
 			{...props}
-			src={src}
+			src={fallback}
 			alt={alt}
+			fetchPriority="high"
+			loading="lazy"
 			onError={imageFallback}
 			onLoad={imageLoaded}
 		/>
