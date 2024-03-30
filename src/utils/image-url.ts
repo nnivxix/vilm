@@ -21,7 +21,7 @@ function imageUrl({ path, size = "w300", type = "poster" }: ImageUrl): string {
 		}
 	}
 
-	return `https://image.tmdb.org/t/p/${size}/${path}`;
+	return `https://image.tmdb.org/t/p${size}/${path}`;
 }
 
 export default imageUrl;
