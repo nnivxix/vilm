@@ -37,6 +37,8 @@ export default function SimilarCardItem<
 						src={imageUrl({ path: card.poster_path, type: "poster" })}
 						alt={movieTitle!}
 						type="poster"
+						height={700}
+						width={1244}
 					/>
 				</Link>
 				<div className="absolute bottom-1 left-3 ">
