@@ -18,7 +18,7 @@ export default function RImage({ src, alt, type, ...props }: ImageProps) {
 	return (
 		<img
 			{...props}
-			src={fallback}
+			src={src}
 			alt={alt}
 			onError={imageFallback}
 			onLoad={imageLoaded}
