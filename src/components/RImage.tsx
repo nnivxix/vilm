@@ -8,11 +8,17 @@ interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
 }
 export default function RImage({ src, alt, type, ...props }: ImageProps) {
 	const { fallback } = useImageFallback(type);
+	const [loaded, setLoaded] = useState(false);
+
+
 	const imageFallback = (event: SyntheticEvent<HTMLImageElement, Event>) => {
 		event.currentTarget.src = fallback;
 	};
 	const imageLoaded = (event: SyntheticEvent<HTMLImageElement, Event>) => {
+		if (loaded) return;
+
 		event.currentTarget.src = src;
+		setLoaded(true)
 	};
 
 	return (
@@ -20,7 +26,6 @@ export default function RImage({ src, alt, type, ...props }: ImageProps) {
 			{...props}
 			src={fallback}
 			alt={alt}
-			fetchPriority="high"
 			loading="lazy"
 			onError={imageFallback}
 			onLoad={imageLoaded}
