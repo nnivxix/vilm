@@ -49,7 +49,7 @@ export default function Search() {
 		<div>
 			<form
 				onSubmit={handleSearch}
-				className="grid md:grid-cols-4 grid-cols-1 px-4 max-w-4xl mx-auto gap-2 mt-5 text-white"
+				className="grid md:grid-cols-4 grid-cols-1 px-4 max-w-4xl mx-auto gap-2 mt-5 text-white mb-20 md:mb-16"
 			>
 				<Input
 					type="text"
