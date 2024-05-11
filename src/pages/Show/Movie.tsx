@@ -79,16 +79,16 @@ export default function Movie() {
 															alt={image.file_path}
 														/>
 													</DialogTrigger>
-													<DialogContent className="p-0">
+													<DialogContent className="p-0 lg:max-w-7xl">
 														<RImage
-															height={200}
 															src={imageUrl({
 																path: image.file_path,
-																size: "w500",
+																size: "original",
 																type: "backdrop",
 															})}
 															type="backdrop"
 															alt={image.file_path}
+															className="rounded-lg"
 														/>
 													</DialogContent>
 												</Dialog>
@@ -135,17 +135,20 @@ export default function Movie() {
 				<h1 className="text-4xl font-semibold col-span-full">
 					Similar Movies:{" "}
 				</h1>
-				{!!similarMovies?.results?.length &&
+				{similarMovies?.results?.length ? (
 					similarMovies?.results?.map((movie) => (
 						<SimilarCardItem
 							media="movie"
 							card={movie as SimilarMixed}
 							key={movie.id}
 						/>
-					))}
-				<div className="text-center py-6 col-span-full text-lg lg:text-xl">
-					<p>No Similiar Movie yet.</p>
-				</div>
+					))) :
+					(
+						<div className="text-center py-6 col-span-full text-lg lg:text-xl">
+							<p>No Similiar Movies Shown yet.</p>
+						</div>
+
+					)}
 			</div>
 			<div className="grid-cols-5 gap-2 max-w-7xl mx-auto grid"></div>
 		</div>

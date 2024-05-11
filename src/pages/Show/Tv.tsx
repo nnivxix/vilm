@@ -73,12 +73,12 @@ export default function Tv() {
 															alt={image.file_path}
 														/>
 													</DialogTrigger>
-													<DialogContent className="p-0" >
+													<DialogContent className="p-0 lg:max-w-7xl" >
 														<RImage
 															height={200}
 															src={imageUrl({
 																path: image.file_path,
-																size: "w500",
+																size: "original",
 																type: "backdrop",
 															})}
 															type="backdrop"
@@ -148,17 +148,20 @@ export default function Tv() {
 
 			<div className="grid lg:grid-cols-5 max-w-6xl md:grid-cols-4 grid-cols-2 gap-5  mx-auto px-5 mt-5">
 				<h1 className="text-4xl font-semibold col-span-full">Similar Tvs: </h1>
-				{!!similarTvs?.results?.length &&
+				{similarTvs?.results?.length ? (
 					similarTvs?.results?.map((movie) => (
 						<SimilarCardItem
 							media="tv"
 							card={movie as SimilarMixed}
 							key={movie.id}
+
 						/>
-					))}
-				<div className="text-center py-6 col-span-full text-lg lg:text-xl">
-					<p>No Similiar Tv Shown yet.</p>
-				</div>
+					))) : (
+					<div className="text-center py-6 col-span-full text-lg lg:text-xl">
+						<p>No Similiar Tv Shows Shown yet.</p>
+					</div>
+
+				)}
 			</div>
 		</div>
 	);
