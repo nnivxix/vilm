@@ -66,16 +66,32 @@ export default function Movie() {
 												key={image.file_path}
 												className="basis-1/2 lg:basis-1/3"
 											>
-												<RImage
-													height={200}
-													src={imageUrl({
-														path: image.file_path,
-														size: "w500",
-														type: "backdrop",
-													})}
-													type="backdrop"
-													alt={image.file_path}
-												/>
+												<Dialog>
+													<DialogTrigger>
+														<RImage
+															height={200}
+															src={imageUrl({
+																path: image.file_path,
+																size: "w500",
+																type: "backdrop",
+															})}
+															type="backdrop"
+															alt={image.file_path}
+														/>
+													</DialogTrigger>
+													<DialogContent className="p-0">
+														<RImage
+															height={200}
+															src={imageUrl({
+																path: image.file_path,
+																size: "w500",
+																type: "backdrop",
+															})}
+															type="backdrop"
+															alt={image.file_path}
+														/>
+													</DialogContent>
+												</Dialog>
 											</CarouselItem>
 										)
 									)}
@@ -127,7 +143,9 @@ export default function Movie() {
 							key={movie.id}
 						/>
 					))}
-				{/* TODO: Fallback if similar videos not found */}
+				<div className="text-center py-6 col-span-full text-lg lg:text-xl">
+					<p>No Similiar Movie yet.</p>
+				</div>
 			</div>
 			<div className="grid-cols-5 gap-2 max-w-7xl mx-auto grid"></div>
 		</div>
