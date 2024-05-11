@@ -156,6 +156,9 @@ export default function Tv() {
 							key={movie.id}
 						/>
 					))}
+				<div className="text-center py-6 col-span-full text-lg lg:text-xl">
+					<p>No Similiar Tv Shown yet.</p>
+				</div>
 			</div>
 		</div>
 	);
