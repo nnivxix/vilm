@@ -108,6 +108,8 @@
     "reducer": true,
     "toast": true,
     "useToast": true,
-    "useLocalStorage": true
+    "useLocalStorage": true,
+    "apiFetcher": true,
+    "$fetch": true
   }
 }

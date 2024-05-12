@@ -19,11 +19,11 @@ export default function Setting() {
     e.preventDefault()
 
     try {
-      const response = await fetch("https://api.themoviedb.org/3/authentication", {
+      const response = await $fetch("/authentication", {
         headers: {
           "Authorization": "Bearer " + form.token,
-          Accept: "application/json"
-        }
+        },
+        defaultToken: false,
       });
       const data = await response.json();
 
