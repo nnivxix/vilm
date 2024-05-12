@@ -1,5 +1,5 @@
 import type { FormEvent } from "react";
-
+import { Settings } from "lucide-react"
 export default function Navbar() {
 	const [searchParams] = useSearchParams();
 	const querySearch = searchParams.get("title");
@@ -21,17 +21,22 @@ export default function Navbar() {
 				<Link to="/" className="logo">
 					<h1 className="text-2xl md:text-4xl font-bold">Vilm</h1>
 				</Link>
-				<form onSubmit={handleSearch}>
-					<input
-						type="search"
-						value={search}
-						onChange={(e) => setSearch(e.target.value)}
-						className="rounded-md p-2 md:w-96 focus:outline-none focus:ring-2  focus:ring-gray-700 focus:border-transparent"
-						aria-label="Search"
-						placeholder="Search movies and tvs"
-						style={{ backgroundColor: "#c4c4c430" }}
-					/>
-				</form>
+				<div className="flex gap-3 items-center">
+					<form onSubmit={handleSearch}>
+						<Input
+							type="search"
+							value={search}
+							onChange={(e) => setSearch(e.target.value)}
+							className="rounded-md p-2 md:w-96 focus:outline-none focus:ring-2  focus:ring-gray-700 focus:border-transparent"
+							aria-label="Search"
+							placeholder="Search movies and tvs"
+							style={{ backgroundColor: "#c4c4c430" }}
+						/>
+					</form>
+					{/* <Link to="/setting" title="Setting Page" >
+						<Settings />
+					</Link> */}
+				</div>
 			</nav>
 		</div>
 	);

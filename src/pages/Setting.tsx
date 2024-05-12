@@ -60,8 +60,7 @@ export default function Setting() {
   }
   return (
     <div className="max-w-4xl mx-auto mt-5">
-
-      <form onSubmit={submitForm} className="grid grid-cols-1 gap-2 px-4">
+      <form onSubmit={submitForm} className="grid grid-cols-1 gap-5 px-4">
         <div>
           <h1 className="text-xl">
             Settings
@@ -73,6 +72,7 @@ export default function Setting() {
           <Label htmlFor="token">API Token</Label>
           <Input placeholder="eyJshghsgfshhffsyery.xaaad..." value={form.token} id="token" onChange={handleChange} name="token" />
           <Link to={"https://developer.themoviedb.org/docs/getting-started"} target="_blank" className="underline">How to get API Token</Link>
+          <p className="text-gray-500" >Don't worry, we don't store your API token, we just save the token to Local Storage, not in our server (Vilm).</p>
         </div>
 
         <div>
