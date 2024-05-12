@@ -10,6 +10,7 @@ function App() {
 					<Route path="/show/tv/:id" element={<Tv />} />
 					<Route path="/show/movie/:id" element={<Movie />} />
 					<Route path="/search" element={<Search />} />
+					<Route path="/setting" element={<Setting />} />
 					<Route path="*" element={<NotFound />} />
 				</Routes>
 			</Router>

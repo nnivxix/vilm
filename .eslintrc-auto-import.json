@@ -94,6 +94,8 @@
     "useState": true,
     "useSyncExternalStore": true,
     "useTheme": true,
-    "useTransition": true
+    "useTransition": true,
+    "Setting": true,
+    "Label": true
   }
 }
