@@ -13,6 +13,7 @@ function App() {
 					<Route path="/setting" element={<Setting />} />
 					<Route path="*" element={<NotFound />} />
 				</Routes>
+				<Toaster />
 			</Router>
 		</ThemeProvider>
 	);

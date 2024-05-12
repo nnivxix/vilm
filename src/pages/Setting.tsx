@@ -2,11 +2,13 @@ import { ChangeEvent, FormEvent } from "react"
 
 
 export default function Setting() {
+  const { item: token, setItem, removeItem } = useLocalStorage("token");
   const [form, setForm] = useState<{
-    token?: string
+    token: string
   }>({
-    token: ""
+    token
   })
+  const { toast } = useToast()
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -15,7 +17,46 @@ export default function Setting() {
 
   const submitForm = async (e: FormEvent) => {
     e.preventDefault()
-    console.log(form)
+
+    try {
+      const response = await fetch("https://api.themoviedb.org/3/authentication", {
+        headers: {
+          "Authorization": "Bearer " + form.token,
+          Accept: "application/json"
+        }
+      });
+      const data = await response.json();
+
+
+      if (!form.token) {
+        removeItem();
+        toast({
+          title: "Success",
+          description: "Data updated succesfully."
+        })
+        return
+      }
+
+      if (response.ok) {
+        setItem(form.token);
+        toast({
+          title: "Success",
+          description: "Data updated succesfully."
+        })
+        return;
+      }
+
+      toast({
+        title: "Error",
+        description: data.status_message
+      })
+      throw new Error(data)
+
+
+
+    } catch (error) {
+      console.error(error)
+    }
   }
   return (
     <div className="max-w-4xl mx-auto">

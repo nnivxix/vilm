@@ -96,6 +96,18 @@
     "useTheme": true,
     "useTransition": true,
     "Setting": true,
-    "Label": true
+    "Label": true,
+    "Toast": true,
+    "ToastAction": true,
+    "ToastClose": true,
+    "ToastDescription": true,
+    "ToastProvider": true,
+    "ToastTitle": true,
+    "ToastViewport": true,
+    "Toaster": true,
+    "reducer": true,
+    "toast": true,
+    "useToast": true,
+    "useLocalStorage": true
   }
 }
