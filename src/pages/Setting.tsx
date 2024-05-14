@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent } from "react"
 import { Clipboard } from "lucide-react";
 
 export default function Setting() {
-  const { item: token, setItem, removeItem } = useLocalStorage("token");
+  const { item: token, setItem, removeItem } = $localStorage("token");
   const [form, setForm] = useState<{
     token: string
   }>({
@@ -27,7 +27,7 @@ export default function Setting() {
     try {
       const response = await $fetch("/authentication", {
         headers: {
-          "Authorization": "Bearer " + form.token,
+          Authorization: "Bearer " + form.token,
         },
         defaultToken: false,
       });
@@ -79,7 +79,7 @@ export default function Setting() {
           <Clipboard className="absolute right-2 top-9 bg-slate-900" size={16} onClick={handleClipboard} />
           <Input placeholder="eyJshghsgfshhffsyery.xaaad..." value={form.token} id="token" onChange={handleChange} name="token" />
           <Link to={"https://developer.themoviedb.org/docs/getting-started"} target="_blank" className="underline">How to get API Token</Link>
-          <p className="text-gray-500" >Don't worry, we don't store your API token, we just save the token to Local Storage, not in our server (Vilm).</p>
+          <p className="text-gray-500" >Don't worry, we won't store your API token to our server (Vilm), we just save the token to Local Storage.</p>
         </div>
 
         <div>

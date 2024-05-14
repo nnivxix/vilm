@@ -12,16 +12,17 @@ const { apiUrl, token } = config;
 const $fetch = (path: string, option?: Option) => {
 	const useDefaultToken = option?.defaultToken ?? true;
 	const headers = {
+		Accept: "application/json",
+		Authorization: useDefaultToken ? "Bearer " + token : "",
 		...option?.headers,
-		headers: {
-			Accept: "application/json",
-			Authorization: useDefaultToken ? "Bearer " + token : "",
-		},
 	};
+
 	const method = option?.method ?? "GET";
 
 	return fetch(`${apiUrl}${path}`, {
-		...headers,
+		headers: {
+			...headers,
+		},
 		method,
 		body: JSON.stringify(option?.body),
 	});

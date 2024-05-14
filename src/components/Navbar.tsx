@@ -1,5 +1,5 @@
 import type { FormEvent } from "react";
-import { Settings } from "lucide-react"
+
 export default function Navbar() {
 	const [searchParams] = useSearchParams();
 	const querySearch = searchParams.get("title");
@@ -15,6 +15,7 @@ export default function Navbar() {
 			search: `?title=${search}&type=movie`,
 		});
 	};
+
 	return (
 		<div className="bg-gray-900">
 			<nav className="flex max-w-6xl mx-auto h-16 items-center  justify-between px-3  bg-gray-900 text-white">

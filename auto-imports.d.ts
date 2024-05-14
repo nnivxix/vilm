@@ -6,6 +6,7 @@
 export {}
 declare global {
   const $fetch: typeof import('./src/utils/$fetch')['default']
+  const $localStorage: typeof import('./src/utils/$local-storage')['default']
   const Badge: typeof import('./src/components/ui/badge')['Badge']
   const Button: typeof import('./src/components/ui/button')['Button']
   const CardItem: typeof import('./src/components/CardItem')['default']
