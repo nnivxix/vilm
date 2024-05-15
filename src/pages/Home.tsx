@@ -2,6 +2,9 @@ import type { Response, MovieTv } from "../types/response";
 
 export default function Home() {
 	const { data: movies } = useFetch<Response<MovieTv[]>>("/trending/all/day");
+	const { data: account } = useFetch("/account");
+
+	console.log(account);
 
 	return (
 		<div>

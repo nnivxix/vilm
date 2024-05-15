@@ -111,6 +111,7 @@
     "useLocalStorage": true,
     "apiFetcher": true,
     "$fetch": true,
-    "$localStorage": true
+    "$localStorage": true,
+    "gravatarUrl": true
   }
 }
