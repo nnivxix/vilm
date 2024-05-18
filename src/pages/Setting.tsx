@@ -9,7 +9,7 @@ export default function Setting() {
     token
   })
   const { toast } = useToast();
-  const { setAccount, account } = useAccount()
+  const { setAccount } = useAccount()
 
   const handleClipboard = async () => {
     const copiedText = await navigator.clipboard.readText();
@@ -42,9 +42,7 @@ export default function Setting() {
           description: "Data updated succesfully."
         })
         setAccount(null);
-        console.log('empty')
-        console.log('account', account)
-        return
+        return;
       }
 
       if (auth.ok) {
@@ -61,11 +59,7 @@ export default function Setting() {
         });
 
         const data = await response.json();
-
         setAccount(data);
-
-        console.log(data);
-        console.log('account', account)
 
         return;
       }

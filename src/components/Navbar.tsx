@@ -6,7 +6,7 @@ export default function Navbar() {
 	const querySearch = searchParams.get("title");
 	const [search, setSearch] = useState<string>(querySearch ?? "");
 	const navigate = useNavigate();
-	const { account } = useAccount();
+	const { account } = useAccount()
 
 
 	const handleSearch = (e: FormEvent) => {
@@ -38,15 +38,15 @@ export default function Navbar() {
 							style={{ backgroundColor: "#c4c4c430" }}
 						/>
 					</form>
-					<Avatar>
-						<AvatarImage src={gravatarUrl(account?.avatar?.gravatar.hash ?? "guest")} />
-						<AvatarFallback>
-							{account?.username ? account?.username[0] : 'G'}
-						</AvatarFallback>
-					</Avatar>
-					{/* <Link to="/setting" title="Setting Page" >
-						<Settings />
-					</Link> */}
+					<Link to="/setting" title="Setting Page" >
+						<Avatar>
+							<AvatarImage src={gravatarUrl(account?.avatar?.gravatar.hash ?? "guest")} />
+							<AvatarFallback>
+								{account?.username ? account?.username[0] : 'G'}
+							</AvatarFallback>
+						</Avatar>
+
+					</Link>
 				</div>
 			</nav>
 		</div>

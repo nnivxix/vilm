@@ -7,6 +7,7 @@ export {}
 declare global {
   const $fetch: typeof import('./src/utils/$fetch')['default']
   const $localStorage: typeof import('./src/utils/$local-storage')['default']
+  const AccountProvider: typeof import('./src/providers/account')['AccountProvider']
   const Avatar: typeof import('./src/components/ui/avatar')['Avatar']
   const AvatarFallback: typeof import('./src/components/ui/avatar')['AvatarFallback']
   const AvatarImage: typeof import('./src/components/ui/avatar')['AvatarImage']
@@ -88,7 +89,7 @@ declare global {
   const runtimeDuration: typeof import('./src/utils/runtime-duration')['default']
   const startTransition: typeof import('react')['startTransition']
   const toast: typeof import('./src/components/ui/use-toast')['toast']
-  const useAccount: typeof import('./src/hooks/useAccount')['default']
+  const useAccount: typeof import('./src/providers/account')['useAccount']
   const useCallback: typeof import('react')['useCallback']
   const useContext: typeof import('react')['useContext']
   const useDebugValue: typeof import('react')['useDebugValue']
