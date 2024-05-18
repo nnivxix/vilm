@@ -38,7 +38,7 @@ export default function Navbar() {
 							style={{ backgroundColor: "#c4c4c430" }}
 						/>
 					</form>
-					<Link to="/setting" title="Setting Page" >
+					<Link to="/setting" title="Go Profile Setting Page" >
 						<Avatar>
 							<AvatarImage src={gravatarUrl(account?.avatar?.gravatar.hash ?? "guest")} />
 							<AvatarFallback>

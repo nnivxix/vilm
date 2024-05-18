@@ -7,25 +7,40 @@ interface Option {
 	defaultToken?: boolean;
 }
 
+export interface ResponseMessage {
+	status_code: number;
+	status_message: string;
+	success: boolean;
+}
+
 const { apiUrl, token } = config;
 
-const $fetch = async <T>(path: string, option?: Option): Promise<T> => {
+const $fetch = async <T>(path: string, option?: Option) => {
 	const useDefaultToken = option?.defaultToken ?? true;
 	const headers = {
 		Accept: "application/json",
 		Authorization: useDefaultToken ? "Bearer " + token : "",
 		...option?.headers,
 	};
-
 	const method = option?.method ?? "GET";
 
-	return fetch(`${apiUrl}${path}`, {
+	const response: Response = await fetch(`${apiUrl}${path}`, {
 		headers: {
 			...headers,
 		},
 		method,
 		body: JSON.stringify(option?.body),
-	}) as Promise<T>;
+	});
+
+	const data: T = await response.json();
+	const isError = !response.ok;
+	const error: ResponseMessage | null = isError
+		? (data as ResponseMessage)
+		: null;
+
+	console.log({ response, data, error });
+
+	return { response, data, error };
 };
 
 export default $fetch;

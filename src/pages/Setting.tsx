@@ -1,5 +1,6 @@
 import { ChangeEvent, FormEvent } from "react"
 import { Clipboard } from "lucide-react";
+import { Account } from "@/providers/account";
 
 export default function Setting() {
   const { item: token, setItem, removeItem } = $localStorage("token");
@@ -9,7 +10,7 @@ export default function Setting() {
     token
   })
   const { toast } = useToast();
-  const { setAccount } = useAccount()
+  const { setAccount } = useAccount();
 
   const handleClipboard = async () => {
     const copiedText = await navigator.clipboard.readText();
@@ -23,16 +24,18 @@ export default function Setting() {
   }
 
   const submitForm = async (e: FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
+
+    if (token === form.token) return;
 
     try {
-      const auth = await $fetch<Response>("/authentication", {
+      const { error } = await $fetch<Account>("/authentication", {
         headers: {
           Authorization: "Bearer " + form.token,
         },
         defaultToken: false,
       });
-      const data = await auth.json();
+
 
 
       if (!form.token) {
@@ -45,30 +48,28 @@ export default function Setting() {
         return;
       }
 
-      if (auth.ok) {
+      if (!error) {
         setItem(form.token);
         toast({
           title: "Success",
           description: "Data updated succesfully."
         })
-        const response = await $fetch<Response>("/account", {
+        const { data } = await $fetch<Account>("/account", {
           headers: {
             Authorization: "Bearer " + form.token,
           },
           defaultToken: false,
         });
 
-        const data = await response.json();
         setAccount(data);
-
         return;
       }
 
       toast({
         title: "Error",
-        description: data.status_message
+        description: error?.status_message,
       })
-      throw new Error(data)
+      throw new Error(error?.status_message)
 
 
 

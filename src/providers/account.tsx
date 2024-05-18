@@ -44,14 +44,12 @@ export function AccountProvider({
 
   useEffect(() => {
     const getAccount = async () => {
-      const response = await $fetch<Response>("/account", {
+      const { data } = await $fetch<Account>("/account", {
         headers: {
           Authorization: "Bearer " + token,
         },
         defaultToken: false,
       });
-
-      const data = await response.json();
 
       setAccount(data);
     };
@@ -61,7 +59,7 @@ export function AccountProvider({
   const value = {
     account,
     setAccount: () => {
-      setAccount(null)
+      setAccount(account)
     }
   }
   return (
