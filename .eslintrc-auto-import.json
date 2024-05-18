@@ -112,6 +112,10 @@
     "apiFetcher": true,
     "$fetch": true,
     "$localStorage": true,
-    "gravatarUrl": true
+    "gravatarUrl": true,
+    "useAccount": true,
+    "Avatar": true,
+    "AvatarFallback": true,
+    "AvatarImage": true
   }
 }

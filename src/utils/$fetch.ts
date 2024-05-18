@@ -9,7 +9,7 @@ interface Option {
 
 const { apiUrl, token } = config;
 
-const $fetch = (path: string, option?: Option) => {
+const $fetch = async <T>(path: string, option?: Option): Promise<T> => {
 	const useDefaultToken = option?.defaultToken ?? true;
 	const headers = {
 		Accept: "application/json",
@@ -25,7 +25,7 @@ const $fetch = (path: string, option?: Option) => {
 		},
 		method,
 		body: JSON.stringify(option?.body),
-	});
+	}) as Promise<T>;
 };
 
 export default $fetch;

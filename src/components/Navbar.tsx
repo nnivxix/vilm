@@ -1,10 +1,14 @@
 import type { FormEvent } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 export default function Navbar() {
 	const [searchParams] = useSearchParams();
 	const querySearch = searchParams.get("title");
 	const [search, setSearch] = useState<string>(querySearch ?? "");
 	const navigate = useNavigate();
+	const { account } = useAccount();
+
+
 	const handleSearch = (e: FormEvent) => {
 		e.preventDefault();
 		if (!search.length) {
@@ -34,6 +38,12 @@ export default function Navbar() {
 							style={{ backgroundColor: "#c4c4c430" }}
 						/>
 					</form>
+					<Avatar>
+						<AvatarImage src={gravatarUrl(account?.avatar?.gravatar.hash ?? "guest")} />
+						<AvatarFallback>
+							{account?.username ? account?.username[0] : 'G'}
+						</AvatarFallback>
+					</Avatar>
 					{/* <Link to="/setting" title="Setting Page" >
 						<Settings />
 					</Link> */}

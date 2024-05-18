@@ -16,7 +16,7 @@ interface GravatarOption {
  */
 
 const gravatarUrl = (
-	hash: string,
+	hash?: string,
 	option: GravatarOption = {
 		size: 256,
 		default: "mp",

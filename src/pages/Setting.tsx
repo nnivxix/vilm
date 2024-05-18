@@ -9,6 +9,7 @@ export default function Setting() {
     token
   })
   const { toast } = useToast();
+  const { setAccount, account } = useAccount()
 
   const handleClipboard = async () => {
     const copiedText = await navigator.clipboard.readText();
@@ -25,13 +26,13 @@ export default function Setting() {
     e.preventDefault()
 
     try {
-      const response = await $fetch("/authentication", {
+      const auth = await $fetch<Response>("/authentication", {
         headers: {
           Authorization: "Bearer " + form.token,
         },
         defaultToken: false,
       });
-      const data = await response.json();
+      const data = await auth.json();
 
 
       if (!form.token) {
@@ -40,15 +41,32 @@ export default function Setting() {
           title: "Success",
           description: "Data updated succesfully."
         })
+        setAccount(null);
+        console.log('empty')
+        console.log('account', account)
         return
       }
 
-      if (response.ok) {
+      if (auth.ok) {
         setItem(form.token);
         toast({
           title: "Success",
           description: "Data updated succesfully."
         })
+        const response = await $fetch<Response>("/account", {
+          headers: {
+            Authorization: "Bearer " + form.token,
+          },
+          defaultToken: false,
+        });
+
+        const data = await response.json();
+
+        setAccount(data);
+
+        console.log(data);
+        console.log('account', account)
+
         return;
       }
 
