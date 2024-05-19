@@ -92,7 +92,7 @@ export default function Setting() {
           <Clipboard className="absolute right-2 top-9 bg-slate-900" size={16} onClick={handleClipboard} />
           <Input placeholder="eyJshghsgfshhffsyery.xaaad..." value={form.token} id="token" onChange={handleChange} name="token" />
           <Link to={"https://developer.themoviedb.org/docs/getting-started"} target="_blank" className="underline">How to get API Token</Link>
-          <p className="text-gray-500" >Don't worry, we won't store your API token to our server (Vilm), we just save the token to Local Storage.</p>
+          <p className="text-gray-500" >Don't worry, we won't store your API token to our server (Vilm), we'll store the token to LocalStorage.</p>
         </div>
 
         <div>
