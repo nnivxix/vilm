@@ -1,6 +1,6 @@
 import config from "@/config";
 
-const API_TOKEN = import.meta.env.VITE_TMDB_API_TOKEN;
+const API_TOKEN = config.token;
 
 function useFetch<DataT>(path: string) {
 	const [data, setData] = useState<DataT>();
