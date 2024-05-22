@@ -117,6 +117,8 @@
     "Avatar": true,
     "AvatarFallback": true,
     "AvatarImage": true,
-    "AccountProvider": true
+    "AccountProvider": true,
+    "AccountProviderContext": true,
+    "ThemeProviderContext": true
   }
 }

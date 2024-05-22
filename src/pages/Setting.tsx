@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent } from "react"
 import { Clipboard } from "lucide-react";
-import { Account } from "@/providers/account";
+import type { Account } from "@/contexts/AccountContext/AccountProvider";
 
 export default function Setting() {
   const { item: token, setItem, removeItem } = $localStorage("token");
@@ -10,7 +10,7 @@ export default function Setting() {
     token
   })
   const { toast } = useToast();
-  const { setAccount } = useAccount();
+  const { setAccount, setIsAuthenticated } = useAccount();
 
   const handleClipboard = async () => {
     const copiedText = await navigator.clipboard.readText();
@@ -45,6 +45,8 @@ export default function Setting() {
           description: "Data updated succesfully."
         })
         setAccount(null);
+        setIsAuthenticated(false);
+
         return;
       }
 
@@ -62,6 +64,8 @@ export default function Setting() {
         });
 
         setAccount(data);
+
+        setIsAuthenticated(true);
         return;
       }
 
