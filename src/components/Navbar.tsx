@@ -1,5 +1,5 @@
+import { Clock8, Settings } from "lucide-react";
 import type { FormEvent } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 export default function Navbar() {
   const [searchParams] = useSearchParams();
@@ -38,15 +38,37 @@ export default function Navbar() {
               style={{ backgroundColor: "#c4c4c430" }}
             />
           </form>
-          <Link to="/setting" title="Go Profile Setting Page" >
-            <Avatar>
-              <AvatarImage src={gravatarUrl(account?.avatar?.gravatar.hash ?? "guest")} />
-              <AvatarFallback>
-                {account?.username ? account?.username[0] : 'G'}
-              </AvatarFallback>
-            </Avatar>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Avatar>
+                <AvatarImage src={gravatarUrl(account?.avatar?.gravatar.hash ?? "guest")} />
+                <AvatarFallback>
+                  {account?.username ? account?.username[0] : 'G'}
+                </AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Hello {account?.username ?? 'Guest'}</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem className="font-normal" asChild>
+                <Link to="/setting" title="Go Profile Setting Page" >
+                  <Settings />
+                  <span className="ml-3">
+                    Settings
 
-          </Link>
+                  </span>
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="font-normal" asChild>
+                <Link to="/watchlist" title="Go Profile Setting Page" >
+                  <Clock8 />
+                  <span className="ml-3">
+                    My Watchlist
+                  </span>
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </nav>
     </div>

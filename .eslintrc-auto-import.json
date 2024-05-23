@@ -120,6 +120,22 @@
     "AccountProvider": true,
     "AccountProviderContext": true,
     "ThemeProviderContext": true,
-    "AddToWatchlistButton": true
+    "AddToWatchlistButton": true,
+    "DropdownMenu": true,
+    "DropdownMenuCheckboxItem": true,
+    "DropdownMenuContent": true,
+    "DropdownMenuGroup": true,
+    "DropdownMenuItem": true,
+    "DropdownMenuLabel": true,
+    "DropdownMenuPortal": true,
+    "DropdownMenuRadioGroup": true,
+    "DropdownMenuRadioItem": true,
+    "DropdownMenuSeparator": true,
+    "DropdownMenuShortcut": true,
+    "DropdownMenuSub": true,
+    "DropdownMenuSubContent": true,
+    "DropdownMenuSubTrigger": true,
+    "DropdownMenuTrigger": true,
+    "Watchlist": true
   }
 }
