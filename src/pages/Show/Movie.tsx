@@ -4,6 +4,7 @@ import type { Provider } from "@/types/providers";
 
 export default function Movie() {
   const params = useParams();
+  const { isAuthenticated } = useAccount()
 
   const {
     data: movie,
@@ -102,6 +103,9 @@ export default function Movie() {
               <PopupYoutubeTrailer
                 video={getVideo(movie.videos.results)?.key as string}
               />
+            )}
+            {isAuthenticated && (
+              <AddToWatchlistButton states={movie.account_states} mediaId={movie.id} type="movie" />
             )}
           </div>
 

@@ -119,6 +119,7 @@
     "AvatarImage": true,
     "AccountProvider": true,
     "AccountProviderContext": true,
-    "ThemeProviderContext": true
+    "ThemeProviderContext": true,
+    "AddToWatchlistButton": true
   }
 }

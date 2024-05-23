@@ -5,6 +5,7 @@ import type { Provider } from "@/types/providers";
 
 export default function Tv() {
   const params = useParams();
+  const { isAuthenticated } = useAccount()
 
   const { data: tv, isLoading, error } = useFetch<TvResponse>(`/tv/${params.id}`,
     {
@@ -99,6 +100,9 @@ export default function Tv() {
               <PopupYoutubeTrailer
                 video={getVideo(tv.videos.results)?.key as string}
               />
+            )}
+            {isAuthenticated && (
+              <AddToWatchlistButton states={tv.account_states} mediaId={tv.id} type="tv" />
             )}
           </div>
 

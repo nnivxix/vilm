@@ -9,6 +9,7 @@ declare global {
   const $localStorage: typeof import('./src/utils/$local-storage')['default']
   const AccountProvider: typeof import('./src/contexts/AccountContext/AccountProvider')['AccountProvider']
   const AccountProviderContext: typeof import('./src/contexts/AccountContext/AccountProvider')['AccountProviderContext']
+  const AddToWatchlistButton: typeof import('./src/components/AddToWatchlistButton')['default']
   const Avatar: typeof import('./src/components/ui/avatar')['Avatar']
   const AvatarFallback: typeof import('./src/components/ui/avatar')['AvatarFallback']
   const AvatarImage: typeof import('./src/components/ui/avatar')['AvatarImage']

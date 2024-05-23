@@ -1,9 +1,9 @@
 import config from "@/config";
 
 interface Option {
-  headers: { [key: string]: string };
+  headers?: { [key: string]: string };
   method?: string;
-  body?: unknown;
+  body?: { [key: string]: string | boolean | number };
   defaultToken?: boolean;
 }
 
@@ -19,6 +19,7 @@ const $fetch = async <T>(path: string, option?: Option) => {
   const useDefaultToken = option?.defaultToken ?? true;
   const headers = {
     Accept: "application/json",
+    "content-type": "application/json",
     Authorization: useDefaultToken ? "Bearer " + token : "",
     ...option?.headers,
   };
@@ -29,7 +30,7 @@ const $fetch = async <T>(path: string, option?: Option) => {
       ...headers,
     },
     method,
-    body: JSON.stringify(option?.body),
+    ...(method !== "GET" && { body: JSON.stringify({ ...option?.body }) }),
   });
 
   const data: T = await response.json();
