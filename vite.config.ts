@@ -35,6 +35,7 @@ export default defineConfig({
         "./src/providers",
         "./src/lib",
         "./src/contexts/**",
+        "./src/layouts/",
       ],
     }),
     react(),

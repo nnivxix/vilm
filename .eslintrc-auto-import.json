@@ -136,6 +136,10 @@
     "DropdownMenuSubContent": true,
     "DropdownMenuSubTrigger": true,
     "DropdownMenuTrigger": true,
-    "Watchlist": true
+    "Watchlist": true,
+    "Movies": true,
+    "TvShows": true,
+    "WatchlistLayout": true,
+    "BackdropCard": true
   }
 }

@@ -1,4 +1,4 @@
-import { Clock8, Settings } from "lucide-react";
+import { LibraryBig, Settings } from "lucide-react";
 import type { FormEvent } from "react";
 
 export default function Navbar() {
@@ -51,17 +51,16 @@ export default function Navbar() {
               <DropdownMenuLabel>Hello {account?.username ?? 'Guest'}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem className="font-normal" asChild>
-                <Link to="/setting" title="Go Profile Setting Page" >
+                <Link to="/setting" title="Go to profile setting page" >
                   <Settings />
                   <span className="ml-3">
                     Settings
-
                   </span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem className="font-normal" asChild>
-                <Link to="/watchlist" title="Go Profile Setting Page" >
-                  <Clock8 />
+                <Link to="/watchlist/movie" title="Go to watchlist page" >
+                  <LibraryBig />
                   <span className="ml-3">
                     My Watchlist
                   </span>
