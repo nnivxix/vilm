@@ -23,28 +23,33 @@ export interface Tmdb {
 
 type AccountProviderState = {
   account?: Account | null;
-  setAccount: (account?: Account | null) => void;
+  isAuthenticated: boolean;
+  setAccount: React.Dispatch<React.SetStateAction<Account | null>>;
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-
-const AccountProviderContext = createContext<AccountProviderState>({
+export const AccountProviderContext = createContext<AccountProviderState>({
   account: null,
-  setAccount: () => null
+  isAuthenticated: false,
+  setAccount: () => null,
+  setIsAuthenticated: () => false
 })
 
 export function AccountProvider({
-  children,
-  ...props
+  children
 }: {
   children: React.ReactNode
 }) {
 
   const { item: token } = $localStorage("token");
   const [account, setAccount] = useState<Account | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(!!account?.username);
 
   useEffect(() => {
     const getAccount = async () => {
-      const { data } = await $fetch<Account>("/account", {
+      if (!token.length) return;
+
+      const { data, error } = await $fetch<Account>("/account", {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -52,27 +57,27 @@ export function AccountProvider({
       });
 
       setAccount(data);
-    };
+      if (error?.success === false) {
+        setIsAuthenticated(false)
+      } else {
+        setIsAuthenticated(true)
+      }
 
+    };
     getAccount();
   }, [token]);
+
   const value = {
     account,
-    setAccount: () => {
-      setAccount(account)
-    }
-  }
+    isAuthenticated,
+    setAccount,
+    setIsAuthenticated,
+  };
+
   return (
-    <AccountProviderContext.Provider {...props} value={value}>
+    <AccountProviderContext.Provider value={value}>
       {children}
     </AccountProviderContext.Provider>
-  )
+  );
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
-export const useAccount = () => {
-  const context = useContext(AccountProviderContext);
-
-  return context;
-
-}
