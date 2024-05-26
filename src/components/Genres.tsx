@@ -4,8 +4,6 @@ interface GenresProps {
   genres: Genre[]
 }
 
-
-
 export default function Genres({ genres }: GenresProps) {
   return (
     <div className="lg:col-span-full col-span-full max-w-6xl mx-auto px-5 ">

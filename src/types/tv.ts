@@ -1,4 +1,5 @@
-import { SimpleBaseMedia } from "@/components/BackdropCard";
+import type { SimpleBaseMedia } from "@/components/BackdropCard";
+import type { Genre } from "./media";
 
 export interface Tv {
   adult: boolean;
@@ -41,11 +42,6 @@ export interface CreatedBy {
   name: string;
   gender: number;
   profile_path?: string;
-}
-
-export interface Genre {
-  id: number;
-  name: string;
 }
 
 export interface LastEpisodeToAir {

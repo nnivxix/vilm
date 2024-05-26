@@ -1,4 +1,5 @@
 import type { SimpleBaseMedia } from "@/components/BackdropCard";
+import type { Genre } from "./media";
 
 export interface Movie {
   adult: boolean;
@@ -33,11 +34,6 @@ export interface BelongsToCollection {
   name: string;
   poster_path: string;
   backdrop_path: string;
-}
-
-export interface Genre {
-  id: number;
-  name: string;
 }
 
 export interface ProductionCompany {
