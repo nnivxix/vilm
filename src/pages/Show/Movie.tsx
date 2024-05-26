@@ -15,6 +15,12 @@ export default function Movie() {
     language: "en-US",
     include_image_language: "en,null"
   });
+  useHead({
+    title: 'Vilm - ' + movie?.title,
+    meta: {
+      description: movie?.overview as string
+    }
+  });
 
 
   if (error) {

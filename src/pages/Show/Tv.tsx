@@ -15,6 +15,13 @@ export default function Tv() {
     }
   );
 
+  useHead({
+    title: 'Vilm - ' + tv?.name,
+    meta: {
+      description: tv?.overview as string
+    }
+  });
+
 
   if (error) {
     return <pre className="text-white">{error}</pre>;

@@ -119,6 +119,7 @@ declare global {
   const useDeferredValue: typeof import('react')['useDeferredValue']
   const useEffect: typeof import('react')['useEffect']
   const useFetch: typeof import('./src/hooks/useFetch')['default']
+  const useHead: typeof import('./src/hooks/useHead')['default']
   const useHref: typeof import('react-router-dom')['useHref']
   const useId: typeof import('react')['useId']
   const useImageFallback: typeof import('./src/hooks/useImageFallback')['default']

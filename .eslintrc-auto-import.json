@@ -141,6 +141,7 @@
     "TvShows": true,
     "WatchlistLayout": true,
     "BackdropCard": true,
-    "Genres": true
+    "Genres": true,
+    "useHead": true
   }
 }

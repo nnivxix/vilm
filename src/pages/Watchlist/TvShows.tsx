@@ -5,6 +5,14 @@ export default function TvShows() {
   const { account, isAuthenticated } = useAccount()
   const { data: tv } = useFetch<Response<SimpleTv[]>>(`/account/${account?.id}/watchlist/tv`)
 
+
+  useHead({
+    title: 'Vilm - Tv Shows Watchlist',
+    meta: {
+      description: 'Here you can manage watchlist tv shows.'
+    }
+  });
+
   if (!isAuthenticated) {
     return (
       <WatchlistLayout>

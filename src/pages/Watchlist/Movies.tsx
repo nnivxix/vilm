@@ -6,6 +6,13 @@ export default function Movies() {
   const { account, isAuthenticated } = useAccount();
   const { data: movies } = useFetch<Response<SimpleMovie[]>>(`/account/${account?.id}/watchlist/movies`)
 
+  useHead({
+    title: 'Vilm - Movies Watchlist',
+    meta: {
+      description: 'Here you can manage watchlist movies.'
+    }
+  });
+
   if (!isAuthenticated) {
     return (
       <WatchlistLayout>
