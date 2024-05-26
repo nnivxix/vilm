@@ -42,20 +42,12 @@ export default function Movie() {
               Duration: {runtimeDuration(movie.runtime)} |{" "}
               {getYear(movie.release_date)}
             </h4>
-            <p className="col-span-full lg:col-span-2 text-lg">
+            <p className="col-span-full lg:col-span-full text-lg">
               {movie.overview}
             </p>
-            <div className="flex flex-wrap gap-2 col-span-full">
-              {!!movie.genres.length &&
-                movie.genres.map((genre) => (
-                  <span
-                    key={genre.id}
-                    className="p-3 border-2 border-primary rounded-md hover:bg-white/20 cursor-pointer"
-                  >
-                    {genre.name}
-                  </span>
-                ))}
-            </div>
+            {!!movie.genres.length &&
+              <Genres genres={movie.genres} />}
+
             {!!movie.images?.backdrops.length && (
               <Carousel className="lg:col-span-full col-span-full ">
                 <CarouselContent>
@@ -127,10 +119,6 @@ export default function Movie() {
             className="-z-20 w-full h-full overflow-clip absolute inset-0 bg-fixed bg-left lg:bg-center object-cover object-left lg:object-center"
           />
         </div>
-      )}
-
-      {movie?.genres.length && (
-        <Genres genres={movie?.genres} />
       )}
 
       <WatchProviderContainer providers={movie?.["watch/providers"].results as Provider} />
