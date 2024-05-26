@@ -143,6 +143,10 @@ export default function Tv() {
         </Carousel>
       )}
 
+      {tv?.genres.length && (
+        <Genres genres={tv?.genres} />
+      )}
+
       <WatchProviderContainer providers={tv?.["watch/providers"]?.results as Provider} />
 
       <div className="grid lg:grid-cols-5 max-w-6xl md:grid-cols-4 grid-cols-2 gap-5  mx-auto px-5 mt-5">

@@ -140,6 +140,7 @@
     "Movies": true,
     "TvShows": true,
     "WatchlistLayout": true,
-    "BackdropCard": true
+    "BackdropCard": true,
+    "Genres": true
   }
 }

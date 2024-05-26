@@ -11,7 +11,7 @@ export default function Movie() {
     isLoading,
     error,
   } = useFetch<MovieResponse>(`/movie/${params.id}`, {
-    append_to_response: "images,videos,watch/providers,account_states,similar",
+    append_to_response: "genre,images,videos,watch/providers,account_states,similar",
     language: "en-US",
     include_image_language: "en,null"
   });
@@ -121,6 +121,10 @@ export default function Movie() {
             className="-z-20 w-full h-full overflow-clip absolute inset-0 bg-fixed bg-left lg:bg-center object-cover object-left lg:object-center"
           />
         </div>
+      )}
+
+      {movie?.genres.length && (
+        <Genres genres={movie?.genres} />
       )}
 
       <WatchProviderContainer providers={movie?.["watch/providers"].results as Provider} />
