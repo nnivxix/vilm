@@ -81,6 +81,15 @@ export default function Setting() {
       console.error(error)
     }
   }
+
+
+  useHead({
+    title: 'Vilm - Settings',
+    meta: {
+      description: 'Here you can manage your settings'
+    }
+  });
+
   return (
     <div className="max-w-4xl mx-auto mt-5">
       <form onSubmit={submitForm} className="grid grid-cols-1 gap-5 px-4">

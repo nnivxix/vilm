@@ -15,6 +15,13 @@ export default function Tv() {
     }
   );
 
+  useHead({
+    title: 'Vilm - ' + tv?.name,
+    meta: {
+      description: tv?.overview as string
+    }
+  });
+
 
   if (error) {
     return <pre className="text-white">{error}</pre>;
@@ -141,6 +148,10 @@ export default function Tv() {
           />
           <CarouselNext variant={"ghost"} className="hidden lg:inline-flex " />
         </Carousel>
+      )}
+
+      {tv?.genres.length && (
+        <Genres genres={tv?.genres} />
       )}
 
       <WatchProviderContainer providers={tv?.["watch/providers"]?.results as Provider} />
