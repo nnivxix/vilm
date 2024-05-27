@@ -1,4 +1,6 @@
-# Vilm React
+![vilm banner](./public/vilm-banner.jpg)
+
+# Vilm
 
 ## Guide Instalation
 
