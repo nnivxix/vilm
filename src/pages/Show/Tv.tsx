@@ -42,18 +42,10 @@ export default function Tv() {
               Number of Season: {tv.number_of_seasons} | Number of Episodes:{" "}
               {tv.number_of_episodes}
             </h4>
-            <p className="col-span-full lg:col-span-2 text-lg">{tv.overview}</p>
-            <div className="flex flex-wrap gap-2 col-span-full">
-              {!!tv.genres.length &&
-                tv.genres.map((genre) => (
-                  <span
-                    key={genre.id}
-                    className="p-3 border-2 border-primary rounded-md hover:bg-white/20 cursor-pointer"
-                  >
-                    {genre.name}
-                  </span>
-                ))}
-            </div>
+            <p className="col-span-full lg:col-span-full text-lg">{tv.overview}</p>
+            {tv.genres.length && (
+              <Genres genres={tv.genres} />
+            )}
             {!!tv.images?.backdrops.length && (
               <Carousel className="lg:col-span-full col-span-full ">
                 <CarouselContent>
@@ -148,10 +140,6 @@ export default function Tv() {
           />
           <CarouselNext variant={"ghost"} className="hidden lg:inline-flex " />
         </Carousel>
-      )}
-
-      {tv?.genres.length && (
-        <Genres genres={tv?.genres} />
       )}
 
       <WatchProviderContainer providers={tv?.["watch/providers"]?.results as Provider} />
