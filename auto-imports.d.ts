@@ -47,6 +47,7 @@ declare global {
   const DropdownMenuSubContent: typeof import('./src/components/ui/dropdown-menu')['DropdownMenuSubContent']
   const DropdownMenuSubTrigger: typeof import('./src/components/ui/dropdown-menu')['DropdownMenuSubTrigger']
   const DropdownMenuTrigger: typeof import('./src/components/ui/dropdown-menu')['DropdownMenuTrigger']
+  const Footer: typeof import('./src/components/Footer')['default']
   const Genres: typeof import('./src/components/Genres')['default']
   const Home: typeof import('./src/pages/Home')['default']
   const Input: typeof import('./src/components/ui/input')['Input']
