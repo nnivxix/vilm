@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer className="bg-gray-900 text-white py-8 px-4 border-t-4 border-blue-600 w-full mt-9">
-      <div className="w-full px-4 grid grid-cols-2">
+      <div className="w-full px-4 grid grid-cols-1 lg:grid-cols-2">
         <div className="col-spans-1">
           <h1 className="text-2xl font-bold mb-4">Vilm</h1>
           <p className="text-gray-400 mb-1 ">
