@@ -6,8 +6,7 @@ export default function Navbar() {
   const querySearch = searchParams.get("title");
   const [search, setSearch] = useState<string>(querySearch ?? "");
   const navigate = useNavigate();
-  const { account } = useAccount()
-
+  const { account } = useAccount();
 
   const handleSearch = (e: FormEvent) => {
     e.preventDefault();
@@ -41,29 +40,29 @@ export default function Navbar() {
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Avatar>
-                <AvatarImage src={gravatarUrl(account?.avatar?.gravatar.hash ?? "guest")} />
+                <AvatarImage
+                  src={gravatarUrl(account?.avatar?.gravatar.hash ?? "guest")}
+                />
                 <AvatarFallback>
-                  {account?.username ? account?.username[0] : 'G'}
+                  {account?.username ? account?.username[0] : "G"}
                 </AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Hello {account?.username ?? 'Guest'}</DropdownMenuLabel>
+              <DropdownMenuLabel>
+                Hello {account?.username ?? "Guest"}
+              </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem className="font-normal" asChild>
-                <Link to="/setting" title="Go to profile setting page" >
+                <Link to="/setting" title="Go to profile setting page">
                   <Settings />
-                  <span className="ml-3">
-                    Settings
-                  </span>
+                  <span className="ml-3">Settings</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem className="font-normal" asChild>
-                <Link to="/watchlist/movie" title="Go to watchlist page" >
+                <Link to="/watchlist/movie" title="Go to watchlist page">
                   <LibraryBig />
-                  <span className="ml-3">
-                    My Watchlist
-                  </span>
+                  <span className="ml-3">My Watchlist</span>
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>

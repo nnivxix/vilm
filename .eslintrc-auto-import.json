@@ -142,6 +142,7 @@
     "WatchlistLayout": true,
     "BackdropCard": true,
     "Genres": true,
-    "useHead": true
+    "useHead": true,
+    "Footer": true
   }
 }
