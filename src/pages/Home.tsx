@@ -11,6 +11,10 @@ export default function Home() {
 
   return (
     <div>
+      {movies?.results.length && (
+        <Banner movie={movies?.results[0] as MovieTv} />
+      )}
+
       <div className="grid lg:grid-cols-8 md:grid-cols-4 grid-cols-2 gap-5  mx-auto px-5 mt-5">
         {movies?.results.map((movie: MovieTv) => (
           <CardItem movie={movie} key={movie.id} />

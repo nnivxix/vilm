@@ -143,6 +143,8 @@
     "BackdropCard": true,
     "Genres": true,
     "useHead": true,
-    "Footer": true
+    "Footer": true,
+    "Test": true,
+    "Banner": true
   }
 }
