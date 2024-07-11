@@ -1,4 +1,4 @@
-import type { SimilarMixed, TvResponse } from "@/types/response";
+import type { SimilarMixed, TvResponse, AccountStates } from "@/types/response";
 import type { Season } from "@/types/tv";
 import type { Media } from "@/types/media";
 import type { Provider } from "@/types/providers";
@@ -9,11 +9,12 @@ export default function Tv() {
 
   const { data: tv, isLoading, error } = useFetch<TvResponse>(`/tv/${params.id}`,
     {
-      append_to_response: "images,videos,watch/providers,account_states,similar",
+      append_to_response: "images,videos,watch/providers,similar",
       language: "en-US",
       include_image_language: "en,null"
     }
   );
+  const { data: states } = useFetch<AccountStates>(`/tv/${params.id}/account_states`);
 
   useHead({
     title: 'Vilm - ' + tv?.name,
@@ -50,9 +51,9 @@ export default function Tv() {
               <Carousel className="lg:col-span-full col-span-full ">
                 <CarouselContent>
                   {pickRandomImages(tv.images.backdrops as Media[], 7).map(
-                    (image: Media) => (
+                    (image: Media, index) => (
                       <CarouselItem
-                        key={image.file_path}
+                        key={index}
                         className="basis-1/2 lg:basis-1/3"
                       >
                         <Dialog>
@@ -100,9 +101,9 @@ export default function Tv() {
                 video={getVideo(tv.videos.results)?.key as string}
               />
             )}
-            {isAuthenticated && (
-              <AddToWatchlistButton states={tv.account_states} mediaId={tv.id} type="tv" />
-            )}
+            {isAuthenticated && states ? (
+              <AddToWatchlistButton states={states as AccountStates} mediaId={tv.id} type="tv" />
+            ) : null}
           </div>
 
           {/* Backgroud */}
@@ -125,9 +126,9 @@ export default function Tv() {
         <Carousel className=" max-w-6xl grid-cols-5  gap-5  mx-auto px-5 mt-5">
           <h1 className="py-2 text-4xl font-semibold ">Seasons: </h1>
           <CarouselContent className="grid-cols-5">
-            {tv.seasons.map((season: Season) => (
+            {tv.seasons.map((season: Season, index) => (
               <CarouselItem
-                key={season.poster_path}
+                key={index}
                 className="basis-1/2 lg:basis-1/4"
               >
                 <SeasonCardItem season={season} key={season.id} />
