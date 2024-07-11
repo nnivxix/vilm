@@ -1,5 +1,5 @@
+import type { MovieResponse, SimilarMixed, AccountStates } from "@/types/response";
 import type { Media } from "@/types/media";
-import type { MovieResponse, SimilarMixed } from "@/types/response";
 import type { Provider } from "@/types/providers";
 
 export default function Movie() {
@@ -11,10 +11,12 @@ export default function Movie() {
     isLoading,
     error,
   } = useFetch<MovieResponse>(`/movie/${params.id}`, {
-    append_to_response: "genre,images,videos,watch/providers,account_states,similar",
+    append_to_response: "genre,images,videos,watch/providers,similar",
     language: "en-US",
     include_image_language: "en,null"
   });
+  const { data: states } = useFetch<AccountStates>(`/movie/${params.id}/account_states`);
+
   useHead({
     title: 'Vilm - ' + movie?.title,
     meta: {
@@ -52,9 +54,9 @@ export default function Movie() {
               <Carousel className="lg:col-span-full col-span-full ">
                 <CarouselContent>
                   {pickRandomImages(movie.images.backdrops as Media[], 7).map(
-                    (image: Media) => (
+                    (image: Media, index) => (
                       <CarouselItem
-                        key={image.file_path}
+                        key={index}
                         className="basis-1/2 lg:basis-1/3"
                       >
                         <Dialog>
@@ -102,9 +104,9 @@ export default function Movie() {
                 video={getVideo(movie.videos.results)?.key as string}
               />
             )}
-            {isAuthenticated && (
-              <AddToWatchlistButton states={movie.account_states} mediaId={movie.id} type="movie" />
-            )}
+            {isAuthenticated && states ? (
+              <AddToWatchlistButton states={states} mediaId={movie.id} type="movie" />
+            ) : null}
           </div>
 
           <div className="bg-black/50 w-full -z-10 h-full absolute"></div>
