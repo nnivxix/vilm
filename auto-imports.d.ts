@@ -32,6 +32,7 @@ declare global {
   const DialogPortal: typeof import('./src/components/ui/dialog')['DialogPortal']
   const DialogTitle: typeof import('./src/components/ui/dialog')['DialogTitle']
   const DialogTrigger: typeof import('./src/components/ui/dialog')['DialogTrigger']
+  const Discover: typeof import('./src/pages/Discover')['default']
   const DropdownMenu: typeof import('./src/components/ui/dropdown-menu')['DropdownMenu']
   const DropdownMenuCheckboxItem: typeof import('./src/components/ui/dropdown-menu')['DropdownMenuCheckboxItem']
   const DropdownMenuContent: typeof import('./src/components/ui/dropdown-menu')['DropdownMenuContent']

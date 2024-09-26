@@ -8,6 +8,7 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/discover" element={<Discover />} />
             <Route path="/show/tv/:id" element={<Tv />} />
             <Route path="/show/movie/:id" element={<Movie />} />
             <Route path="/search" element={<Search />} />

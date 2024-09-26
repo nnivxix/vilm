@@ -1,4 +1,6 @@
 import type { FormEvent } from "react";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils"
 
 export default function Home() {
   useHead({
@@ -42,6 +44,10 @@ export default function Home() {
               style={{ backgroundColor: "#c4c4c430" }}
             />
           </form>
+          <p>
+            Or
+          </p>
+          <Link to={'/discover'} className={`w-1/2 ${cn(buttonVariants({ variant: "default" }))}`}> Discover </Link>
         </div>
       </div>
     </div>
