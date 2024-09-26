@@ -3,7 +3,7 @@ export default function Footer() {
     <footer className="bg-gray-900 text-white  border-t-4 border-blue-600  mt-9">
       <div className=" max-w-6xl mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-2">
         <div className="col-spans-1">
-          <h1 className="text-2xl font-bold mb-4">Vilm</h1>
+          <h1 className="text-2xl font-bold mb-4 italic">Vilm</h1>
           <p className="text-gray-400 mb-1 ">
             The Vilm website is a movie discovery platform featuring a modern
             design. Users can browse various movie titles and access detailed
