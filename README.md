@@ -34,7 +34,7 @@ cp .env.example .env
 
 3. Change value the `.env` file
 
-Go to `.env` file and fill the value `TMDB_API_TOKEN=` with key from [TMDB API](https://developer.themoviedb.org/docs/getting-started)
+Go to `.env` file and fill the value `VITE_TMDB_API_TOKEN=` with key from [TMDB API](https://developer.themoviedb.org/docs/getting-started)
 
 4. Run the Application
 

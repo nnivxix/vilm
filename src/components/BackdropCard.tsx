@@ -23,18 +23,22 @@ export default function BackdropCard<T extends SimpleBaseMedia>({ media, title, 
   const isMovieType = Object.prototype.hasOwnProperty.call(media, 'video');
 
   return (
-    <div {...props} className={`${props.className} rounded-md group transition-transform overflow-clip  hover:scale-110`}>
-      <RImage src={imageUrl({
-        path: media.backdrop_path,
-        size: 'w300',
-        type: 'backdrop'
-      })}
-        type="backdrop"
-        alt={media.overview}
-      />
-      <div className="block lg:hidden group-hover:block">
-        <Link to={`/show/${isMovieType ? 'movie' : 'tv'}/${media.id}`}>{title}</Link>
-      </div>
+    <div title={title} {...props} className={`${props.className} rounded-md group transition-transform overflow-clip  hover:scale-110`}
+    >
+      <Link to={`/show/${isMovieType ? 'movie' : 'tv'}/${media.id}`}>
+        <RImage src={imageUrl({
+          path: media.backdrop_path,
+          size: 'w300',
+          type: 'backdrop'
+
+        })}
+          type="backdrop"
+          alt={media.overview}
+        />
+        <div className="lg:opacity-0 group-hover:opacity-100 line-clamp-2">
+          {title}
+        </div>
+      </Link>
     </div>
   )
 }
