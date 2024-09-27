@@ -1,12 +1,18 @@
+"use client"
+
 import { LibraryBig, Settings } from "lucide-react";
+import Link from "next/link";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import gravatarUrl from "@/utils/gravatar-url";
 
 export default function Navbar() {
-  const { account } = useAccount();
+
 
   return (
     <div className="bg-gray-900">
       <nav className="flex max-w-6xl mx-auto h-16 items-center  justify-between px-3  bg-gray-900 text-white">
-        <Link to="/" className="logo">
+        <Link href="/" className="logo">
           <h1 className="text-2xl md:text-4xl italic font-bold">Vilm</h1>
         </Link>
         <div className="flex gap-3 items-center">
@@ -14,26 +20,26 @@ export default function Navbar() {
             <DropdownMenuTrigger>
               <Avatar>
                 <AvatarImage
-                  src={gravatarUrl(account?.avatar?.gravatar.hash ?? "guest")}
+                  src={gravatarUrl("guest")}
                 />
                 <AvatarFallback>
-                  {account?.username ? account?.username[0] : "G"}
+                  {"G"}
                 </AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>
-                Hello {account?.username ?? "Guest"}
+                Hello {"Guest"}
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem className="font-normal" asChild>
-                <Link to="/setting" title="Go to profile setting page">
+                <Link href="/setting" title="Go to profile setting page">
                   <Settings />
                   <span className="ml-3">Settings</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem className="font-normal" asChild>
-                <Link to="/watchlist/movie" title="Go to watchlist page">
+                <Link href="/watchlist/movie" title="Go to watchlist page">
                   <LibraryBig />
                   <span className="ml-3">My Watchlist</span>
                 </Link>
