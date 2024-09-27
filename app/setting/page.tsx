@@ -4,13 +4,13 @@ import { ChangeEvent, FormEvent, useState } from "react"
 import { Clipboard } from "lucide-react";
 import $localStorage from "@/utils/$local-storage";
 import { useToast } from "@/components/ui/use-toast";
-// import $fetch from "@/utils/$fetch";
 import useHead from "@/hooks/useHead";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-// import type { Account } from "@/contexts/AccountContext/AccountProvider";
+import { Account, useAccountStore } from "@/stores/account";
+import $fetch from "@/utils/$fetch";
 
 export default function Setting() {
   const { item: token, setItem, removeItem } = $localStorage("token");
@@ -20,7 +20,7 @@ export default function Setting() {
     token
   })
   const { toast } = useToast();
-  // const { setAccount, setIsAuthenticated } = useAccount();
+  const { setAccount, setIsAuthenticated } = useAccountStore();
 
   const handleClipboard = async () => {
     const copiedText = await navigator.clipboard.readText();
@@ -43,58 +43,58 @@ export default function Setting() {
       description: "Data updated succesfully."
     })
 
-    // try {
-    //   const { error } = await $fetch<Account>("/authentication", {
-    //     headers: {
-    //       Authorization: "Bearer " + form.token,
-    //     },
-    //     defaultToken: false,
-    //   });
+    try {
+      const { error } = await $fetch<Account>("/authentication", {
+        headers: {
+          Authorization: "Bearer " + form.token,
+        },
+        defaultToken: false,
+      });
 
 
 
-    //   if (!form.token) {
-    //     removeItem();
-    //     toast({
-    //       title: "Success",
-    //       description: "Data updated succesfully."
-    //     })
-    //     setAccount(null);
-    //     setIsAuthenticated(false);
+      if (!form.token) {
+        removeItem();
+        toast({
+          title: "Success",
+          description: "Data updated succesfully."
+        })
+        setAccount(null);
+        setIsAuthenticated(false);
 
-    //     return;
-    //   }
+        return;
+      }
 
-    //   if (!error) {
-    //     setItem(form.token);
-    //     toast({
-    //       title: "Success",
-    //       description: "Data updated succesfully."
-    //     })
-    //     const { data } = await $fetch<Account>("/account", {
-    //       headers: {
-    //         Authorization: "Bearer " + form.token,
-    //       },
-    //       defaultToken: false,
-    //     });
+      if (!error) {
+        setItem(form.token);
+        toast({
+          title: "Success",
+          description: "Data updated succesfully."
+        })
+        const { data } = await $fetch<Account>("/account", {
+          headers: {
+            Authorization: "Bearer " + form.token,
+          },
+          defaultToken: false,
+        });
 
-    //     setAccount(data);
+        setAccount(data);
 
-    //     setIsAuthenticated(true);
-    //     return;
-    //   }
+        setIsAuthenticated(true);
+        return;
+      }
 
-    //   toast({
-    //     title: "Error",
-    //     description: error?.status_message,
-    //   })
-    //   throw new Error(error?.status_message)
+      toast({
+        title: "Error",
+        description: error?.status_message,
+      })
+      throw new Error(error?.status_message)
 
 
 
-    // } catch (error) {
-    //   console.error(error)
-    // }
+    } catch (error) {
+      console.error(error)
+    }
   }
 
 

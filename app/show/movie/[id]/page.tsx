@@ -17,14 +17,14 @@ import { DialogContent } from "@/components/ui/dialog";
 import PopupYoutubeTrailer from "@/components/PopupYoutubeTrailer";
 import WatchProviderContainer from "@/components/WatchProviderContainer";
 import SimilarCardItem from "@/components/SimilarCardItem";
+import AddToWatchlistButton from "@/components/AddToWatchlistButton";
 import getVideo from "@/utils/get-video";
+import { useAccountStore } from "@/stores/account";
 
 
 interface Params {
   params: { id: string }
 }
-
-
 
 export default function page({ params }: Params) {
   const {
@@ -37,6 +37,7 @@ export default function page({ params }: Params) {
     include_image_language: "en,null"
   });
   const { data: states } = useFetch<AccountStates>(`/movie/${params.id}/account_states`);
+  const { isAuthenticated } = useAccountStore()
 
   useHead({
     title: 'Vilm - ' + movie?.title,
@@ -125,9 +126,9 @@ export default function page({ params }: Params) {
                 video={getVideo(movie.videos.results)?.key as string}
               />
             )}
-            {/* {isAuthenticated && states ? (
+            {isAuthenticated && states ? (
               <AddToWatchlistButton states={states} mediaId={movie.id} type="movie" />
-            ) : null} */}
+            ) : null}
           </div>
 
           <div className="bg-black/50 w-full -z-10 h-full absolute"></div>

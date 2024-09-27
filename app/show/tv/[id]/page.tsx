@@ -18,6 +18,8 @@ import SimilarCardItem from "@/components/SimilarCardItem";
 import getVideo from "@/utils/get-video";
 import { Season } from "@/types/tv";
 import SeasonCardItem from "@/components/SeasonCardItem";
+import { useAccountStore } from "@/stores/account";
+import AddToWatchlistButton from "@/components/AddToWatchlistButton";
 
 interface Params {
   params: { id: string }
@@ -32,6 +34,7 @@ export default function page({ params }: Params) {
     }
   );
   const { data: states } = useFetch<AccountStates>(`/tv/${params.id}/account_states`);
+  const { isAuthenticated } = useAccountStore();
 
   useHead({
     title: 'Vilm - ' + tv?.name,
@@ -118,9 +121,9 @@ export default function page({ params }: Params) {
                 video={getVideo(tv.videos.results)?.key as string}
               />
             )}
-            {/* {isAuthenticated && states ? (
+            {isAuthenticated && states ? (
               <AddToWatchlistButton states={states as AccountStates} mediaId={tv.id} type="tv" />
-            ) : null} */}
+            ) : null}
           </div>
 
           {/* Backgroud */}

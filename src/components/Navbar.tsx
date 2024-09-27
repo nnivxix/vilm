@@ -5,9 +5,36 @@ import Link from "next/link";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import gravatarUrl from "@/utils/gravatar-url";
+import { Account, useAccountStore } from "@/stores/account";
+import { useEffect } from "react";
+import $localStorage from "@/utils/$local-storage";
+import $fetch from "@/utils/$fetch";
 
 export default function Navbar() {
+  const { item: token } = $localStorage("token");
+  const { account, setAccount, setIsAuthenticated } = useAccountStore();
 
+  useEffect(() => {
+    const getAccount = async () => {
+      if (!token.length) return;
+
+      const { data, error } = await $fetch<Account>("/account", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+        defaultToken: false,
+      });
+
+      setAccount(data);
+      if (error?.success === false) {
+        setIsAuthenticated(false)
+      } else {
+        setIsAuthenticated(true)
+      }
+
+    };
+    getAccount();
+  })
 
   return (
     <div className="bg-gray-900">
@@ -20,7 +47,7 @@ export default function Navbar() {
             <DropdownMenuTrigger>
               <Avatar>
                 <AvatarImage
-                  src={gravatarUrl("guest")}
+                  src={gravatarUrl(account?.avatar?.gravatar.hash ?? "guest")}
                 />
                 <AvatarFallback>
                   {"G"}
@@ -29,7 +56,7 @@ export default function Navbar() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>
-                Hello {"Guest"}
+                Hello {account?.username ?? "Guest"}
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem className="font-normal" asChild>

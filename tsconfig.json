@@ -20,17 +20,30 @@
     "allowUmdGlobalAccess": true,
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
-    "plugins": [{ "name": "next" }],
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "baseUrl": ".",
     "paths": {
+      "@/*": ["./src/*"],
       "@/components/*": ["./src/components/*"],
       "@/lib/*": ["./src/lib/*"],
       "@/types/*": ["./src/types/*"],
       "@/utils/*": ["./src/utils/*"],
       "@/config/*": ["./src/config/*"],
-      "@/hooks/*": ["./src/hooks/*"]
+      "@/hooks/*": ["./src/hooks/*"],
+      "@/stores/*": ["./src/stores/*"]
     }
   },
-  "include": ["src", "dist/types/**/*.ts", "next-env.d.ts", "**/**/*.tsx"],
+  "include": [
+    "src",
+    "dist/types/**/*.ts",
+    "next-env.d.ts",
+    "**/**/*.tsx",
+    "**/*.ts",
+    "./dist/types/**/*.ts"
+  ],
   "exclude": ["node_modules"]
 }
