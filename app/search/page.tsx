@@ -9,8 +9,10 @@ import type { MovieTv, Response } from "@/types/response";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, type FormEvent } from "react";
+import { Suspense } from 'react'
 
-export default function Page() {
+
+function SearchForm() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -103,4 +105,15 @@ export default function Page() {
       </div>
     </div>
   );
+
 }
+
+export default function Page() {
+  return (
+    <Suspense>
+      <SearchForm />
+    </Suspense>
+  )
+}
+
+
