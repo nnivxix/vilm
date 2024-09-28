@@ -1,5 +1,10 @@
+import { useAccountStore } from '@/stores/account';
 import type { AccountStates } from '@/types/response';
 import { ResponseMessage } from '@/utils/$fetch';
+import { useToast } from "@/components/ui/use-toast"
+import { useState } from 'react';
+import { Button } from './ui/button';
+import $fetch from '@/utils/$fetch';
 
 interface Props {
   states: AccountStates;
@@ -8,7 +13,7 @@ interface Props {
 }
 
 export default function AddToWatchlistButton({ states, type, mediaId }: Props) {
-  const { account } = useAccount();
+  const { account } = useAccountStore();
   const { toast } = useToast();
   const [isWatchlisted, setIsWatchlisted] = useState(states.watchlist)
   const addToWatchlist = async () => {
