@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 export default function Footer() {
   return (
     <footer className="bg-gray-900 text-white  border-t-4 border-blue-600  mt-9">
@@ -13,7 +11,7 @@ export default function Footer() {
           </p>
           <div className="flex items-center mb-4">
             <h3 className="text-gray-400">Data provided by </h3>
-            <Link href="https://www.themoviedb.org" target="_blank">
+            <Link to="https://www.themoviedb.org" target="_blank">
               <img src="tmdb.png" alt="" width={"80px"} className="ml-2" />
             </Link>
           </div>

@@ -1,5 +1,3 @@
-import { createContext } from "react"
-
 export interface Account {
   avatar: Avatar
   id: number
@@ -49,7 +47,7 @@ export function AccountProvider({
 
   useEffect(() => {
     const getAccount = async () => {
-      if (!token?.length) return;
+      if (!token.length) return;
 
       const { data, error } = await $fetch<Account>("/account", {
         headers: {
