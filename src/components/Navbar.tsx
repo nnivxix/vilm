@@ -6,17 +6,20 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import gravatarUrl from "@/utils/gravatar-url";
 import { Account, useAccountStore } from "@/stores/account";
-import { useEffect } from "react";
 import $localStorage from "@/utils/$local-storage";
+
+import { useEffect } from "react";
 import $fetch from "@/utils/$fetch";
 
 export default function Navbar() {
+
   const { item: token } = $localStorage("token");
+
   const { account, setAccount, setIsAuthenticated } = useAccountStore();
 
   useEffect(() => {
     const getAccount = async () => {
-      if (!token.length) return;
+      if (!token?.length) return;
 
       const { data, error } = await $fetch<Account>("/account", {
         headers: {
@@ -26,15 +29,17 @@ export default function Navbar() {
       });
 
       setAccount(data);
+
       if (error?.success === false) {
         setIsAuthenticated(false)
+        setAccount(null)
       } else {
         setIsAuthenticated(true)
       }
 
     };
     getAccount();
-  })
+  }, [setAccount, setIsAuthenticated, token])
 
   return (
     <div className="bg-gray-900">

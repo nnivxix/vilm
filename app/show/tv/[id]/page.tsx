@@ -25,7 +25,7 @@ interface Params {
   params: { id: string }
 }
 
-export default function page({ params }: Params) {
+export default function Page({ params }: Params) {
   const { data: tv, isLoading, error } = useFetch<TvResponse>(`/tv/${params.id}`,
     {
       append_to_response: "images,videos,watch/providers,similar",

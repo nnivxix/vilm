@@ -4,9 +4,11 @@ import type { Response } from "@/types/response"
 import useFetch from "@/hooks/useFetch";
 import useHead from "@/hooks/useHead";
 import BackdropCard from "@/components/BackdropCard";
+import { useAccountStore } from "@/stores/account";
+import Link from "next/link";
 
 export default function Page() {
-  // const { account, isAuthenticated } = useAccount()
+  const { isAuthenticated } = useAccountStore()
   const { data: tv } = useFetch<Response<SimpleTv[]>>(`/account/9578292/watchlist/tv`)
 
 
@@ -17,15 +19,14 @@ export default function Page() {
     }
   });
 
-  // if (!isAuthenticated) {
-  //   return (
-  //     <WatchlistLayout>
-  //       <div className="text-center">
-  //         <p>Not Logged in</p>
-  //         <p>Please add your token on <Link className="underline" to="/setting" >setting page.</Link></p>
-  //       </div>
-  //     </WatchlistLayout>)
-  // }
+  if (!isAuthenticated) {
+    return (
+      <div className="text-center">
+        <p>Not Logged in</p>
+        <p>Please add your token on <Link className="underline" href="/setting" >setting page.</Link></p>
+      </div>
+    )
+  }
 
   return (
     <div className="grid grid-cols-6 gap-4 mt-6" >

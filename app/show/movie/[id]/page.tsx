@@ -26,7 +26,7 @@ interface Params {
   params: { id: string }
 }
 
-export default function page({ params }: Params) {
+export default function Page({ params }: Params) {
   const {
     data: movie,
     isLoading,

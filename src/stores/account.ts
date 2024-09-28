@@ -51,7 +51,7 @@ export const useAccountStore = create<AccountState>((set) => ({
 
   fetchAccount: async () => {
     const { item: token } = $localStorage("token");
-    if (!token.length) return;
+    if (!token?.length) return;
 
     const { data, error } = await $fetch<Account>("/account", {
       headers: {

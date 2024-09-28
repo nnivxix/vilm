@@ -12,10 +12,10 @@ import { Button } from "@/components/ui/button";
 import { Account, useAccountStore } from "@/stores/account";
 import $fetch from "@/utils/$fetch";
 
-export default function Setting() {
+export default function Page() {
   const { item: token, setItem, removeItem } = $localStorage("token");
   const [form, setForm] = useState<{
-    token: string
+    token?: string | null
   }>({
     token
   })
@@ -57,7 +57,7 @@ export default function Setting() {
         removeItem();
         toast({
           title: "Success",
-          description: "Data updated succesfully."
+          description: "Data updated succesfully to be null."
         })
         setAccount(null);
         setIsAuthenticated(false);
@@ -118,7 +118,7 @@ export default function Setting() {
         <div className="relative">
           <Label htmlFor="token">API Token</Label>
           <Clipboard className="absolute right-2 top-9 bg-slate-900" size={16} onClick={handleClipboard} />
-          <Input placeholder="eyJshghsgfshhffsyery.xaaad..." value={form.token} id="token" onChange={handleChange} name="token" />
+          <Input placeholder="eyJshghsgfshhffsyery.xaaad..." value={form.token!} id="token" onChange={handleChange} name="token" />
           <Link href={"https://developer.themoviedb.org/docs/getting-started"} target="_blank" className="underline">How to get API Token</Link>
           <p className="text-gray-500" >Don't worry, we won't store your API token to our server (Vilm), we'll store the token to LocalStorage.</p>
         </div>
