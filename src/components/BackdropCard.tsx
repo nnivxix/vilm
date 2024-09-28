@@ -1,4 +1,7 @@
+import Link from "next/link";
 import type { ComponentPropsWithRef } from "react";
+import RImage from "./RImage";
+import imageUrl from "@/utils/image-url";
 
 export interface SimpleBaseMedia {
   adult: boolean;
@@ -25,7 +28,7 @@ export default function BackdropCard<T extends SimpleBaseMedia>({ media, title, 
   return (
     <div title={title} {...props} className={`${props.className} rounded-md group transition-transform overflow-clip  hover:scale-110`}
     >
-      <Link to={`/show/${isMovieType ? 'movie' : 'tv'}/${media.id}`}>
+      <Link href={`/show/${isMovieType ? 'movie' : 'tv'}/${media.id}`}>
         <RImage src={imageUrl({
           path: media.backdrop_path,
           size: 'w300',
