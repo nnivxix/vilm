@@ -1,6 +1,11 @@
-import type { Response, MovieTv } from "../types/response";
+"use client"
 
-export default function Discover() {
+import type { Response, MovieTv } from "../../src/types/response";
+import useFetch from "@/hooks/useFetch";
+import CardItem from "@/components/CardItem";
+// import "../../src/index.css";
+
+export default function Page() {
   const { data: movies, isLoading } = useFetch<Response<MovieTv[]>>("/trending/all/day");
 
   if (isLoading) {
