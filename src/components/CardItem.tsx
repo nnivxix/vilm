@@ -1,9 +1,5 @@
 import type { MovieTv } from "@/types/response";
 import { Star } from "lucide-react";
-import { Button } from "./ui/button";
-import Link from "next/link";
-import RImage from "./RImage";
-import imageUrl from "../utils/image-url";
 
 interface CardItemProps {
   movie: MovieTv;
@@ -27,13 +23,13 @@ export default function CardItem({ movie, media }: CardItemProps) {
         <h1 className="pb-2 text-xl font-bold">{movieTitle}</h1>
         <p className="line-clamp-6">{movie.overview}</p>
         <Button className="mt-3 w-full self-end mb-4 font-bold" asChild>
-          <Link className="w-full" href={`/show/${mediaType}/${movie.id}`}>
+          <Link className="w-full" to={`/show/${mediaType}/${movie.id}`}>
             View
           </Link>
         </Button>
       </div>
       <div className="relative">
-        <Link href={`/show/${mediaType}/${movie.id}`}>
+        <Link to={`/show/${mediaType}/${movie.id}`}>
           <RImage
             src={imageUrl({ path: movie.poster_path, type: "poster" })}
             alt={movieTitle!}

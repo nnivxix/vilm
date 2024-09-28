@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 interface Head {
   title: string;
   meta?: {

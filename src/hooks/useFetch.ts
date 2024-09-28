@@ -1,7 +1,4 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import config from "../config";
+import config from "@/config";
 
 const API_TOKEN = config.token;
 
