@@ -10,6 +10,7 @@ import type { Response } from "@/types/response"
 import paginationPages from "@/utils/pagination-pages";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+// import fetchAPI from "@/utils/fetchApi";
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -18,6 +19,7 @@ export default function Page() {
 
   const { isAuthenticated, account } = useAccountStore();
   const { data: movies } = useFetch<Response<SimpleMovie[]>>(`/account/${account?.id}/watchlist/movies?page=${currentPage}&sort_by=created_at.desc`);
+  // const movies = await fetchAPI<Response<SimpleMovie[]>>(`/account/${account?.id}/watchlist/movies?page=${currentPage}&sort_by=created_at.desc`);
 
   useHead({
     title: 'Vilm - Movies Watchlist',
