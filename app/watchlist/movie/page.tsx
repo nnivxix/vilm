@@ -8,11 +8,16 @@ import { useAccountStore } from "@/stores/account";
 import type { SimpleMovie } from "@/types/movie"
 import type { Response } from "@/types/response"
 import paginationPages from "@/utils/pagination-pages";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 export default function Page() {
-  const { isAuthenticated } = useAccountStore();
-  const { data: movies } = useFetch<Response<SimpleMovie[]>>(`/account/9578292/watchlist/movies`);
+  const searchParams = useSearchParams()
+
+  const currentPage = searchParams.get('page') ?? '1'
+
+  const { isAuthenticated, account } = useAccountStore();
+  const { data: movies } = useFetch<Response<SimpleMovie[]>>(`/account/${account?.id}/watchlist/movies?page=${currentPage}&sort_by=created_at.desc`);
 
   useHead({
     title: 'Vilm - Movies Watchlist',
@@ -30,8 +35,7 @@ export default function Page() {
 
     );
   }
-  // Todo: fix this to actual data
-  const pages = paginationPages(5, 19)
+  const pages = paginationPages(Number(currentPage), movies?.total_pages as number)
 
   return (
     <div>
@@ -50,8 +54,6 @@ export default function Page() {
         }
       </div>
       <div className="flex w-full">
-
-
         {pages.length && (
           <Pagination pages={pages} />
 
