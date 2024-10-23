@@ -1,5 +1,7 @@
+"use client";
+
 import $fetch from "@/utils/$fetch";
-import $localStorage from "@/utils/$local-storage";
+import { getCookie } from "cookies-next";
 import { create } from "zustand";
 
 export interface Account {
@@ -50,7 +52,7 @@ export const useAccountStore = create<AccountState>((set) => ({
     })),
 
   fetchAccount: async () => {
-    const { item: token } = $localStorage("token");
+    const token = getCookie("API_TOKEN");
     if (!token?.length) return;
 
     const { data, error } = await $fetch<Account>("/account", {

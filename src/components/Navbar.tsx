@@ -1,39 +1,43 @@
 "use client"
 
+import { getCookie } from "cookies-next"
 import { LibraryBig, Settings } from "lucide-react";
 import Link from "next/link";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import gravatarUrl from "@/utils/gravatar-url";
-import { Account, useAccountStore } from "@/stores/account";
-import $localStorage from "@/utils/$local-storage";
-
+import { type Account, useAccountStore } from "@/stores/account";
+import config from "@/config";
 import { useEffect } from "react";
-import $fetch from "@/utils/$fetch";
+
+
+const { apiUrl } = config;
+
 
 export default function Navbar() {
-
-  const { item: token } = $localStorage("token");
-
+  const token = getCookie("API_TOKEN")
   const { account, setAccount, setIsAuthenticated } = useAccountStore();
 
   useEffect(() => {
+    console.log("from navbar: ", token)
     const getAccount = async () => {
       if (!token?.length) return;
 
-      const { data, error } = await $fetch<Account>("/account", {
+      const response = await fetch(`${apiUrl}/account`, {
         headers: {
-          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        defaultToken: false,
       });
 
-      setAccount(data);
+      const data: Account = await response.json();
 
-      if (error?.success === false) {
+
+      if (!data.id) {
         setIsAuthenticated(false)
         setAccount(null)
       } else {
+        setAccount(data);
         setIsAuthenticated(true)
       }
 

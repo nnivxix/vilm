@@ -3,6 +3,33 @@ import "../src/index.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
+import { Metadata } from 'next';
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const metadata: Metadata = {
+  title: 'Vilm',
+  description: 'Get movies and tv shows information.',
+  openGraph: {
+    siteName: 'Vilm',
+    type: 'website',
+    url: 'https://vilm-react.vercel.app/',
+    title: 'Vilm',
+    description: 'Get movies and tv shows information.',
+    images: [
+      {
+        url: '/og-image.jpg',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    creator: '@nnivxix',
+    title: 'Get movies and tv shows information.',
+    description: 'Get movies and tv shows information.',
+    images: ['/og-image.jpg'],
+  },
+};
+
 
 export default function RootLayout({
   children,
@@ -47,38 +74,13 @@ export default function RootLayout({
           type="image/png"
         />
 
-        <title>Vilm</title>
-        <meta name="description" content="Get movies and tv shows information." />
-        <meta property="og:site_name" content="Vilm" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://vilm-react.vercel.app/" />
-        <meta property="og:title" content="Vilm" />
-        <meta
-          property="og:description"
-          content="Get movies and tv shows information."
-        />
-        <meta property="og:image" content="/og-image.jpg" />
 
-        {/* <!-- Twitter --> */}
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://vilm-react.vercel.app/" />
-        <meta
-          property="twitter:title"
-          content="Get movies and tv shows information."
-        />
-        <meta
-          property="twitter:description"
-          content="Get movies and tv shows information."
-        />
-        <meta property="twitter:image" content="/og-image.jpg" />
-        <meta name="twitter:creator" content="@nnivxix" />
       </head>
       <body>
         <Navbar />
         <div id="root">{children}</div>
         <Footer />
         <Toaster />
-        {/* <script type="module" src="/src/main.tsx"></script> */}
       </body>
     </html>
   );

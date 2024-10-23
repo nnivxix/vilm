@@ -1,32 +1,38 @@
-"use client"
-
-import BackdropCard from "@/components/BackdropCard";
-import Pagination from "@/components/Pagination";
-import useFetch from "@/hooks/useFetch";
-import useHead from "@/hooks/useHead";
-import { useAccountStore } from "@/stores/account";
 import type { SimpleMovie } from "@/types/movie"
 import type { Response } from "@/types/response"
-import paginationPages from "@/utils/pagination-pages";
-import { useSearchParams } from "next/navigation";
+import type { Metadata } from "next";
+import type { Account } from "@/contexts/AccountContext/AccountProvider";
 import Link from "next/link";
-// import fetchAPI from "@/utils/fetchApi";
+import { Suspense } from "react";
+import { cookies } from 'next/headers'
+import BackdropCard from "@/components/BackdropCard";
+import Pagination from "@/components/Pagination";
+import paginationPages from "@/utils/pagination-pages";
+import config from "@/config";
 
-export default function Page() {
-  const searchParams = useSearchParams()
+interface Authentication {
+  success: boolean;
+  status_code: number;
+  status_message: string;
+}
 
-  const currentPage = searchParams.get('page') ?? '1'
+const { apiUrl } = config;
 
-  const { isAuthenticated, account } = useAccountStore();
-  const { data: movies } = useFetch<Response<SimpleMovie[]>>(`/account/${account?.id}/watchlist/movies?page=${currentPage}&sort_by=created_at.desc`);
-  // const movies = await fetchAPI<Response<SimpleMovie[]>>(`/account/${account?.id}/watchlist/movies?page=${currentPage}&sort_by=created_at.desc`);
+// eslint-disable-next-line react-refresh/only-export-components
+export const metadata: Metadata = {
+  title: "Vilm - Movies Watchlist ",
+  description: '...',
+}
 
-  useHead({
-    title: 'Vilm - Movies Watchlist',
-    meta: {
-      description: 'Here you can manage watchlist movies.'
-    }
-  });
+export default async function Page({ searchParams }:
+  {
+    searchParams: { [key: string]: string | string[] | undefined }
+  }) {
+  const currentPage = searchParams.page ?? "1";
+
+  const isAuthenticated = await authenticateUser();
+  const account = await getAccount();
+  const movies = await getWatchlistMovies(account.id, currentPage as string);
 
   if (!isAuthenticated) {
     return (
@@ -41,7 +47,6 @@ export default function Page() {
 
   return (
     <div>
-
       <div className="grid grid-cols-6 gap-4 mt-6" >
         {movies?.results.length && (
           movies.results.map((movie, index) => (
@@ -55,12 +60,61 @@ export default function Page() {
 
         }
       </div>
-      <div className="flex w-full">
-        {pages.length && (
-          <Pagination pages={pages} />
-
-        )}
-      </div>
+      <Suspense>
+        <div className="flex w-full">
+          {pages.length && (
+            <Pagination pages={pages} />
+          )}
+        </div>
+      </Suspense>
     </div>
   )
+}
+
+async function getAccount() {
+  const apiToken = cookies().get("API_TOKEN")
+
+  const response = await fetch(`${apiUrl}/account`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiToken?.value}`,
+    },
+  });
+
+  const data: Account = await response.json();
+
+  return data
+}
+
+
+async function getWatchlistMovies(accountId: number, currentPage: string) {
+  const apiToken = cookies().get("API_TOKEN")
+
+  const response = await fetch(`${apiUrl}/account/${accountId}/watchlist/movies?page=${currentPage}&sort_by=created_at.desc`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      Authorization: `Bearer ${apiToken?.value}`,
+    },
+  })
+  const movies: Response<SimpleMovie[]> = await response.json();
+
+  return movies
+}
+
+async function authenticateUser(): Promise<boolean> {
+  const apiToken = cookies().get("API_TOKEN")
+
+  const response = await fetch(`${apiUrl}/authentication`, {
+    method: "GET",
+    headers: {
+      "accept": "application/json",
+      Authorization: `Bearer ${apiToken?.value}`,
+    },
+  })
+
+  const isAuthenticated: Authentication = await response.json()
+  return isAuthenticated.success;
+
 }

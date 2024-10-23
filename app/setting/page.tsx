@@ -11,13 +11,14 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Account, useAccountStore } from "@/stores/account";
 import $fetch from "@/utils/$fetch";
+import { deleteCookie, getCookie, setCookie } from "cookies-next";
 
 export default function Page() {
   const { item: token, setItem, removeItem } = $localStorage("token");
   const [form, setForm] = useState<{
     token?: string | null
   }>({
-    token
+    token: getCookie('API_TOKEN') ?? ''
   })
   const { toast } = useToast();
   const { setAccount, setIsAuthenticated } = useAccountStore();
@@ -61,6 +62,7 @@ export default function Page() {
         })
         setAccount(null);
         setIsAuthenticated(false);
+        deleteCookie("API_TOKEN")
 
         return;
       }
@@ -79,8 +81,8 @@ export default function Page() {
         });
 
         setAccount(data);
-
         setIsAuthenticated(true);
+        setCookie('API_TOKEN', (form.token as string));
         return;
       }
 
