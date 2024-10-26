@@ -1,3 +1,5 @@
+import { cookies } from "next/headers";
+import type { Metadata } from "next";
 import type { MovieResponse, SimilarMixed, AccountStates } from "@/types/response";
 import type { Media } from "@/types/media";
 import type { Provider } from "@/types/providers";
@@ -14,7 +16,6 @@ import WatchProviderContainer from "@/components/WatchProviderContainer";
 import SimilarCardItem from "@/components/SimilarCardItem";
 import AddToWatchlistButton from "@/components/AddToWatchlistButton";
 import getVideo from "@/utils/get-video";
-import { cookies } from "next/headers";
 import config from "@/config";
 
 
@@ -30,18 +31,42 @@ interface Authentication {
 
 const { apiUrl } = config;
 
+// eslint-disable-next-line react-refresh/only-export-components
+export async function generateMetadata(
+  { params }: Params
+): Promise<Metadata> {
+  const movie = await getMovie(params.id);
+  const title = `Vilm - ${movie?.title}`
+  const description = movie?.overview;
+
+  if (movie) {
+    const image = imageUrl({ path: movie.backdrop_path, size: "w300" });
+    return {
+      title: title,
+      description: description,
+      openGraph: {
+        title,
+        description,
+        images: [image]
+      },
+      twitter: {
+        title,
+        description,
+        images: [image],
+        card: "summary"
+      }
+    }
+  } else {
+    return {
+      title: "Vilm"
+    }
+  }
+}
+
 export default async function Page({ params }: Params) {
   const movie = await getMovie(params.id)
   const states = await getStates(params.id)
   const isAuthenticated = await authenticateUser()
-
-
-  // useHead({
-  //   title: 'Vilm - ' + movie?.title,
-  //   meta: {
-  //     description: movie?.overview as string
-  //   }
-  // });
 
 
   if (!movie?.id) {
@@ -76,7 +101,7 @@ export default async function Page({ params }: Params) {
                     (image: Media, index) => (
                       <CarouselItem
                         key={index}
-                        className="basis-1/2 lg:basis-1/3"
+                        className="basis-1/2 lg:basis-1/4"
                       >
                         <Dialog>
                           <DialogTrigger>
