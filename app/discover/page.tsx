@@ -10,7 +10,6 @@ type Status = "idle" | "pending" | "success" | "error"
 const { apiUrl } = config;
 
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const metadata: Metadata = {
   title: "Vilm - Discover Movies and Tv Shows ",
   description: 'Discover movies and tv shows.',

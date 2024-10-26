@@ -18,7 +18,6 @@ interface Authentication {
 
 const { apiUrl } = config;
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const metadata: Metadata = {
   title: "Vilm - Tv Shows Watchlist ",
   description: 'Here you can manage watchlist tv shows.',
