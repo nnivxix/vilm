@@ -1,3 +1,4 @@
+"use client"
 import { useAccountStore } from '@/stores/account';
 import type { AccountStates } from '@/types/response';
 import { ResponseMessage } from '@/utils/$fetch';

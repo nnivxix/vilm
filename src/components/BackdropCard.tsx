@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link";
 import type { ComponentPropsWithRef } from "react";
 import RImage from "./RImage";

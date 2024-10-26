@@ -1,58 +1,55 @@
-"use client"
-
 import type { MovieResponse, SimilarMixed, AccountStates } from "@/types/response";
 import type { Media } from "@/types/media";
 import type { Provider } from "@/types/providers";
-import useFetch from "@/hooks/useFetch";
-import useHead from "@/hooks/useHead";
 import runtimeDuration from "@/utils/runtime-duration";
 import getYear from "@/utils/get-year";
 import Genres from "@/components/Genres";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import pickRandomImages from "@/utils/pick-random-images";
-import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
 import RImage from "@/components/RImage";
 import imageUrl from "@/utils/image-url";
-import { DialogContent } from "@/components/ui/dialog";
+import { DialogContent, Dialog, DialogTrigger } from "@/components/ui/dialog";
 import PopupYoutubeTrailer from "@/components/PopupYoutubeTrailer";
 import WatchProviderContainer from "@/components/WatchProviderContainer";
 import SimilarCardItem from "@/components/SimilarCardItem";
 import AddToWatchlistButton from "@/components/AddToWatchlistButton";
 import getVideo from "@/utils/get-video";
-import { useAccountStore } from "@/stores/account";
+import { cookies } from "next/headers";
+import config from "@/config";
 
 
 interface Params {
   params: { id: string }
 }
-
-export default function Page({ params }: Params) {
-  const {
-    data: movie,
-    isLoading,
-    error,
-  } = useFetch<MovieResponse>(`/movie/${params.id}`, {
-    append_to_response: "genre,images,videos,watch/providers,similar",
-    language: "en-US",
-    include_image_language: "en,null"
-  });
-  const { data: states } = useFetch<AccountStates>(`/movie/${params.id}/account_states`);
-  const { isAuthenticated } = useAccountStore()
-
-  useHead({
-    title: 'Vilm - ' + movie?.title,
-    meta: {
-      description: movie?.overview as string
-    }
-  });
+interface Authentication {
+  success: boolean;
+  status_code: number;
+  status_message: string;
+}
 
 
-  if (error) {
-    return <pre className="text-white">{error}</pre>;
+const { apiUrl } = config;
+
+export default async function Page({ params }: Params) {
+  const movie = await getMovie(params.id)
+  const states = await getStates(params.id)
+  const isAuthenticated = await authenticateUser()
+
+
+  // useHead({
+  //   title: 'Vilm - ' + movie?.title,
+  //   meta: {
+  //     description: movie?.overview as string
+  //   }
+  // });
+
+
+  if (!movie?.id) {
+    return <pre className="text-white">error</pre>;
   }
-  if (isLoading) {
-    return <pre className="text-white">loading...</pre>;
-  }
+  // if (isLoading) {
+  //   return <pre className="text-white">loading...</pre>;
+  // }
 
   return (
     <div className="text-white">
@@ -171,4 +168,70 @@ export default function Page({ params }: Params) {
       <div className="grid-cols-5 gap-2 max-w-7xl mx-auto grid"></div>
     </div>
   );
+}
+
+async function getMovie(movieId: string) {
+  const apiToken = cookies().get("API_TOKEN")
+  // let status : "idle" | "pending" | "success" | "error" = "idle" 
+
+  try {
+    // status = "pending";
+
+    const response = await fetch(`${apiUrl}/movie/${movieId}?append_to_response=genre,images,videos,watch/providers,similar&language=en-US&include_image_language=en,null`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization: `Bearer ${apiToken?.value}`,
+        },
+      })
+
+    if (!response.ok) {
+      throw Error();
+    }
+    const movie: MovieResponse = await response.json();
+
+    return movie;
+
+  } catch (error) {
+    console.error(error)
+  }
+
+}
+
+async function getStates(movieId: string) {
+  const apiToken = cookies().get("API_TOKEN")
+  try {
+    const response = await fetch(`${apiUrl}/movie/${movieId}/account_states`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization: `Bearer ${apiToken?.value}`,
+        }
+      })
+
+    const states = await response.json()
+
+    return states as AccountStates;
+
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+async function authenticateUser(): Promise<boolean> {
+  const apiToken = cookies().get("API_TOKEN")
+
+  const response = await fetch(`${apiUrl}/authentication`, {
+    method: "GET",
+    headers: {
+      "accept": "application/json",
+      Authorization: `Bearer ${apiToken?.value}`,
+    },
+  })
+  const isAuthenticated: Authentication = await response.json()
+  return isAuthenticated.success;
+
 }

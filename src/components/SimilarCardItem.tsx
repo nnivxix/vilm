@@ -1,3 +1,4 @@
+"use client"
 import type { SimilarMovie, SimilarTv } from "@/types/response";
 import { Star } from "lucide-react";
 import { Button } from "./ui/button";

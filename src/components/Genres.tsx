@@ -1,3 +1,4 @@
+"use client"
 import type { Genre } from '@/types/media'
 
 interface GenresProps {

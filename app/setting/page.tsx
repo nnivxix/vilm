@@ -2,7 +2,6 @@
 
 import { ChangeEvent, FormEvent, useState } from "react"
 import { Clipboard } from "lucide-react";
-import $localStorage from "@/utils/$local-storage";
 import { useToast } from "@/components/ui/use-toast";
 import useHead from "@/hooks/useHead";
 import { Label } from "@/components/ui/label";
@@ -14,7 +13,6 @@ import $fetch from "@/utils/$fetch";
 import { deleteCookie, getCookie, setCookie } from "cookies-next";
 
 export default function Page() {
-  const { item: token, setItem, removeItem } = $localStorage("token");
   const [form, setForm] = useState<{
     token?: string | null
   }>({
@@ -37,7 +35,7 @@ export default function Page() {
   const submitForm = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (token === form.token) return;
+    // if (token === form.token) return;
 
     toast({
       title: "Success",
@@ -55,7 +53,6 @@ export default function Page() {
 
 
       if (!form.token) {
-        removeItem();
         toast({
           title: "Success",
           description: "Data updated succesfully to be null."
@@ -68,7 +65,6 @@ export default function Page() {
       }
 
       if (!error) {
-        setItem(form.token);
         toast({
           title: "Success",
           description: "Data updated succesfully."
@@ -80,9 +76,14 @@ export default function Page() {
           defaultToken: false,
         });
 
+        const date = new Date()
+        date.setFullYear(date.getFullYear() + 10)
+
         setAccount(data);
         setIsAuthenticated(true);
-        setCookie('API_TOKEN', (form.token as string));
+        setCookie('API_TOKEN', (form.token as string), {
+          expires: date
+        });
         return;
       }
 
