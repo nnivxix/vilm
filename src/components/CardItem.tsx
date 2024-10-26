@@ -3,6 +3,8 @@ import { Star } from "lucide-react";
 import Link from "next/link";
 import RImage from "./RImage";
 import imageUrl from "../utils/image-url";
+import { buttonVariants } from "./ui/button";
+
 
 interface CardItemProps {
   movie: MovieTv;
@@ -26,7 +28,7 @@ export default function CardItem({ movie, media }: CardItemProps) {
         <h1 className="pb-2 text-xl font-bold">{movieTitle}</h1>
         <p className="line-clamp-6">{movie.overview}</p>
         <div className="mt-3 w-full self-end mb-4 font-bold">
-          <Link className="w-full" href={`/show/${mediaType}/${movie.id}`}>
+          <Link className={`w-full ${buttonVariants({ variant: "default" })}`} href={`/show/${mediaType}/${movie.id}`}>
             View
           </Link>
         </div>

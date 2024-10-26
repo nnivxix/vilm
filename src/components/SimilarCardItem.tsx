@@ -1,7 +1,7 @@
 "use client"
 import type { SimilarMovie, SimilarTv } from "@/types/response";
 import { Star } from "lucide-react";
-import { Button } from "./ui/button";
+import { buttonVariants } from "./ui/button";
 import Link from "next/link";
 import RImage from "./RImage";
 import imageUrl from "@/utils/image-url";
@@ -30,11 +30,11 @@ export default function SimilarCardItem<
       <div className="z-30 p-2 text-white absolute hidden group-hover:grid grid-cols-1 bg-black/50 backdrop-blur-sm w-full h-full">
         <h1 className="pb-2 text-xl font-bold">{movieTitle}</h1>
         <p className="line-clamp-6">{card.overview}</p>
-        <Button className="mt-3 w-full self-end mb-4 font-bold">
-          <Link className="w-full" href={`/show/${mediaType}/${card.id}`}>
+        <div className="mt-3 w-full self-end mb-4 font-bold">
+          <Link className={`w-full ${buttonVariants({ variant: 'default' })}`} href={`/show/${mediaType}/${card.id}`}>
             View
           </Link>
-        </Button>
+        </div>
       </div>
       <div className="relative">
         <Link href={`/show/${mediaType}/${card.id}`}>
