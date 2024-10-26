@@ -1,54 +1,80 @@
-"use client"
-
 import type { TvResponse, SimilarMixed, AccountStates } from "@/types/response";
 import type { Media } from "@/types/media";
 import type { Provider } from "@/types/providers";
-import useFetch from "@/hooks/useFetch";
-import useHead from "@/hooks/useHead";
 import Genres from "@/components/Genres";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import pickRandomImages from "@/utils/pick-random-images";
-import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
 import RImage from "@/components/RImage";
 import imageUrl from "@/utils/image-url";
-import { DialogContent } from "@/components/ui/dialog";
+import { DialogContent, Dialog, DialogTrigger } from "@/components/ui/dialog";
 import PopupYoutubeTrailer from "@/components/PopupYoutubeTrailer";
 import WatchProviderContainer from "@/components/WatchProviderContainer";
 import SimilarCardItem from "@/components/SimilarCardItem";
 import getVideo from "@/utils/get-video";
 import { Season } from "@/types/tv";
 import SeasonCardItem from "@/components/SeasonCardItem";
-import { useAccountStore } from "@/stores/account";
 import AddToWatchlistButton from "@/components/AddToWatchlistButton";
+import config from "@/config";
+import { cookies } from "next/headers";
+import type { Metadata } from "next";
 
 interface Params {
   params: { id: string }
 }
+interface Authentication {
+  success: boolean;
+  status_code: number;
+  status_message: string;
+}
+type Status = "idle" | "pending" | "success" | "error"
 
-export default function Page({ params }: Params) {
-  const { data: tv, isLoading, error } = useFetch<TvResponse>(`/tv/${params.id}`,
-    {
-      append_to_response: "images,videos,watch/providers,similar",
-      language: "en-US",
-      include_image_language: "en,null"
+
+const { apiUrl } = config
+
+// eslint-disable-next-line react-refresh/only-export-components
+export async function generateMetadata(
+  { params }: Params
+): Promise<Metadata> {
+  const { tv } = await getTvShow(params.id);
+  const title = `Vilm - ${tv?.name}`
+  const description = tv?.overview;
+
+  if (tv) {
+    const image = imageUrl({ path: tv.backdrop_path, size: "w300" });
+    return {
+      title: title,
+      description: description,
+      openGraph: {
+        title,
+        description,
+        images: [image]
+      },
+      twitter: {
+        title,
+        description,
+        images: [image],
+        card: "summary"
+      }
     }
-  );
-  const { data: states } = useFetch<AccountStates>(`/tv/${params.id}/account_states`);
-  const { isAuthenticated } = useAccountStore();
-
-  useHead({
-    title: 'Vilm - ' + tv?.name,
-    meta: {
-      description: tv?.overview as string
+  } else {
+    return {
+      title: "Vilm"
     }
-  });
-
-
-  if (error) {
-    return <pre className="text-white">{error}</pre>;
   }
-  if (isLoading) {
+}
+
+export default async function Page({ params }: Params) {
+  const { tv, status, error } = await getTvShow(params.id)
+  const states = await getStates(params.id)
+  const isAuthenticated = await authenticateUser()
+
+
+
+  if (status === 'pending') {
     return <pre className="text-white">loading...</pre>;
+  }
+  if (status === 'error') {
+    return <pre className="text-white">{error}</pre>;
   }
 
   return (
@@ -74,7 +100,7 @@ export default function Page({ params }: Params) {
                     (image: Media, index) => (
                       <CarouselItem
                         key={index}
-                        className="basis-1/2 lg:basis-1/3"
+                        className="basis-1/2 lg:basis-1/4"
                       >
                         <Dialog>
                           <DialogTrigger>
@@ -184,4 +210,76 @@ export default function Page({ params }: Params) {
       </div>
     </div>
   );
+}
+
+
+async function getTvShow(movieId: string): Promise<{ tv: TvResponse | null, status: Status, error: string | null }> {
+  const apiToken = cookies().get("API_TOKEN");
+  let status: Status = "idle";
+  let tv: TvResponse | null = null;
+  let error: string | null = null;
+
+  status = "pending";
+  try {
+    const response = await fetch(`${apiUrl}/tv/${movieId}?append_to_response=images,videos,watch/providers,similar&language=en-US&include_image_language=en,null`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization: `Bearer ${apiToken?.value}`,
+        },
+      });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch the tv data');
+    }
+
+    tv = await response.json();
+    status = "success";
+
+  } catch (err) {
+    console.error(err);
+    status = "error";
+    error = err instanceof Error ? err.message : "Unknown error";
+  }
+
+  return { tv, status, error };
+}
+
+
+async function getStates(movieId: string) {
+  const apiToken = cookies().get("API_TOKEN")
+  try {
+    const response = await fetch(`${apiUrl}/movie/${movieId}/account_states`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          Authorization: `Bearer ${apiToken?.value}`,
+        }
+      })
+
+    const states = await response.json()
+
+    return states as AccountStates;
+
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+async function authenticateUser(): Promise<boolean> {
+  const apiToken = cookies().get("API_TOKEN")
+
+  const response = await fetch(`${apiUrl}/authentication`, {
+    method: "GET",
+    headers: {
+      "accept": "application/json",
+      Authorization: `Bearer ${apiToken?.value}`,
+    },
+  })
+  const isAuthenticated: Authentication = await response.json()
+  return isAuthenticated.success;
+
 }
