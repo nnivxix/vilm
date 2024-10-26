@@ -21,7 +21,7 @@ const { apiUrl } = config;
 // eslint-disable-next-line react-refresh/only-export-components
 export const metadata: Metadata = {
   title: "Vilm - Movies Watchlist ",
-  description: '...',
+  description: 'Here you can manage watchlist movies.',
 }
 
 export default async function Page({ searchParams }:

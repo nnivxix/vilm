@@ -19,7 +19,6 @@ export default function Navbar() {
   const { account, setAccount, setIsAuthenticated } = useAccountStore();
 
   useEffect(() => {
-    console.log("from navbar: ", token)
     const getAccount = async () => {
       if (!token?.length) return;
 
