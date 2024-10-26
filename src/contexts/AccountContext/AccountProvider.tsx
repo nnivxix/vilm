@@ -1,4 +1,8 @@
-import { createContext } from "react"
+"use client"
+import { createContext, useState, useEffect, } from "react"
+// import $localStorage from "@/utils/$local-storage"
+import $fetch from "@/utils/$fetch"
+import { getCookie } from "cookies-next"
 
 export interface Account {
   avatar: Avatar
@@ -43,7 +47,7 @@ export function AccountProvider({
   children: React.ReactNode
 }) {
 
-  const { item: token } = $localStorage("token");
+  const token = getCookie("API_TOKEN");
   const [account, setAccount] = useState<Account | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(!!account?.username);
 
