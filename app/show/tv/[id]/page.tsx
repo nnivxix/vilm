@@ -83,7 +83,7 @@ export default async function Page({ params }: Params) {
         <div className="w-full bg-no-repeat bg-auto relative flex justify-center items-center h-screen lg:h-[85vh] ">
           <div className="grid grid-cols-4 gap-3 mx-auto absolute max-w-6xl px-3">
             <h1 className=" col-span-full text-6xl font-semibold ">
-              {tv?.original_name}{" "}
+              {tv.name ?? tv?.original_name}{" "}
             </h1>
             <h4 className="col-span-full font-semibold">
               Number of Season: {tv.number_of_seasons} | Number of Episodes:{" "}
