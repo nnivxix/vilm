@@ -29,7 +29,7 @@ interface Authentication {
 type Status = "idle" | "pending" | "success" | "error"
 
 
-const { apiUrl } = config
+const { apiUrl, token } = config
 
 export async function generateMetadata(
   { params }: Params
@@ -213,7 +213,7 @@ export default async function Page({ params }: Params) {
 
 
 async function getTvShow(movieId: string): Promise<{ tv: TvResponse | null, status: Status, error: string | null }> {
-  const apiToken = cookies().get("API_TOKEN");
+  const apiToken = cookies().get("API_TOKEN")?.value ?? token;
   let status: Status = "idle";
   let tv: TvResponse | null = null;
   let error: string | null = null;
@@ -226,7 +226,7 @@ async function getTvShow(movieId: string): Promise<{ tv: TvResponse | null, stat
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
-          Authorization: `Bearer ${apiToken?.value}`,
+          Authorization: `Bearer ${apiToken}`,
         },
       });
 

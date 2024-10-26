@@ -30,7 +30,7 @@ interface Authentication {
 type Status = "idle" | "pending" | "success" | "error"
 
 
-const { apiUrl } = config;
+const { apiUrl, token } = config;
 
 export async function generateMetadata(
   { params }: Params
@@ -197,7 +197,7 @@ export default async function Page({ params }: Params) {
 }
 
 async function getMovie(movieId: string): Promise<{ movie: MovieResponse | null, status: Status, error: string | null }> {
-  const apiToken = cookies().get("API_TOKEN");
+  const apiToken = cookies().get("API_TOKEN")?.value ?? token;
   let status: Status = "idle";
   let movie: MovieResponse | null = null;
   let error: string | null = null;
@@ -210,7 +210,7 @@ async function getMovie(movieId: string): Promise<{ movie: MovieResponse | null,
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
-          Authorization: `Bearer ${apiToken?.value}`,
+          Authorization: `Bearer ${apiToken}`,
         },
       });
 

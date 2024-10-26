@@ -7,7 +7,7 @@ import { Metadata } from "next";
 type Status = "idle" | "pending" | "success" | "error"
 
 
-const { apiUrl } = config;
+const { apiUrl, token } = config;
 
 
 export const metadata: Metadata = {
@@ -34,7 +34,7 @@ export default async function Page() {
 
 
 async function getDiscover(): Promise<{ data: Response<MovieTv[]> | null, status: Status, error: string | null }> {
-  const apiToken = cookies().get("API_TOKEN");
+  const apiToken = cookies().get("API_TOKEN")?.value ?? token;
   let status: Status = "idle";
   let data: Response<MovieTv[]> | null = null;
   let error: string | null = null;
@@ -47,7 +47,7 @@ async function getDiscover(): Promise<{ data: Response<MovieTv[]> | null, status
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
-          Authorization: `Bearer ${apiToken?.value}`,
+          Authorization: `Bearer ${apiToken}`,
         },
       });
 
