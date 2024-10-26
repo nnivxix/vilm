@@ -27,6 +27,7 @@ interface Authentication {
   status_code: number;
   status_message: string;
 }
+type Status = "idle" | "pending" | "success" | "error"
 
 
 const { apiUrl } = config;
@@ -35,7 +36,7 @@ const { apiUrl } = config;
 export async function generateMetadata(
   { params }: Params
 ): Promise<Metadata> {
-  const movie = await getMovie(params.id);
+  const { movie } = await getMovie(params.id);
   const title = `Vilm - ${movie?.title}`
   const description = movie?.overview;
 
@@ -64,17 +65,18 @@ export async function generateMetadata(
 }
 
 export default async function Page({ params }: Params) {
-  const movie = await getMovie(params.id)
+  const { movie, status } = await getMovie(params.id)
   const states = await getStates(params.id)
   const isAuthenticated = await authenticateUser()
 
 
-  if (!movie?.id) {
+  if (status === 'pending') {
+    return <pre className="text-white">loading...</pre>;
+  }
+
+  if (status === 'error') {
     return <pre className="text-white">error</pre>;
   }
-  // if (isLoading) {
-  //   return <pre className="text-white">loading...</pre>;
-  // }
 
   return (
     <div className="text-white">
@@ -195,13 +197,14 @@ export default async function Page({ params }: Params) {
   );
 }
 
-async function getMovie(movieId: string) {
-  const apiToken = cookies().get("API_TOKEN")
-  // let status : "idle" | "pending" | "success" | "error" = "idle" 
+async function getMovie(movieId: string): Promise<{ movie: MovieResponse | null, status: Status, error: string | null }> {
+  const apiToken = cookies().get("API_TOKEN");
+  let status: Status = "idle";
+  let movie: MovieResponse | null = null;
+  let error: string | null = null;
 
+  status = "pending";
   try {
-    // status = "pending";
-
     const response = await fetch(`${apiUrl}/movie/${movieId}?append_to_response=genre,images,videos,watch/providers,similar&language=en-US&include_image_language=en,null`,
       {
         method: "GET",
@@ -210,20 +213,24 @@ async function getMovie(movieId: string) {
           "Accept": "application/json",
           Authorization: `Bearer ${apiToken?.value}`,
         },
-      })
+      });
 
     if (!response.ok) {
-      throw Error();
+      throw new Error('Failed to fetch the movie data');
     }
-    const movie: MovieResponse = await response.json();
 
-    return movie;
+    movie = await response.json();
+    status = "success";
 
-  } catch (error) {
-    console.error(error)
+  } catch (err) {
+    console.error(err);
+    status = "error";
+    error = err instanceof Error ? err.message : "Unknown error";
   }
 
+  return { movie, status, error };
 }
+
 
 async function getStates(movieId: string) {
   const apiToken = cookies().get("API_TOKEN")
