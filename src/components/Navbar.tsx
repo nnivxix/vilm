@@ -60,7 +60,9 @@ export default function Navbar() {
                 <AvatarImage
                   src={gravatarUrl(account?.avatar?.gravatar.hash ?? "guest")}
                 />
-                <AvatarFallback>{"G"}</AvatarFallback>
+                <AvatarFallback>
+                  {account?.username.at(0) ?? "G"}
+                </AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
