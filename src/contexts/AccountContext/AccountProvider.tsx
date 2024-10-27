@@ -1,30 +1,30 @@
-"use client"
-import { createContext, useState, useEffect, } from "react"
+"use client";
+import { createContext, useState, useEffect } from "react";
 // import $localStorage from "@/utils/$local-storage"
-import $fetch from "@/utils/$fetch"
-import { getCookie } from "cookies-next"
+import $fetch from "@/utils/$fetch";
+import { getCookie } from "cookies-next";
 
 export interface Account {
-  avatar: Avatar
-  id: number
-  iso_639_1: string
-  iso_3166_1: string
-  name: string
-  include_adult: boolean
-  username: string
+  avatar: Avatar;
+  id: number;
+  iso_639_1: string;
+  iso_3166_1: string;
+  name: string;
+  include_adult: boolean;
+  username: string;
 }
 
 export interface Avatar {
-  gravatar: Gravatar
-  tmdb: Tmdb
+  gravatar: Gravatar;
+  tmdb: Tmdb;
 }
 
 export interface Gravatar {
-  hash: string
+  hash: string;
 }
 
 export interface Tmdb {
-  avatar_path?: string
+  avatar_path?: string;
 }
 
 type AccountProviderState = {
@@ -32,24 +32,21 @@ type AccountProviderState = {
   isAuthenticated: boolean;
   setAccount: React.Dispatch<React.SetStateAction<Account | null>>;
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-}
+};
 
 export const AccountProviderContext = createContext<AccountProviderState>({
   account: null,
   isAuthenticated: false,
   setAccount: () => null,
-  setIsAuthenticated: () => false
-})
+  setIsAuthenticated: () => false,
+});
 
-export function AccountProvider({
-  children
-}: {
-  children: React.ReactNode
-}) {
-
+export function AccountProvider({ children }: { children: React.ReactNode }) {
   const token = getCookie("API_TOKEN");
   const [account, setAccount] = useState<Account | null>(null);
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(!!account?.username);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
+    !!account?.username
+  );
 
   useEffect(() => {
     const getAccount = async () => {
@@ -64,11 +61,10 @@ export function AccountProvider({
 
       setAccount(data);
       if (error?.success === false) {
-        setIsAuthenticated(false)
+        setIsAuthenticated(false);
       } else {
-        setIsAuthenticated(true)
+        setIsAuthenticated(true);
       }
-
     };
     getAccount();
   }, [token]);
@@ -86,4 +82,3 @@ export function AccountProvider({
     </AccountProviderContext.Provider>
   );
 }
-

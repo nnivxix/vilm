@@ -60,3 +60,4 @@ export interface SimpleMovie extends SimpleBaseMedia {
   title: string;
   video: boolean;
 }
+

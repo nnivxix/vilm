@@ -118,3 +118,4 @@ export interface SimpleTv extends SimpleBaseMedia {
   first_air_date: string;
   name: string;
 }
+
