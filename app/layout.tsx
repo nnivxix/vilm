@@ -3,37 +3,36 @@ import "../src/index.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
-import { Metadata } from 'next';
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Vilm',
-  description: 'Get movies and tv shows information.',
+  title: "Vilm",
+  description: "Get movies and tv shows information.",
   openGraph: {
-    siteName: 'Vilm',
-    type: 'website',
-    url: 'https://vilm-react.vercel.app/',
-    title: 'Vilm',
-    description: 'Get movies and tv shows information.',
+    siteName: "Vilm",
+    type: "website",
+    url: "https://vilm-react.vercel.app/",
+    title: "Vilm",
+    description: "Get movies and tv shows information.",
     images: [
       {
-        url: '/og-image.jpg',
+        url: "/og-image.jpg",
       },
     ],
   },
   twitter: {
-    card: 'summary_large_image',
-    creator: '@nnivxix',
-    title: 'Get movies and tv shows information.',
-    description: 'Get movies and tv shows information.',
-    images: ['/og-image.jpg'],
+    card: "summary_large_image",
+    creator: "@nnivxix",
+    title: "Get movies and tv shows information.",
+    description: "Get movies and tv shows information.",
+    images: ["/og-image.jpg"],
   },
 };
-
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en" className="dark">
@@ -72,8 +71,6 @@ export default function RootLayout({
           href="/backdrop-fallback.png"
           type="image/png"
         />
-
-
       </head>
       <body>
         <Navbar />

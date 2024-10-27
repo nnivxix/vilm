@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import type { SimilarMovie, SimilarTv } from "@/types/response";
 import { Star } from "lucide-react";
 import { buttonVariants } from "./ui/button";
@@ -31,7 +31,10 @@ export default function SimilarCardItem<
         <h1 className="pb-2 text-xl font-bold">{movieTitle}</h1>
         <p className="line-clamp-6">{card.overview}</p>
         <div className="mt-3 w-full self-end mb-4 font-bold">
-          <Link className={`w-full ${buttonVariants({ variant: 'default' })}`} href={`/show/${mediaType}/${card.id}`}>
+          <Link
+            className={`w-full ${buttonVariants({ variant: "default" })}`}
+            href={`/show/${mediaType}/${card.id}`}
+          >
             View
           </Link>
         </div>

@@ -1,15 +1,20 @@
-"use client"
+"use client";
 
 import CardItem from "@/components/CardItem";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import useFetch from "@/hooks/useFetch";
 import type { MovieTv, Response } from "@/types/response";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, type FormEvent } from "react";
-
-
 
 export function SearchForm() {
   const searchParams = useSearchParams();
@@ -98,7 +103,4 @@ export function SearchForm() {
       </div>
     </div>
   );
-
 }
-
-

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState, type ImgHTMLAttributes, type SyntheticEvent } from "react";
 import type { TypeImage } from "../hooks/useImageFallback";
@@ -13,7 +13,6 @@ export default function RImage({ src, alt, type, ...props }: ImageProps) {
   const { fallback } = useImageFallback(type);
   const [loaded, setLoaded] = useState(false);
 
-
   const imageFallback = (event: SyntheticEvent<HTMLImageElement, Event>) => {
     event.currentTarget.src = fallback;
   };
@@ -21,7 +20,7 @@ export default function RImage({ src, alt, type, ...props }: ImageProps) {
     if (loaded) return;
 
     event.currentTarget.src = src;
-    setLoaded(true)
+    setLoaded(true);
   };
 
   return (

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Link from "next/link";
 import type { ComponentPropsWithRef } from "react";
 import RImage from "./RImage";
@@ -17,25 +17,31 @@ export interface SimpleBaseMedia {
   vote_count: number;
 }
 
-
-interface BackdropCardProps<T> extends ComponentPropsWithRef<'div'> {
+interface BackdropCardProps<T> extends ComponentPropsWithRef<"div"> {
   media: T;
   title: string;
 }
 
-export default function BackdropCard<T extends SimpleBaseMedia>({ media, title, ...props }: BackdropCardProps<T>) {
-  const isMovieType = Object.prototype.hasOwnProperty.call(media, 'video');
+export default function BackdropCard<T extends SimpleBaseMedia>({
+  media,
+  title,
+  ...props
+}: BackdropCardProps<T>) {
+  const isMovieType = Object.prototype.hasOwnProperty.call(media, "video");
 
   return (
-    <div title={title} {...props} className={`${props.className} rounded-md group transition-transform overflow-clip  hover:scale-110`}
+    <div
+      title={title}
+      {...props}
+      className={`${props.className} rounded-md group transition-transform overflow-clip  hover:scale-110`}
     >
-      <Link href={`/show/${isMovieType ? 'movie' : 'tv'}/${media.id}`}>
-        <RImage src={imageUrl({
-          path: media.backdrop_path,
-          size: 'w300',
-          type: 'backdrop'
-
-        })}
+      <Link href={`/show/${isMovieType ? "movie" : "tv"}/${media.id}`}>
+        <RImage
+          src={imageUrl({
+            path: media.backdrop_path,
+            size: "w300",
+            type: "backdrop",
+          })}
           type="backdrop"
           alt={media.overview}
         />
@@ -44,5 +50,5 @@ export default function BackdropCard<T extends SimpleBaseMedia>({ media, title, 
         </div>
       </Link>
     </div>
-  )
+  );
 }

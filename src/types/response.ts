@@ -84,3 +84,4 @@ export interface AppendResponse {
 export interface SimilarMixed extends SimilarMovie, SimilarTv {}
 export interface MovieResponse extends Movie, AppendResponse {}
 export interface TvResponse extends Tv, AppendResponse {}
+

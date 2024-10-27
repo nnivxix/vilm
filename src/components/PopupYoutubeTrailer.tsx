@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
 
 export default function PopupYoutubeTrailer({ video }: { video: string }) {

@@ -1,21 +1,26 @@
-"use client"
+"use client";
 
-import { getCookie } from "cookies-next"
+import { getCookie } from "cookies-next";
 import { LibraryBig, Settings } from "lucide-react";
 import Link from "next/link";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import gravatarUrl from "@/utils/gravatar-url";
 import { type Account, useAccountStore } from "@/stores/account";
 import config from "@/config";
 import { useEffect } from "react";
 
-
 const { apiUrl } = config;
 
-
 export default function Navbar() {
-  const token = getCookie("API_TOKEN")
+  const token = getCookie("API_TOKEN");
   const { account, setAccount, setIsAuthenticated } = useAccountStore();
 
   useEffect(() => {
@@ -31,18 +36,16 @@ export default function Navbar() {
 
       const data: Account = await response.json();
 
-
       if (!data.id) {
-        setIsAuthenticated(false)
-        setAccount(null)
+        setIsAuthenticated(false);
+        setAccount(null);
       } else {
         setAccount(data);
-        setIsAuthenticated(true)
+        setIsAuthenticated(true);
       }
-
     };
     getAccount();
-  }, [setAccount, setIsAuthenticated, token])
+  }, [setAccount, setIsAuthenticated, token]);
 
   return (
     <div className="bg-gray-900">
@@ -57,9 +60,7 @@ export default function Navbar() {
                 <AvatarImage
                   src={gravatarUrl(account?.avatar?.gravatar.hash ?? "guest")}
                 />
-                <AvatarFallback>
-                  {"G"}
-                </AvatarFallback>
+                <AvatarFallback>{"G"}</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">

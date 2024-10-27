@@ -1,8 +1,8 @@
-"use client"
-import type { Genre } from '@/types/media'
+"use client";
+import type { Genre } from "@/types/media";
 
 interface GenresProps {
-  genres: Genre[]
+  genres: Genre[];
 }
 
 export default function Genres({ genres }: GenresProps) {
@@ -17,5 +17,5 @@ export default function Genres({ genres }: GenresProps) {
         </span>
       ))}
     </div>
-  )
+  );
 }

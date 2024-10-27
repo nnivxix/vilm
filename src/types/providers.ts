@@ -28,3 +28,4 @@ export interface WatchType {
   ads?: ProviderInfo[];
   flatrate?: ProviderInfo[];
 }
+

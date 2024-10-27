@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import type { ProvidersResponse } from "@/types/providers";
 import WatchProvider from "./WatchProvider";
 import getProviders from "@/utils/get-providers";
