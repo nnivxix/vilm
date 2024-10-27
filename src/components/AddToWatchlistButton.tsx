@@ -33,7 +33,8 @@ export default function AddToWatchlistButton({ states, type, mediaId }: Props) {
       setIsWatchlisted(!isWatchlisted);
 
       toast({
-        description: data.status_message,
+        title: data.status_message,
+        description: "Please check your watchlist.",
       });
     } catch (e) {
       console.error(e);
