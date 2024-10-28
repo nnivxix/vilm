@@ -25,7 +25,7 @@ export default function SimilarCardItem<
   return (
     <article
       title={movieTitle}
-      className="hover:scale-105 group transition-transform rounded-lg pb-2 relative bg-gray-900 w-auto overflow-hidden"
+      className="group rounded-lg pb-2 relative bg-gray-900 w-auto overflow-hidden"
     >
       <div className="z-30 p-2 text-white absolute hidden group-hover:grid grid-cols-1 bg-black/50 backdrop-blur-sm w-full h-full">
         <h1 className="pb-2 text-xl font-bold">{movieTitle}</h1>

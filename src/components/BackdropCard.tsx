@@ -33,7 +33,7 @@ export default function BackdropCard<T extends SimpleBaseMedia>({
     <div
       title={title}
       {...props}
-      className={`${props.className} rounded-md group transition-transform overflow-clip  hover:scale-110`}
+      className={`${props.className} rounded-md group overflow-clip`}
     >
       <Link href={`/show/${isMovieType ? "movie" : "tv"}/${media.id}`}>
         <RImage
