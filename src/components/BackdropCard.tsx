@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
 import type { ComponentPropsWithRef } from "react";
-import RImage from "./RImage";
 import imageUrl from "@/utils/image-url";
+import Image from "next/image";
 
 export interface SimpleBaseMedia {
   adult: boolean;
@@ -36,13 +36,14 @@ export default function BackdropCard<T extends SimpleBaseMedia>({
       className={`${props.className} rounded-md group overflow-clip`}
     >
       <Link href={`/show/${isMovieType ? "movie" : "tv"}/${media.id}`}>
-        <RImage
+        <Image
           src={imageUrl({
             path: media.backdrop_path,
             size: "w300",
             type: "backdrop",
           })}
-          type="backdrop"
+          width={300}
+          height={200}
           alt={media.overview}
         />
         <div className="lg:opacity-0 group-hover:opacity-100 line-clamp-2">

@@ -67,13 +67,16 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 export default async function Page({ params }: Params) {
-  const { tv, status } = await getTvShow(params.id);
-  const states = await getStates(params.id);
-  const isAuthenticated = await authenticateUser();
+  const [tvData, states, isAuthenticated] = await Promise.all([
+    getTvShow(params.id),
+    getStates(params.id),
+    authenticateUser(),
+  ]);
+  const { tv, status } = tvData;
 
-  if (status === "pending") {
-    return <pre className="text-white">loading...</pre>;
-  }
+  // if (status === "pending") {
+  //   return <pre className="text-white">loading...</pre>;
+  // }
   if (status === "error") {
     return notFound();
   }

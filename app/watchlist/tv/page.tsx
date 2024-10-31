@@ -34,9 +34,6 @@ export default async function Page({
   const account = await getAccount();
   const tv = await getWatchlistTv(account.id, currentPage as string);
 
-  // const { isAuthenticated } = useAccountStore()
-  // const { data: tv } = useFetch<Response<SimpleTv[]>>(`/account/9578292/watchlist/tv`)
-
   if (!isAuthenticated) {
     return (
       <div className="text-center">

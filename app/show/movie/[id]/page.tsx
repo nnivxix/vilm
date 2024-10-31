@@ -33,6 +33,7 @@ import { Suspense } from "react";
 interface Params {
   params: { id: string };
 }
+
 interface Authentication {
   success: boolean;
   status_code: number;
@@ -72,9 +73,12 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 export default async function Page({ params }: Params) {
-  const { movie, status } = await getMovie(params.id);
-  const states = await getStates(params.id);
-  const isAuthenticated = await authenticateUser();
+  const [movieData, states, isAuthenticated] = await Promise.all([
+    getMovie(params.id),
+    getStates(params.id),
+    authenticateUser(),
+  ]);
+  const { movie, status } = movieData;
 
   if (status === "error") {
     return notFound();
@@ -205,9 +209,7 @@ export default async function Page({ params }: Params) {
   );
 }
 
-async function getMovie(
-  movieId: string
-): Promise<{
+async function getMovie(movieId: string): Promise<{
   movie: MovieResponse | null;
   status: Status;
   error: string | null;

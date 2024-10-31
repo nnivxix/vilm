@@ -14,7 +14,7 @@ export default function Footer() {
           <div className="flex items-center mb-4">
             <h3 className="text-gray-400">Data provided by </h3>
             <Link href="https://www.themoviedb.org" target="_blank">
-              <img src="tmdb.png" alt="" width={"80px"} className="ml-2" />
+              <img src="/tmdb.png" alt="" width={"80px"} className="ml-2" />
             </Link>
           </div>
           <p className="text-gray-400">© 2024</p>
