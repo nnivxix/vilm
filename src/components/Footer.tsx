@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -11,10 +12,10 @@ export default function Footer() {
             design. Users can browse various movie titles and access detailed
             information, including the synopsis and trailers.
           </p>
-          <div className="flex items-center mb-4">
+          <div className="flex items-center mb-4 gap-3">
             <h3 className="text-gray-400">Data provided by </h3>
             <Link href="https://www.themoviedb.org" target="_blank">
-              <img src="tmdb.png" alt="" width={"80px"} className="ml-2" />
+              <Image src="/tmdb.png" alt="Tmbdb Logo" width={80} height={10} />
             </Link>
           </div>
           <p className="text-gray-400">© 2024</p>

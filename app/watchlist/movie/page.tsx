@@ -55,15 +55,14 @@ export default async function Page({
   return (
     <div>
       <div className="grid grid-cols-6 gap-4 mt-6">
-        {movies?.results.length &&
-          movies.results.map((movie, index) => (
-            <BackdropCard<SimpleMovie>
-              media={movie}
-              title={movie.title}
-              key={index}
-              className="lg:col-span-1 md:col-span-2 col-span-3"
-            />
-          ))}
+        {movies.results.map((movie, index) => (
+          <BackdropCard<SimpleMovie>
+            media={movie}
+            title={movie.title}
+            key={index}
+            className="lg:col-span-1 md:col-span-2 col-span-3"
+          />
+        ))}
       </div>
       <Suspense>
         <div className="flex w-full">
