@@ -1,5 +1,5 @@
 import React from "react";
-import "../src/index.css";
+import "@/index.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
