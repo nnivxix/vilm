@@ -3,8 +3,6 @@ import CardItem from "@/components/CardItem";
 import { Metadata } from "next";
 import config from "@/config";
 
-type Status = "idle" | "pending" | "success" | "error";
-
 export const metadata: Metadata = {
   title: "Vilm - Discover Movies and Tv Shows ",
   description: "Discover movies and tv shows.",
@@ -13,15 +11,13 @@ export const metadata: Metadata = {
 const { appUrl } = config;
 
 export default async function Page() {
-  const { data, status } = await getDiscover();
+  const data: Response<MovieTv[]> = await getDiscover();
 
-  if (status === "pending") {
-    return "Loading...";
-  }
+  // TODO: Loading state
   return (
     <div>
       <div className="grid lg:grid-cols-8 md:grid-cols-4 grid-cols-2 gap-5 mx-auto px-5 mt-5">
-        {data?.results?.map((movie: MovieTv) => (
+        {data.results?.map((movie: MovieTv) => (
           <CardItem movie={movie} key={movie.id} />
         ))}
       </div>
@@ -29,16 +25,7 @@ export default async function Page() {
   );
 }
 
-async function getDiscover(): Promise<{
-  data: Response<MovieTv[]> | null;
-  status: Status;
-  error: string | null;
-}> {
-  let status: Status = "idle";
-  let data: Response<MovieTv[]> | null = null;
-  let error: string | null = null;
-
-  status = "pending";
+async function getDiscover() {
   try {
     const response = await fetch(`${appUrl}/api/discover`, {
       method: "GET",
@@ -46,6 +33,7 @@ async function getDiscover(): Promise<{
         "Content-Type": "application/json",
         Accept: "application/json",
       },
+      cache: "no-store",
     });
 
     if (!response.ok) {
@@ -53,15 +41,9 @@ async function getDiscover(): Promise<{
     }
 
     const json = await response.json();
-    console.log("Raw API Response:", json.data);
 
-    data = { ...json.data };
-    status = "success";
+    return json;
   } catch (err) {
     console.error(err);
-    status = "error";
-    error = err instanceof Error ? err.message : "Unknown error";
   }
-
-  return { data, status, error };
 }

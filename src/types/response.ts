@@ -3,6 +3,8 @@ import type { Movie } from "./movie";
 import type { ProvidersResponse } from "./providers";
 import type { Tv } from "./tv";
 
+export type Status = "idle" | "pending" | "success" | "error";
+
 export interface Response<T> {
   page: number;
   results: T;
@@ -84,4 +86,3 @@ export interface AppendResponse {
 export interface SimilarMixed extends SimilarMovie, SimilarTv {}
 export interface MovieResponse extends Movie, AppendResponse {}
 export interface TvResponse extends Tv, AppendResponse {}
-
