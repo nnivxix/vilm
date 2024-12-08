@@ -4,7 +4,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import { Metadata } from "next";
-import { CookiesProvider } from "next-client-cookies/server";
 
 export const metadata: Metadata = {
   title: "Vilm",
@@ -75,7 +74,7 @@ export default function RootLayout({
       </head>
       <body>
         <Navbar />
-        <CookiesProvider>{children}</CookiesProvider>
+        <div id="root">{children}</div>
         <Footer />
         <Toaster />
       </body>
