@@ -28,11 +28,6 @@ import { notFound } from "next/navigation";
 interface Params {
   params: { id: string };
 }
-interface Authentication {
-  success: boolean;
-  status_code: number;
-  status_message: string;
-}
 type Status = "idle" | "pending" | "success" | "error";
 
 const { apiUrl, token } = config;
