@@ -10,6 +10,14 @@ const nextConfig = {
       },
     ],
   },
+  rewrites() {
+    return [
+      {
+        source: "/images/:size/:filename",
+        destination: "https://image.tmdb.org/t/p/*",
+      },
+    ];
+  },
 };
 
 export default nextConfig;

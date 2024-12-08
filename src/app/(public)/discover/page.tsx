@@ -33,7 +33,7 @@ async function getDiscover() {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      cache: "no-store",
+      // cache: "no-store",
     });
 
     if (!response.ok) {
