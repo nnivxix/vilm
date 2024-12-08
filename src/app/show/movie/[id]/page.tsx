@@ -277,6 +277,9 @@ async function authenticateUser(): Promise<boolean> {
       Authorization: `Bearer ${apiToken?.value}`,
     },
   });
-  const isAuthenticated: Authentication = await response.json();
-  return isAuthenticated.success;
+
+  if (response.status === 200) {
+    return true;
+  }
+  return false;
 }

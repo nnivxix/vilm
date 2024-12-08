@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Account, useAccountStore } from "@/stores/account";
 import $fetch from "@/utils/$fetch";
 import { deleteCookie, getCookie, setCookie } from "cookies-next";
+import config from "@/config";
 
 export default function Page() {
   const [form, setForm] = useState<{
@@ -20,6 +21,7 @@ export default function Page() {
   });
   const { toast } = useToast();
   const { setAccount, setIsAuthenticated } = useAccountStore();
+  const { apiUrl } = config;
 
   const handleClipboard = async () => {
     const copiedText = await navigator.clipboard.readText();
@@ -42,27 +44,26 @@ export default function Page() {
       description: "Data updated succesfully.",
     });
 
-    try {
-      const { error } = await $fetch<Account>("/authentication", {
-        headers: {
-          Authorization: "Bearer " + form.token,
-        },
-        defaultToken: false,
+    if (!form.token) {
+      toast({
+        title: "Success",
+        description: "Data updated succesfully to be null.",
       });
+      setAccount(null);
+      setIsAuthenticated(false);
+      deleteCookie("API_TOKEN");
 
-      if (!form.token) {
-        toast({
-          title: "Success",
-          description: "Data updated succesfully to be null.",
-        });
-        setAccount(null);
-        setIsAuthenticated(false);
-        deleteCookie("API_TOKEN");
-
-        return;
-      }
-
-      if (!error) {
+      return;
+    }
+    try {
+      const response = await fetch(`${apiUrl}/authentication`, {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${form.token}`,
+        },
+      });
+      if (response.status === 200) {
         toast({
           title: "Success",
           description: "Data updated succesfully.",
@@ -84,12 +85,13 @@ export default function Page() {
         });
         return;
       }
+      const data = await response.json();
 
       toast({
         title: "Error",
-        description: error?.status_message,
+        description: data?.status_message,
       });
-      throw new Error(error?.status_message);
+      throw new Error(data?.status_message);
     } catch (error) {
       console.error(error);
     }
