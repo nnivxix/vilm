@@ -28,11 +28,6 @@ import { notFound } from "next/navigation";
 interface Params {
   params: { id: string };
 }
-interface Authentication {
-  success: boolean;
-  status_code: number;
-  status_message: string;
-}
 type Status = "idle" | "pending" | "success" | "error";
 
 const { apiUrl, token } = config;
@@ -284,6 +279,8 @@ async function authenticateUser(): Promise<boolean> {
       Authorization: `Bearer ${apiToken?.value}`,
     },
   });
-  const isAuthenticated: Authentication = await response.json();
-  return isAuthenticated.success;
+  if (response.status === 200) {
+    return true;
+  }
+  return false;
 }

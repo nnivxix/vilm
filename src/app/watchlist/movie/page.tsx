@@ -10,12 +10,6 @@ import Pagination from "@/components/Pagination";
 import paginationPages from "@/utils/pagination-pages";
 import config from "@/config";
 
-interface Authentication {
-  success: boolean;
-  status_code: number;
-  status_message: string;
-}
-
 const { apiUrl } = config;
 
 export const metadata: Metadata = {
@@ -117,7 +111,8 @@ async function authenticateUser(): Promise<boolean> {
       Authorization: `Bearer ${apiToken?.value}`,
     },
   });
-
-  const isAuthenticated: Authentication = await response.json();
-  return isAuthenticated.success;
+  if (response.status === 200) {
+    return true;
+  }
+  return false;
 }
