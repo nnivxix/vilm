@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
   title: "Vilm",
@@ -77,6 +78,7 @@ export default function RootLayout({
         <div id="root">{children}</div>
         <Footer />
         <Toaster />
+        <GoogleAnalytics gaId="G-03FLPD1LHB" />
       </body>
     </html>
   );
