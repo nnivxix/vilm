@@ -3,7 +3,7 @@ import { Star } from "lucide-react";
 import Link from "next/link";
 import RImage from "./RImage";
 import imageUrl from "../utils/image-url";
-import { buttonVariants } from "./ui/button";
+import { Button } from "./ui/button";
 
 interface CardItemProps {
   movie: MovieTv;
@@ -23,18 +23,16 @@ export default function CardItem({ movie, media }: CardItemProps) {
       title={movieTitle}
       className="group rounded-lg pb-2 relative bg-gray-900  overflow-hidden"
     >
-      <div className="z-30 p-2 text-white absolute hidden group-hover:grid grid-cols-1 bg-black/50 backdrop-blur-sm w-full h-full">
+      <Link
+        href={`/show/${mediaType}/${movie.id}`}
+        className="z-30 p-2 text-white absolute hidden group-hover:grid grid-cols-1 bg-black/50 backdrop-blur-sm w-full h-full"
+      >
         <h1 className="pb-2 text-xl font-bold">{movieTitle}</h1>
         <p className="line-clamp-6">{movie.overview}</p>
         <div className="mt-3 w-full self-end mb-4 font-bold">
-          <Link
-            className={`w-full ${buttonVariants({ variant: "default" })}`}
-            href={`/show/${mediaType}/${movie.id}`}
-          >
-            View
-          </Link>
+          <Button className="w-full">View</Button>
         </div>
-      </div>
+      </Link>
       <div className="relative">
         <Link href={`/show/${mediaType}/${movie.id}`}>
           <RImage
