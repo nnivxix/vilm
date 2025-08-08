@@ -43,7 +43,11 @@ export default function RootLayout({
           })}
         </div>
       </div>
-      {children}
+      <div>
+        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-6">
+          {children}
+        </div>
+      </div>
     </div>
   );
 }
