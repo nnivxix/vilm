@@ -20,8 +20,8 @@ export default async function Page() {
     return "Loading...";
   }
   return (
-    <div>
-      <div className="grid lg:grid-cols-8 md:grid-cols-4 grid-cols-2 gap-5 mx-auto px-5 mt-5">
+    <div className="max-w-6xl mx-auto mt-6">
+      <div className="grid lg:grid-cols-5 md:grid-cols-4 grid-cols-2 gap-5 mx-auto px-5 mt-5">
         {data?.results.map((movie: MovieTv) => (
           <CardItem movie={movie} key={movie.id} />
         ))}
