@@ -37,6 +37,7 @@ export default function BackdropCard<T extends SimpleBaseMedia>({
     >
       <Link href={`/show/${isMovieType ? "movie" : "tv"}/${media.id}`}>
         <Image
+          className="w-full"
           src={imageUrl({
             path: media.backdrop_path,
             size: "w300",

@@ -83,7 +83,7 @@ export function SearchForm() {
           </SelectContent>
         </Select>
       </form>
-      <div className="grid lg:grid-cols-8 md:grid-cols-4 grid-cols-2 gap-5  mx-auto px-5 mt-5">
+      <div className="grid lg:grid-cols-5 md:grid-cols-4 grid-cols-2 gap-5 max-w-6xl mx-auto px-5 mt-5">
         {!!results?.length &&
           results?.map((movie: MovieTv) => (
             <CardItem media={queryType!} movie={movie} key={movie.id} />

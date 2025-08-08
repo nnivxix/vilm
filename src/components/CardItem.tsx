@@ -34,15 +34,16 @@ export default function CardItem({ movie, media }: CardItemProps) {
         </div>
       </Link>
       <div className="relative">
-        <Link href={`/show/${mediaType}/${movie.id}`}>
+        <div>
           <RImage
             src={imageUrl({ path: movie.poster_path, type: "poster" })}
             alt={movieTitle!}
             type="poster"
             height={700}
             width={1244}
+            className="h-[300px] object-cover "
           />
-        </Link>
+        </div>
         <div className="absolute bottom-1 left-3 ">
           <div className="flex gap-2 flex-wrap">
             {mediaType && (
@@ -59,7 +60,7 @@ export default function CardItem({ movie, media }: CardItemProps) {
         </div>
       </div>
 
-      <p className="text-lg md:text-xl font-bold text-white px-3 py-2">
+      <p className="text-lg md:text-xl font-bold text-white line-clamp-2">
         {movieTitle}
       </p>
       <div className="flex justify-between">
