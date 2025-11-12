@@ -1,6 +1,8 @@
+"use client";
 import type { MovieTv } from "@/types/response";
 import { Star } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import RImage from "./RImage";
 import imageUrl from "../utils/image-url";
 import { Button } from "./ui/button";
@@ -11,12 +13,16 @@ interface CardItemProps {
 }
 export default function CardItem({ movie, media }: CardItemProps) {
   const movieTitle = movie.title ?? movie.name;
+  const pathname = usePathname();
+  const isSearchPage = pathname?.includes("/search");
+
   const getYear = () => {
     const date = movie.release_date ?? movie.first_air_date;
     return date?.split("-")[0] ?? "";
   };
 
   const mediaType = media ?? movie.media_type;
+  const movieUrl = `/show/${mediaType}/${movie.id}`;
 
   return (
     <article
@@ -24,7 +30,8 @@ export default function CardItem({ movie, media }: CardItemProps) {
       className="group rounded-lg pb-2 relative bg-gray-900  overflow-hidden"
     >
       <Link
-        href={`/show/${mediaType}/${movie.id}`}
+        href={isSearchPage ? movieUrl : movieUrl}
+        scroll={!isSearchPage}
         className="z-30 p-2 text-white absolute hidden group-hover:grid grid-cols-1 bg-black/50 backdrop-blur-sm w-full h-full"
       >
         <h1 className="pb-2 text-xl font-bold">{movieTitle}</h1>
