@@ -105,7 +105,7 @@ export default function Page() {
   });
 
   return (
-    <div className="max-w-4xl mx-auto mt-5">
+    <div className="max-w-6xl mx-auto mt-6 px-5">
       <form onSubmit={submitForm} className="grid grid-cols-1 gap-5 px-4">
         <div>
           <h1 className="text-xl">Settings</h1>

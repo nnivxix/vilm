@@ -47,23 +47,23 @@ export default async function Page({
   );
 
   return (
-    <div>
-      <div className="grid grid-cols-6 gap-4 mt-6">
-        {movies.results.map((movie, index) => (
-          <BackdropCard<SimpleMovie>
-            media={movie}
-            title={movie.title}
-            key={index}
-            className="lg:col-span-1 md:col-span-2 col-span-3"
-          />
-        ))}
+    <>
+      {movies.results.map((movie, index) => (
+        <BackdropCard<SimpleMovie>
+          media={movie}
+          title={movie.title}
+          key={index}
+          className="lg:col-span-1 md:col-span-2 col-span-5"
+        />
+      ))}
+      <div className="col-span-5 flex justify-between items-center mt-4">
+        <Suspense>
+          <div className="flex w-full">
+            {pages.length && <Pagination pages={pages} />}
+          </div>
+        </Suspense>
       </div>
-      <Suspense>
-        <div className="flex w-full">
-          {pages.length && <Pagination pages={pages} />}
-        </div>
-      </Suspense>
-    </div>
+    </>
   );
 }
 

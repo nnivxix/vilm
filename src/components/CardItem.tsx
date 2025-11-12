@@ -1,9 +1,11 @@
+"use client";
 import type { MovieTv } from "@/types/response";
 import { Star } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import RImage from "./RImage";
 import imageUrl from "../utils/image-url";
-import { buttonVariants } from "./ui/button";
+import { Button } from "./ui/button";
 
 interface CardItemProps {
   movie: MovieTv;
@@ -11,40 +13,44 @@ interface CardItemProps {
 }
 export default function CardItem({ movie, media }: CardItemProps) {
   const movieTitle = movie.title ?? movie.name;
+  const pathname = usePathname();
+  const isSearchPage = pathname?.includes("/search");
+
   const getYear = () => {
     const date = movie.release_date ?? movie.first_air_date;
     return date?.split("-")[0] ?? "";
   };
 
   const mediaType = media ?? movie.media_type;
+  const movieUrl = `/show/${mediaType}/${movie.id}`;
 
   return (
     <article
       title={movieTitle}
       className="group rounded-lg pb-2 relative bg-gray-900  overflow-hidden"
     >
-      <div className="z-30 p-2 text-white absolute hidden group-hover:grid grid-cols-1 bg-black/50 backdrop-blur-sm w-full h-full">
+      <Link
+        href={isSearchPage ? movieUrl : movieUrl}
+        scroll={!isSearchPage}
+        className="z-30 p-2 text-white absolute hidden group-hover:grid grid-cols-1 bg-black/50 backdrop-blur-sm w-full h-full"
+      >
         <h1 className="pb-2 text-xl font-bold">{movieTitle}</h1>
         <p className="line-clamp-6">{movie.overview}</p>
         <div className="mt-3 w-full self-end mb-4 font-bold">
-          <Link
-            className={`w-full ${buttonVariants({ variant: "default" })}`}
-            href={`/show/${mediaType}/${movie.id}`}
-          >
-            View
-          </Link>
+          <Button className="w-full">View</Button>
         </div>
-      </div>
+      </Link>
       <div className="relative">
-        <Link href={`/show/${mediaType}/${movie.id}`}>
+        <div>
           <RImage
             src={imageUrl({ path: movie.poster_path, type: "poster" })}
             alt={movieTitle!}
             type="poster"
             height={700}
             width={1244}
+            className="h-[300px] object-cover "
           />
-        </Link>
+        </div>
         <div className="absolute bottom-1 left-3 ">
           <div className="flex gap-2 flex-wrap">
             {mediaType && (
@@ -61,7 +67,7 @@ export default function CardItem({ movie, media }: CardItemProps) {
         </div>
       </div>
 
-      <p className="text-lg md:text-xl font-bold text-white px-3 py-2">
+      <p className="text-lg md:text-xl font-bold text-white line-clamp-2">
         {movieTitle}
       </p>
       <div className="flex justify-between">

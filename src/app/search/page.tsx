@@ -26,8 +26,10 @@ export async function generateMetadata({ searchParams }: Props) {
 }
 export default async function Page() {
   return (
-    <Suspense>
-      <SearchForm />
-    </Suspense>
+    <div className="max-w-6xl mx-auto mt-6 px-5">
+      <Suspense>
+        <SearchForm />
+      </Suspense>
+    </div>
   );
 }

@@ -73,9 +73,11 @@ export default function RootLayout({
           type="image/png"
         />
       </head>
-      <body>
+      <body className="flex flex-col min-h-[95vh]">
         <Navbar />
-        <div id="root">{children}</div>
+        <div id="root" className="flex-1">
+          {children}
+        </div>
         <Footer />
         <Toaster />
         <GoogleTagManager gtmId="GTM-TFK3HD67" />

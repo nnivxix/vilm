@@ -41,11 +41,11 @@ function SearchForm() {
 
 export default function Page() {
   return (
-    <div
-      className="lg:bg-[url('/home-banner.jpg')] bg-[url('/home-banner-vertical.jpg')] bg-center bg-cover"
-      data-bg-src="https://www.pexels.com/photo/three-friends-watching-at-a-movie-theater-while-eating-popcorn-8263318/"
-    >
-      <div className="mx-auto max-w-4xl  px-5 mt-5">
+    <div className="mt-6 px-4 ">
+      <div
+        className="lg:bg-[url('/home-banner.jpg')] w-full bg-[url('/home-banner-vertical.jpg')] bg-center bg-cover"
+        data-bg-src="https://www.pexels.com/photo/three-friends-watching-at-a-movie-theater-while-eating-popcorn-8263318/"
+      >
         <div className="flex w-full lg:h-[63vh] h-[45vh] md:h-[56vh] justify-center flex-col gap-3 items-center">
           <div className="text-center">
             <h1 className="text-3xl font-bold italic">Vilm</h1>

@@ -45,24 +45,25 @@ export default async function Page({
   const pages = paginationPages(Number(currentPage), tv?.total_pages as number);
 
   return (
-    <div>
-      <div className="grid grid-cols-6 gap-4 mt-6">
-        {tv?.results.length &&
-          tv.results.map((tv, index) => (
-            <BackdropCard<SimpleTv>
-              media={tv}
-              title={tv.name}
-              key={index}
-              className="lg:col-span-1 md:col-span-2 col-span-3"
-            />
-          ))}
+    <>
+      {tv?.results.length &&
+        tv.results.map((tv, index) => (
+          <BackdropCard<SimpleTv>
+            media={tv}
+            title={tv.name}
+            key={index}
+            className="lg:col-span-1 md:col-span-2 col-span-3"
+          />
+        ))}
+
+      <div className="col-span-6 flex justify-between items-center mt-4">
+        <Suspense>
+          <div className="flex w-full">
+            {pages.length && <Pagination pages={pages} />}
+          </div>
+        </Suspense>
       </div>
-      <Suspense>
-        <div className="flex w-full">
-          {pages.length && <Pagination pages={pages} />}
-        </div>
-      </Suspense>
-    </div>
+    </>
   );
 }
 
