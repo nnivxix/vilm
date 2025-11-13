@@ -26,6 +26,7 @@ import { notFound } from "next/navigation";
 import useSWR from "swr";
 import fetcher from "@/utils/fetcher";
 import { getCookie } from "cookies-next";
+import useHead from "@/hooks/useHead";
 
 interface Params {
   params: { id: string };
@@ -54,6 +55,15 @@ export default function Page({ params }: Params) {
       token: userToken,
     })
   );
+
+  const title = function () {
+    const name = tv?.name || tv?.original_name || "Tv Show";
+    return "Vilm - " + name;
+  };
+
+  useHead({
+    title: title(),
+  });
 
   if (isLoading) {
     return <pre className="text-white">loading...</pre>;

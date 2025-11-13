@@ -30,6 +30,7 @@ import { notFound } from "next/navigation";
 import useSWR from "swr";
 import fetcher from "@/utils/fetcher";
 import { getCookie } from "cookies-next";
+import useHead from "@/hooks/useHead";
 
 interface Params {
   params: { id: string };
@@ -58,6 +59,15 @@ export default function Page({ params }: Params) {
       token: userToken,
     })
   );
+
+  const title = function () {
+    const title = movie?.title || movie?.original_title || "Movie";
+    return "Vilm - " + title;
+  };
+
+  useHead({
+    title: title(),
+  });
 
   if (isLoading) return <div>Loading...</div>;
   if (!movie?.status) return notFound();
