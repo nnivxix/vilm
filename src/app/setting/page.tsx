@@ -135,7 +135,7 @@ export default function Page() {
           </Link>
           <p className="text-gray-500">
             Don't worry, we won't store your API token to our server (Vilm),
-            we'll store the token to LocalStorage.
+            we'll store the token on Browser.
           </p>
         </div>
 

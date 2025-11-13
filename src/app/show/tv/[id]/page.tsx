@@ -1,3 +1,5 @@
+"use client";
+
 import type { TvResponse, SimilarMixed, AccountStates } from "@/types/response";
 import type { Media } from "@/types/media";
 import type { Provider } from "@/types/providers";
@@ -20,66 +22,60 @@ import getVideo from "@/utils/get-video";
 import { Season } from "@/types/tv";
 import SeasonCardItem from "@/components/SeasonCardItem";
 import AddToWatchlistButton from "@/components/AddToWatchlistButton";
-import config from "@/config";
-import { cookies } from "next/headers";
-import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import useSWR from "swr";
+import fetcher from "@/utils/fetcher";
+import { getCookie } from "cookies-next";
+import useHead from "@/hooks/useHead";
 
 interface Params {
   params: { id: string };
 }
-type Status = "idle" | "pending" | "success" | "error";
 
-const { apiUrl, token } = config;
+export default function Page({ params }: Params) {
+  const userToken = getCookie("API_TOKEN") as string | undefined;
 
-export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const { tv } = await getTvShow(params.id);
-  const title = `Vilm - ${tv?.name}`;
-  const description = tv?.overview;
+  const { data: tv, isLoading } = useSWR<TvResponse>(
+    `tvData-${params.id}`,
+    () =>
+      fetcher(
+        `/tv/${params.id}?append_to_response=images,videos,watch/providers,similar&language=en-US&include_image_language=en,null`
+      )
+  );
 
-  if (tv) {
-    const image = imageUrl({ path: tv.backdrop_path, size: "w300" });
-    return {
-      title: title,
-      description: description,
-      openGraph: {
-        title,
-        description,
-        images: [image],
-      },
-      twitter: {
-        title,
-        description,
-        images: [image],
-        card: "summary",
-      },
-    };
-  } else {
-    return {
-      title: "Vilm",
-    };
+  const { data: states } = useSWR<AccountStates>(`states-${params.id}`, () =>
+    fetcher(`/tv/${params.id}/account_states`)
+  );
+
+  const { data: isAuthenticated } = useSWR<{
+    success: boolean;
+  }>(`authenticateUser-${params.id}`, () =>
+    fetcher(`/authentication`, {
+      useDefaultToken: false,
+      token: userToken,
+    })
+  );
+
+  const title = function () {
+    const name = tv?.name || tv?.original_name || "Tv Show";
+    return "Vilm - " + name;
+  };
+
+  useHead({
+    title: title(),
+  });
+
+  if (isLoading) {
+    return <pre className="text-white">loading...</pre>;
   }
-}
-
-export default async function Page({ params }: Params) {
-  const [tvData, states, isAuthenticated] = await Promise.all([
-    getTvShow(params.id),
-    getStates(params.id),
-    authenticateUser(),
-  ]);
-  const { tv, status } = tvData;
-
-  // if (status === "pending") {
-  //   return <pre className="text-white">loading...</pre>;
-  // }
-  if (status === "error") {
+  if (!tv?.status) {
     return notFound();
   }
 
   return (
     <div className="mt-6">
       <div className="text-white">
-        {!!tv && (
+        {!!tv?.status && (
           <div className="w-full bg-no-repeat bg-auto relative flex justify-center items-center h-screen lg:h-[85vh] ">
             <div className="grid grid-cols-4 gap-3 mx-auto absolute max-w-6xl px-3">
               <h1 className=" col-span-full text-6xl font-semibold ">
@@ -147,7 +143,7 @@ export default async function Page({ params }: Params) {
                   video={getVideo(tv.videos.results)?.key as string}
                 />
               )}
-              {isAuthenticated && states ? (
+              {isAuthenticated?.success && states ? (
                 <AddToWatchlistButton
                   states={states as AccountStates}
                   mediaId={tv.id}
@@ -218,76 +214,4 @@ export default async function Page({ params }: Params) {
       </div>
     </div>
   );
-}
-
-async function getTvShow(
-  movieId: string
-): Promise<{ tv: TvResponse | null; status: Status; error: string | null }> {
-  const apiToken = cookies().get("API_TOKEN")?.value ?? token;
-  let status: Status = "idle";
-  let tv: TvResponse | null = null;
-  let error: string | null = null;
-
-  status = "pending";
-  try {
-    const response = await fetch(
-      `${apiUrl}/tv/${movieId}?append_to_response=images,videos,watch/providers,similar&language=en-US&include_image_language=en,null`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: `Bearer ${apiToken}`,
-        },
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch the tv data");
-    }
-
-    tv = await response.json();
-    status = "success";
-  } catch (err) {
-    console.error(err);
-    status = "error";
-    error = err instanceof Error ? err.message : "Unknown error";
-  }
-
-  return { tv, status, error };
-}
-
-async function getStates(movieId: string) {
-  const apiToken = cookies().get("API_TOKEN");
-  try {
-    const response = await fetch(`${apiUrl}/movie/${movieId}/account_states`, {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${apiToken?.value}`,
-      },
-    });
-
-    const states = await response.json();
-
-    return states as AccountStates;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-async function authenticateUser(): Promise<boolean> {
-  const apiToken = cookies().get("API_TOKEN");
-
-  const response = await fetch(`${apiUrl}/authentication`, {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization: `Bearer ${apiToken?.value}`,
-    },
-  });
-  if (response.status === 200) {
-    return true;
-  }
-  return false;
 }
