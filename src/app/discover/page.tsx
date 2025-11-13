@@ -1,24 +1,26 @@
-import type { Response, MovieTv } from "@/types/response";
-import CardItem from "@/components/CardItem";
-import { cookies } from "next/headers";
-import config from "@/config";
-import { Metadata } from "next";
+"use client";
 
-type Status = "idle" | "pending" | "success" | "error";
+import config from "@/config";
+import useSWR from "swr";
+import CardItem from "@/components/CardItem";
+import { MovieTv } from "@/types/response";
 
 const { apiUrl, token } = config;
 
-export const metadata: Metadata = {
-  title: "Vilm - Discover Movies and Tv Shows ",
-  description: "Discover movies and tv shows.",
-};
+export default function Page() {
+  const { data, error, isLoading } = useSWR("discover", async () => {
+    const response = await fetch(`${apiUrl}/trending/all/day`, {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.json();
+  });
 
-export default async function Page() {
-  const { data, status } = await getDiscover();
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading data</div>;
 
-  if (status === "pending") {
-    return "Loading...";
-  }
   return (
     <div className="max-w-6xl mx-auto mt-6">
       <div className="grid lg:grid-cols-5 md:grid-cols-4 grid-cols-2 gap-5 mx-auto px-5 mt-5">
@@ -28,40 +30,4 @@ export default async function Page() {
       </div>
     </div>
   );
-}
-
-async function getDiscover(): Promise<{
-  data: Response<MovieTv[]> | null;
-  status: Status;
-  error: string | null;
-}> {
-  const apiToken = cookies().get("API_TOKEN")?.value ?? token;
-  let status: Status = "idle";
-  let data: Response<MovieTv[]> | null = null;
-  let error: string | null = null;
-
-  status = "pending";
-  try {
-    const response = await fetch(`${apiUrl}/trending/all/day`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${apiToken}`,
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch the movie data");
-    }
-
-    data = await response.json();
-    status = "success";
-  } catch (err) {
-    console.error(err);
-    status = "error";
-    error = err instanceof Error ? err.message : "Unknown error";
-  }
-
-  return { data, status, error };
 }
