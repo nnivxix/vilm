@@ -72,6 +72,7 @@ export default function RootLayout({
           href="/backdrop-fallback.png"
           type="image/png"
         />
+        <GoogleTagManager gtmId="GTM-TFK3HD67" />
       </head>
       <body className="flex flex-col min-h-[95vh]">
         <Navbar />
@@ -80,7 +81,6 @@ export default function RootLayout({
         </div>
         <Footer />
         <Toaster />
-        <GoogleTagManager gtmId="GTM-TFK3HD67" />
       </body>
     </html>
   );
