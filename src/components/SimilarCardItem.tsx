@@ -5,6 +5,7 @@ import { buttonVariants } from "./ui/button";
 import Link from "next/link";
 import RImage from "./RImage";
 import imageUrl from "@/utils/image-url";
+import { sendGAEvent } from "@next/third-parties/google";
 
 interface SimilarCardItemProps<SimilarType> {
   card: SimilarType;
@@ -25,6 +26,14 @@ export default function SimilarCardItem<
   return (
     <article
       title={movieTitle}
+      onClick={() =>
+        sendGAEvent({
+          content_type: "similar_card_item",
+          item_type: mediaType,
+          item_id: card.id.toString(),
+          item_name: movieTitle,
+        })
+      }
       className="group rounded-lg pb-2 relative bg-gray-900 w-auto overflow-hidden"
     >
       <div className="z-30 p-2 text-white absolute hidden group-hover:grid grid-cols-1 bg-black/50 backdrop-blur-sm w-full h-full">

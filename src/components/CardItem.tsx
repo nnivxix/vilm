@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import RImage from "./RImage";
 import imageUrl from "../utils/image-url";
 import { Button } from "./ui/button";
+import { sendGAEvent } from "@next/third-parties/google";
 
 interface CardItemProps {
   movie: MovieTv;
@@ -27,6 +28,14 @@ export default function CardItem({ movie, media }: CardItemProps) {
   return (
     <article
       title={movieTitle}
+      onClick={() =>
+        sendGAEvent("select_content", {
+          content_type: "card_item",
+          item_type: mediaType,
+          item_id: movie.id.toString(),
+          item_name: movieTitle,
+        })
+      }
       className="group rounded-lg pb-2 relative bg-gray-900  overflow-hidden"
     >
       <Link
