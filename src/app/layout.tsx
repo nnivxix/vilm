@@ -5,6 +5,11 @@ import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import { Metadata } from "next";
 import { GoogleTagManager } from "@next/third-parties/google";
+import dynamic from "next/dynamic";
+
+const MigrateDomain = dynamic(() => import("@/components/MigrateDomain"), {
+  ssr: false,
+});
 
 export const metadata: Metadata = {
   title: "Vilm",
@@ -81,6 +86,7 @@ export default function RootLayout({
         </div>
         <Footer />
         <Toaster />
+        <MigrateDomain />
       </body>
     </html>
   );
